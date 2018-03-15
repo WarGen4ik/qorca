@@ -1,0 +1,97 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'team' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block profile %}
+    <div id="about" class="page-alternate">
+        <div class="container">
+            <!-- Title Page -->
+            <div class="row">
+                <div class="span12">
+                    <div class="title-page">
+                        <h2 class="title">{{ team.name }}</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- End Title Page -->
+
+            <!-- People -->
+            <div class="row">
+
+                <!-- Start Profile -->
+                <div class="span4 profile">
+                    <div class="image-wrap">
+                        {% if user_is_coach %}
+                            <div class="hover-wrap">
+                                <span class="overlay-img"></span>
+                                <span class="overlay-text-thumb">Change photo</span>
+                                <input type="file" class="avatar-input" hidden name="avatar">
+                            </div>
+                        {% endif %}
+                        <img src="{{ team.logo.url }}" alt="John Doe">
+                    </div>
+                </div>
+                <!-- End Profile -->
+
+                <!-- Start Profile -->
+                <div class="span4 profile">
+
+                </div>
+
+                <div class="span4 profile">
+
+                    <h3 class="spec">Members</h3>
+
+                    <div class="info-block">
+                        <div class="info-text">
+                            {% for team_user in users %}
+                                <p class="member"><a
+                                        href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a>
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End Profile -->
+
+                <!-- Start Profile -->
+                <div class="span4 profile"> <!--
+        	<div class="image-wrap">
+                <div class="hover-wrap">
+                    <span class="overlay-img"></span>
+                    <span class="overlay-text-thumb">Lead Designer</span>
+                </div>
+                <img src="_include/img/profile/profile-03.jpg" alt="Joshua Insanus">
+            </div>
+            <h3 class="profile-name">Joshua Insanus</h3>
+            <p class="profile-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat <a href="#">hendrerit dictum</a>.
+            Praesent porta, purus eget sagittis imperdiet, nulla mi ullamcorper metus, id hendrerit metus diam vitae est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+
+            <div class="social">
+            	<ul class="social-icons">
+                	<li><a href="#"><i class="font-icon-social-twitter"></i></a></li>
+                    <li><a href="#"><i class="font-icon-social-linkedin"></i></a></li>
+                    <li><a href="#"><i class="font-icon-social-google-plus"></i></a></li>
+                    <li><a href="#"><i class="font-icon-social-vimeo"></i></a></li>
+                </ul>
+            </div>
+        </div> -->
+                    <!-- End Profile -->
+
+                </div>
+                <!-- End People -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

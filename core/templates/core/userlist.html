@@ -1,0 +1,57 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'user_list' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block profile %}
+<div id="about" class="page-alternate">
+<div class="container">
+    <!-- Title Page -->
+    <div class="row">
+        <div class="span12">
+            <div class="title-page">
+                <h2 class="title">User list</h2>
+                <h3 class="title-description">User Search</h3>
+            </div>
+        </div>
+    </div>
+    <!-- End Title Page -->
+
+    <!-- People -->
+    <div class="userlist">
+
+        <!-- Start Profile -->
+
+            <table style="width:100%">
+  <tr>
+    <th class="th_first">Name</th>
+    <th>Location</th>
+  </tr>
+  {% for curr_user in users %}
+      <tr>
+          <td><a href="/core/user/{{ curr_user.pk }}">{{ curr_user.get_full_name }}</a></td>
+          <td class="td_second">{{ curr_user.profile.city }}</td>
+      </tr>
+  {% endfor %}
+  </table>
+        </div>
+        <!-- End Profile -->
+
+
+
+    </div>
+    <!-- End People -->
+</div>
+</div>
+</div>
+{% endblock %}

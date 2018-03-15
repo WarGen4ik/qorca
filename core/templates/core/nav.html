@@ -1,0 +1,34 @@
+{% load static %}
+
+{% block nav %}
+        <nav id="menu">
+        	<ul id="menu-nav">
+            {% if title == 'index' %}
+            	<li class="current"><a href="#home-slider">Home</a></li>
+                <li><a href="#work">Competitions</a></li>
+                <li><a href="#contact">Contact</a></li>
+            {% else %}
+                <li><a class="external" href="/">Home</a></li>
+                <li><a class="external" href="/#work">Competitions</a></li>
+                <li><a class="external" href="/#contact">Contact</a></li>
+            {% endif %}
+                {% if user.is_authenticated %}
+                    {% if title == 'profile' %}
+                    <li><a class="external" href="/#about">Profile</a></li>
+                    {% else %}
+                    <li><a class="current" href="#about">Profile</a></li>
+                    {% endif %}
+                    <li>{{ title }}</li>
+                    {% if team %}
+                        <li><a{% if title == 'team' %} class="current" {% endif %}  href="/core/teams/{{ team.name }}">Team</a></li>
+                    {% else %}
+                        <li><a{% if title == 'create_team' %} class="current" {% endif %}  href="/core/create/team">Create Team</a></li>
+                    {% endif %}
+                    <li><a href="/auth/logout" class="external">Logout</a></li>
+                {% else %}
+                    <li><a{% if title == 'register' %} class="current" {% endif %}  href="/auth/register" class="external">Sign up</a></li>
+                    <li><a{% if title == 'login' %} class="current" {% endif %}  href="/auth/login" class="external">Sign in</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+{% endblock %}

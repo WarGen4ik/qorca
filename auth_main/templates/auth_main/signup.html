@@ -1,0 +1,62 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'register' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block profile %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block content %}
+    <div id="about" class="page-alternate">
+
+        <div class="container">
+            <h1>Sign Up</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr>
+            <form method="post" action="/auth/register">{% csrf_token %}
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+
+                <label for="first_name"><b>First name</b></label>
+                <input type="text" placeholder="First name" name="first_name" required>
+
+                <label for="last_name"><b>Last name</b></label>
+                <input type="text" placeholder="Last name" name="last_name" required>
+
+                <label for="city"><b>City</b></label>
+                <input type="text" placeholder="City" name="city" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+                <label>
+                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+                </label>
+
+                <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+                <div class="clearfix">
+                    <button onclick="location.href='/'" type="button" class="button button-small">Back</button>
+                    <input type='submit' class="button button-small" value="Sign up">
+                </div>
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+                {% if status %}
+                    <p class="success">Success</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
