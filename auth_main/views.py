@@ -46,11 +46,11 @@ class LoginView(TemplateView):
         if user is not None:
             login(request, user)
 
-            request.session['user'] = request.user
-            try:
-                request.session['team_name'] = get_object_or_404(TeamRelationToUser, user=)
-            except Http404:
-                pass
+            # request.session['user'] = request.user
+            # try:
+            #     request.session['team_name'] = get_object_or_404(TeamRelationToUser, user=)
+            # except Http404:
+            #     pass
             return redirect('/')
         return render(request, self.template_name)
 

@@ -25,7 +25,7 @@ SECRET_KEY = '7ad+hin-9=$2b-6x@rb80o@w7!e1e5(n_4j&%mx7fi2h1#z8ff'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['immense-ocean-83797.herokuapp.com']
 
 
 # Application definition
