@@ -14,8 +14,10 @@ jQuery(function ($) {
             if ($('#mobile-nav').length > 0) {
                 mobileMenuClone.insertAfter('#menu');
                 $('#navigation-mobile #menu-nav').attr('id', 'menu-nav-mobile');
+                $('#mobile-nav').css('display', 'block');
             }
         } else {
+            $('#mobile-nav').css('display', 'none');
             $('#navigation-mobile').css('display', 'none');
             if ($('#mobile-nav').hasClass('open')) {
                 $('#mobile-nav').removeClass('open');
