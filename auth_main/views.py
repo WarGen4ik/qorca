@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 
 from auth_main.models import User, Profile
 from core.models import TeamRelationToUser, Invitations
+from core.utils import get_session_attributes
 
 
 class RegisterView(TemplateView):
@@ -81,7 +82,10 @@ class ProfileView(TemplateView):
                 pass
 
             invitations = Invitations.objects.filter(to_user=request.user, is_active=True).order_by('-created_at')
-            return render(request, self.template_name, {'user': request.user, 'teams_rel_user': teams_rel_user, 'invitations': invitations})
+            opt = {'user': request.user,
+                   'teams_rel_user': teams_rel_user,
+                   'invitations': invitations}
+            return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
         else:
             return redirect('/auth/login')
 

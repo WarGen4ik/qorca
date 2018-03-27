@@ -1450,6 +1450,10 @@ footer .credits {
 	padding-right: inherit;
 }
 
+.info-text > p{
+	text-align: center;
+}
+
 .team {
 	text-align: left;
 	padding-right: 3%;
