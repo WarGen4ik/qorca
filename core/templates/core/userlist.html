@@ -23,6 +23,11 @@
                         <h2 class="title">User list</h2>
                         <h3 class="title-description">User Search</h3>
                     </div>
+                    <label for="input-find-user">Find user</label>
+                    <div class="inline search-div">
+                        <input id="input-find-user" type="text">
+                        <button id="button-find-user" class="button button-very-small">Search</button>
+                    </div>
                 </div>
             </div>
             <!-- End Title Page -->
@@ -32,13 +37,13 @@
 
                 <!-- Start Profile -->
 
-                <table style="width:100%">
+                <table id="users-list" style="width:100%">
                     <tr>
                         <th class="th_first">Name</th>
                         <th>Location</th>
                     </tr>
                     {% for curr_user in users %}
-                        <tr>
+                        <tr class="table-content">
                             <td><a href="/core/user/{{ curr_user.pk }}">{{ curr_user.get_full_name }}</a></td>
                             <td class="td_second">{{ curr_user.profile.city }}</td>
                         </tr>

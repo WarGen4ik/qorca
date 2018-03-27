@@ -542,25 +542,25 @@ jQuery(function ($) {
 
 function beforeSend(xhr, settings) {
     function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie != '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = jQuery.trim(cookies[i]);
-                        // Does this cookie string begin with the name we want?
-                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
-                return cookieValue;
             }
+        }
+        return cookieValue;
+    }
 
-            if (!(/^http:.*!/.test(settings.url) || /^https:.*/.test(settings.url))) {
-                // Only send the token to relative URLs i.e. locally.
-                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-            }
+    if (!(/^http:.*!/.test(settings.url) || /^https:.*/.test(settings.url))) {
+        // Only send the token to relative URLs i.e. locally.
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
 }
 
 $("#send-invitation").click(function () {
@@ -647,8 +647,8 @@ $("#signup-team-competition").click(function () {
         success: function (response, textStatus, xhr) {
             setTimeout(function () {
 
-                    location.reload();
-                }, 1000);
+                location.reload();
+            }, 1000);
             if (xhr.status == 200) {
                 alert('You have been register your team!')
             }
@@ -675,8 +675,8 @@ $("#signout-team-competition").click(function () {
         success: function (response, textStatus, xhr) {
             setTimeout(function () {
 
-                    location.reload();
-                }, 1000);
+                location.reload();
+            }, 1000);
             if (xhr.status == 200) {
                 alert('Invite has been sent')
             }
@@ -703,8 +703,8 @@ $("#signout-user-competition").click(function () {
         success: function (response, textStatus, xhr) {
             setTimeout(function () {
 
-                    location.reload();
-                }, 1000);
+                location.reload();
+            }, 1000);
             if (xhr.status == 200) {
                 alert('Invite has been sent')
             }
@@ -731,8 +731,8 @@ $("#signup-user-competition").click(function () {
         success: function (response, textStatus, xhr) {
             setTimeout(function () {
 
-                    location.reload();
-                }, 1000);
+                location.reload();
+            }, 1000);
             if (xhr.status == 200) {
                 alert('Invite has been sent')
             }
@@ -742,6 +742,28 @@ $("#signup-user-competition").click(function () {
             else {
                 alert('Something wrong, please try again or write a feedback');
             }
+        },
+        beforeSend: function (xhr, settings) {
+            beforeSend(xhr, settings)
+        }
+    });
+});
+
+$("#input-find-user").keyup(function () {
+    $.ajax({
+        url: '/core/users',
+        data: JSON.stringify({search: $('#input-find-user').val()}),
+        contentType: "application/json; charset=utf-8",
+        processData: false,
+        type: 'POST',
+        success: function (response, textStatus, xhr) {
+            var objs = JSON.parse(response);
+            $(".table-content").remove();
+            objs.forEach(function (item) {
+                var tr = "<tr class='table-content'><td><a href='/core/user/" + item['id'] + "'>" + item['fullname'] +
+                    "</a></td> <td class='td_second'>" + item['location'] + "</td></tr>";
+                $("#users-list").append(tr);
+            })
         },
         beforeSend: function (xhr, settings) {
             beforeSend(xhr, settings)

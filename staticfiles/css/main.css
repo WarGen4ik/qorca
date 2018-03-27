@@ -1502,4 +1502,31 @@ footer .credits {
 	color: #DE5E60;
 }
 
-.member-name {}
+#input-find-user {
+	background-image: url('/static/img/searchicon.png'); /* Add a search icon to input */
+	background-position: 10px 12px; /* Position the search icon */
+	/*background-repeat: no-repeat; !* Do not repeat the icon image *!*/
+	/*width: 100%; !* Full-width *!*/
+	font-size: 16px; /* Increase font-size */
+	/*padding: 12px 20px 12px 40px; !* Add some padding *!*/
+	/*border: 1px solid #ddd; !* Add a grey border *!*/
+	margin-bottom: 0; /* Add some space below the input */
+}
+
+.button-very-small {
+	padding: 5px;=
+}
+
+.search-div {
+	margin-bottom: 10px;
+}
+
+footer {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    width: 100%; /* Ширина слоя */
+}
+
+.page-alternate {
+	padding-bottom: 30%;
+}

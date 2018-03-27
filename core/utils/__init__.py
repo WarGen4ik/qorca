@@ -27,3 +27,16 @@ def get_session_attributes(request):
         opt['team'] = Team.objects.filter(pk=request.session['team']).first()
 
     return opt
+
+
+def queryset_to_dict(users):
+    ret = list()
+    for user in users:
+        try:
+            ret.append({'fullname': user.get_full_name(),
+                        'location': user.profile.city,
+                        'id': user.pk})
+        except Exception:
+            pass
+
+    return ret

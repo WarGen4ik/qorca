@@ -1,7 +1,9 @@
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -11,7 +13,7 @@ from django.views.generic import TemplateView
 
 from auth_main.models import User
 from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam
-from core.utils import update_session, get_session_attributes
+from core.utils import update_session, get_session_attributes, queryset_to_dict
 
 
 class UserListView(TemplateView):
@@ -20,7 +22,7 @@ class UserListView(TemplateView):
     def get(self, request, *args, **kwargs):
 
         user_list = User.objects.order_by('-created_at')
-        paginator = Paginator(user_list, 3)
+        paginator = Paginator(user_list, 20)
         page = request.GET.get('page', 1)
 
         try:
@@ -33,6 +35,20 @@ class UserListView(TemplateView):
         opt = {'users': users}
         return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
+    def post(self, request):
+        data = json.loads(request.body.decode('utf-8'))
+        search = data['search'].strip()
+        if ' ' in search:
+            search = search.split(' ')
+            query = Q()
+            for x in search:
+                query = query | (Q(first_name__contains=x) | Q(last_name__contains=x))
+            users = User.objects.filter(query).all()
+        else:
+            users = User.objects.filter(Q(first_name__contains=search) | Q(last_name__contains=search)).all()
+        users_json = json.dumps(queryset_to_dict(users))
+        return HttpResponse(users_json)
+
 
 class GetUserProfileView(TemplateView):
     template_name = 'core/user_profile.html'
@@ -40,7 +56,8 @@ class GetUserProfileView(TemplateView):
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=kwargs['pk'])
         if 'team' in request.session:
-            is_teamlead = request.session['team'].is_user_teamlead(request.user)
+            team = Team.objects.get(pk=request.session['team'])
+            is_teamlead = team.is_user_teamlead(request.user)
         else:
             is_teamlead = False
 

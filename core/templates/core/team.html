@@ -59,7 +59,8 @@
 
                             <label class="profile-description">Count members: {{ team_rel_users|length }}</label>
                             <label class="profile-description">Count competitions: {{ competitions|length }}</label>
-                            <label class="profile-description">Created at: {{ curr_team.created_at|default:"Empty" }}</label>
+                            <label class="profile-description">Created
+                                at: {{ curr_team.created_at|default:"Empty" }}</label>
 
                             <label class="profile-description">Description:</label>
                             <textarea name="description" class="textarea-team">{{ curr_team.description }}</textarea>
@@ -67,11 +68,15 @@
                                 <input type='submit' class="button button-small" value="Save">
                             </div>
                         </form>
+                        <a href="/core/users" class="button button-small">Find new members</a>
+
                     {% else %}
                         <label class="profile-description">Team name: {{ curr_team.name|default:"Empty" }}</label>
                         <label class="profile-description">Count members: {{ team_rel_users|length }}</label>
-                        <label class="profile-description">Count competitions: {{ competitions_count|default:"0" }}</label>
-                        <label class="profile-description">Created at: {{ curr_team.created_at|default:"Empty" }}</label>
+                        <label class="profile-description">Count
+                            competitions: {{ competitions_count|default:"0" }}</label>
+                        <label class="profile-description">Created
+                            at: {{ curr_team.created_at|default:"Empty" }}</label>
                         <label class="profile-description">Description:</label>
                         <p>{{ curr_team.description }}</p>
                         <label id="curr-team-id" style="visibility: hidden;">{{ curr_team.pk }}</label>
@@ -84,15 +89,20 @@
 
                     <div class="info-block">
                         <div class="info-text">
-                            {% for team_user in team_rel_users %}
-                                <ol class="member">
-                                {% if is_coach and team_user.user != user %}
-                                    <li class="invitations"><a class="team-name" href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a> <button class="button-decline">KICK</button></li>
-                                {% else %}
-                                    <li><a href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a></li>
-                                {% endif %}
-                                </ol>
-                            {% endfor %}
+                            <ol class="member">
+                                {% for team_user in team_rel_users %}
+                                    {% if is_coach and team_user.user != user %}
+                                        <li class="invitations"><a class="team-name"
+                                                                   href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a>
+                                            <button class="button-decline">KICK</button>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ol>
                         </div>
                     </div>
                 </div>
