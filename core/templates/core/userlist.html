@@ -14,44 +14,59 @@
 {% endblock %}
 
 {% block profile %}
-<div id="about" class="page-alternate">
-<div class="container">
-    <!-- Title Page -->
-    <div class="row">
-        <div class="span12">
-            <div class="title-page">
-                <h2 class="title">User list</h2>
-                <h3 class="title-description">User Search</h3>
+    <div id="about" class="page-alternate">
+        <div class="container">
+            <!-- Title Page -->
+            <div class="row">
+                <div class="span12">
+                    <div class="title-page">
+                        <h2 class="title">User list</h2>
+                        <h3 class="title-description">User Search</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- End Title Page -->
+
+            <!-- People -->
+            <div class="userlist">
+
+                <!-- Start Profile -->
+
+                <table style="width:100%">
+                    <tr>
+                        <th class="th_first">Name</th>
+                        <th>Location</th>
+                    </tr>
+                    {% for curr_user in users %}
+                        <tr>
+                            <td><a href="/core/user/{{ curr_user.pk }}">{{ curr_user.get_full_name }}</a></td>
+                            <td class="td_second">{{ curr_user.profile.city }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- End Profile -->
+        </div>
+        <!-- End People -->
+        <div class="pagination">
+            <div id="pag-left">
+                {% if users.has_previous %}
+                    <a class="button button-small first-page" href="?page=1">&laquo; first</a>
+                    <a class="button button-small" href="?page={{ users.previous_page_number }}">previous</a>
+                {% endif %}
+            </div>
+
+            <div class="current">
+                Page {{ users.number }} of {{ users.paginator.num_pages }}
+            </div>
+
+            <div id="pag-right">
+                    {% if users.has_next %}
+                        <a class="button button-small" href="?page={{ users.next_page_number }}">next</a>
+                        <a class="button button-small last-page" href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
             </div>
         </div>
     </div>
-    <!-- End Title Page -->
 
-    <!-- People -->
-    <div class="userlist">
-
-        <!-- Start Profile -->
-
-            <table style="width:100%">
-  <tr>
-    <th class="th_first">Name</th>
-    <th>Location</th>
-  </tr>
-  {% for curr_user in users %}
-      <tr>
-          <td><a href="/core/user/{{ curr_user.pk }}">{{ curr_user.get_full_name }}</a></td>
-          <td class="td_second">{{ curr_user.profile.city }}</td>
-      </tr>
-  {% endfor %}
-  </table>
-        </div>
-        <!-- End Profile -->
-
-
-
-    </div>
-    <!-- End People -->
-</div>
-</div>
-</div>
 {% endblock %}

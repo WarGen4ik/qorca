@@ -128,7 +128,10 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL = 'auth_main.User'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/auth/login'
+LOGIN_URL = '/auth/login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+SESSION_COOKIE_AGE = 3600

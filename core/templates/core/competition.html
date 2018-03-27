@@ -1,0 +1,79 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'competition' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block profile %}
+    <div id="about" class="page-alternate">
+        <div class="container">
+            <!-- Title Page -->
+            <div class="row">
+                <div class="span12">
+                    <div class="title-page">
+                        <h2 class="title">{{ competition.name }}</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- End Title Page -->
+
+            <!-- People -->
+            <div class="row">
+
+                <!-- Start Profile -->
+                <div class="span4 profile">
+                    <div class="image-wrap">
+                        <img src="{{ competition.logo.url }}" alt="John Doe">
+                    </div>
+                </div>
+                <!-- End Profile -->
+
+                <!-- Start Profile -->
+                <div class="span4 profile">
+                    <label class="profile-description">Region: {{ competition.region }}</label>
+                    <label class="profile-description">Members count: {{ members_count }}</label>
+                    <label class="profile-description">Teams count: {{ teams_count }}</label>
+                    <label class="profile-description">Started at: {{ competition.started_at|default:"Empty" }}</label>
+
+                    <label id="curr-competition-id" style="visibility: hidden;">{{ competition.pk }}</label>
+
+                    {% if can_signup.team and can_signup.is_coach %}
+                        <button id="signup-team-competition" type="button" class="button button-small">Register team</button>
+                        {% elif can_signup.team == False and can_signup.is_coach %}
+                        <button id="signout-team-competition" type="button" class="button button-small">Unregister team</button>
+                    {% endif %}
+                    {% if can_signup.user == True %}
+                        <button id="signup-user-competition" type="button" class="button button-small">Register as single</button>
+                        {% elif can_signup.team == None or can_signup.team and can_signup.user == False %}
+                        <button id="signout-user-competition" type="button" class="button button-small">Unregister as single</button>
+                    {% endif %}
+                </div>
+
+                <div class="span4 profile">
+
+                    <h3 class="spec">Description</h3>
+
+                    <div class="info-block">
+                        <div class="info-text competition-description">
+                            <p>{{ competition.description }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span4 profile">
+
+                </div>
+                <!-- End People -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

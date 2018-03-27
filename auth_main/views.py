@@ -2,9 +2,8 @@ from django.contrib.auth import authenticate, logout, login
 from django.db import IntegrityError
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import DetailView
 from django.views.generic import TemplateView
-# from rest_framework import status
-# from rest_framework.response import Response
 
 from auth_main.models import User, Profile
 from core.models import TeamRelationToUser, Invitations
@@ -39,6 +38,12 @@ class LoginView(TemplateView):
     template_name = 'auth_main/signin.html'
 
     def get(self, request, *args, **kwargs):
+        try:
+            next = request.environ['QUERY_STRING'].split('=')[1]
+            if next:
+                request.session['next'] = next
+        except:
+            pass
         return render(request, self.template_name)
 
     def post(self, request):
@@ -46,11 +51,14 @@ class LoginView(TemplateView):
         if user is not None:
             login(request, user)
 
-            # request.session['user'] = request.user
-            # try:
-            #     request.session['team_name'] = get_object_or_404(TeamRelationToUser, user=)
-            # except Http404:
-            #     pass
+            try:
+                request.session['team'] = get_object_or_404(TeamRelationToUser, user=request.user).team.pk
+            except Http404:
+                pass
+
+            if 'next' in request.session:
+                return redirect(request.session['next'])
+
             return redirect('/')
         return render(request, self.template_name)
 
@@ -58,7 +66,7 @@ class LoginView(TemplateView):
 class LogoutView(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return render(request, 'core/index.html')
+        return redirect('/')
 
 
 class ProfileView(TemplateView):

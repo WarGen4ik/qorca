@@ -1,27 +1,26 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.generic import TemplateView
 
 from auth_main.models import User
-from core.models import TeamRelationToUser, Invitations, Team
+from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam
+from core.utils import update_session, get_session_attributes
 
 
 class UserListView(TemplateView):
     template_name = 'core/userlist.html'
 
     def get(self, request, *args, **kwargs):
-        team = None
-        try:
-            team = get_object_or_404(TeamRelationToUser, user=request.user).team
-        except Http404:
-            pass
 
         user_list = User.objects.order_by('-created_at')
-        paginator = Paginator(user_list, 25)
+        paginator = Paginator(user_list, 3)
         page = request.GET.get('page', 1)
 
         try:
@@ -31,7 +30,8 @@ class UserListView(TemplateView):
         except EmptyPage:
             users = paginator.page(paginator.num_pages)
 
-        return render(request, self.template_name, {'user': request.user, 'team': team, 'users': users})
+        opt = {'users': users}
+        return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
 
 class GetUserProfileView(TemplateView):
@@ -39,16 +39,13 @@ class GetUserProfileView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=kwargs['pk'])
-        return render(request, self.template_name,
-                      {'user': request.user, 'curr_user': user, 'is_teamlead': self.is_user_teamlead(request.user)})
+        if 'team' in request.session:
+            is_teamlead = request.session['team'].is_user_teamlead(request.user)
+        else:
+            is_teamlead = False
 
-    @staticmethod
-    def is_user_teamlead(user):
-        try:
-            get_object_or_404(TeamRelationToUser, user=user, is_coach=True)
-            return True
-        except Http404:
-            return False
+        opt = {'curr_user': user, 'is_teamlead': is_teamlead}
+        return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
 
 class InvitationToTeamView(TemplateView):
@@ -82,6 +79,7 @@ class InvitationAcceptView(TemplateView):
         inv = Invitations.objects.get(to_user=request.user, team=team, is_active=True)
         inv.is_active = False
         inv.save()
+        request.session['team'] = team
         return HttpResponse(status=200)
 
 
@@ -100,6 +98,110 @@ class TeamView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         team = Team.objects.get(name=kwargs['name'])
-        users = TeamRelationToUser.objects.filter(team=team)
-        is_coach = users.filter(user=request.user).is_coach
-        return render(request, self.template_name, {'team': team, 'users': users, 'is_coach': is_coach})
+        team_rel_users = TeamRelationToUser.objects.filter(team=team)
+        is_coach = team_rel_users.filter(user=request.user).first().is_coach
+        competitions_count = CompetitionTeam.objects.filter(team=team).count()
+        opt = {'curr_team': team, 'team_rel_users': team_rel_users, 'is_coach': is_coach,
+               'competitions': competitions_count, }
+        return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
+
+
+class CreateTeamView(TemplateView):
+    template_name = 'core/create-team.html'
+
+    def get(self, request, *args, **kwargs):
+        if 'team' in request.session:
+            return redirect('/core/teams/{}'.format(request.session['team'].name))
+
+        opt = {}
+        return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
+
+    def post(self, request):
+        team = Team.objects.create(name=request.POST['name'],
+                                   logo=request.FILES['logo'],
+                                   description=request.POST['description'])
+        TeamRelationToUser.objects.create(team=team, user=request.user, is_coach=True)
+        return redirect('/core/teams/{}'.format(team.name))
+
+
+class CompetitionView(TemplateView):
+    template_name = 'core/competition.html'
+
+    def get(self, request, *args, **kwargs):
+        competition = Competition.objects.get(pk=kwargs['pk'])
+
+        members_count = competition.getCountUsers()
+        teams_count = competition.getTeamsUsers()
+
+        if request.user.is_authenticated:
+            can_signup = dict()
+            can_signup['user'] = not CompetitionUser.objects.filter(user=request.user, competition=competition).exists()
+            if 'team' in request.session:
+                can_signup['team'] = not CompetitionTeam.objects.filter(team__pk=request.session['team'],
+                                                                        competition=competition).exists()
+
+                if not can_signup['team']:
+                    can_signup['user'] = 5
+
+                can_signup['is_coach'] = TeamRelationToUser.objects.filter(user=request.user,
+                                                                           is_coach=True).exists()
+            else:
+                can_signup['team'] = False
+
+            opt = {'competition': competition,
+                   'members_count': members_count,
+                   'teams_count': teams_count,
+                   'can_signup': can_signup, }
+            return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
+
+        return render(request, self.template_name, {'competition': competition,
+                                                    'members_count': members_count,
+                                                    'teams_count': teams_count, })
+
+
+class CompetitionSignUpUser(View):
+    def post(self, request):
+        data = json.loads(request.body.decode('utf-8'))
+        competition = Competition.objects.get(pk=data['competition_id'])
+        CompetitionUser.objects.get_or_create(competition=competition,
+                                              user=request.user)
+
+        return HttpResponse(200)
+
+
+class CompetitionSignUpTeam(View):
+    def post(self, request):
+        data = json.loads(request.body.decode('utf-8'))
+        try:
+            competition = Competition.objects.get(pk=data['competition_id'])
+            team = TeamRelationToUser.objects.get(user=request.user, is_coach=True).team
+            CompetitionTeam.objects.get_or_create(competition=competition,
+                                                  team=team)
+        except:
+            return HttpResponse(400)
+
+        return HttpResponse(200)
+
+
+class CompetitionSignOutUser(View):
+    def post(self, request):
+        data = json.loads(request.body.decode('utf-8'))
+        competition = Competition.objects.get(pk=data['competition_id'])
+        CompetitionUser.objects.filter(competition=competition,
+                                       user=request.user).delete()
+
+        return HttpResponse(200)
+
+
+class CompetitionSignOutTeam(View):
+    def post(self, request):
+        data = json.loads(request.body.decode('utf-8'))
+        try:
+            competition = Competition.objects.get(pk=data['competition_id'])
+            team = TeamRelationToUser.objects.get(user=request.user, is_coach=True).team
+            CompetitionTeam.objects.filter(competition=competition,
+                                           team=team).delete()
+        except:
+            return HttpResponse(400)
+
+        return HttpResponse(200)

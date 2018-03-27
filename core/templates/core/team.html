@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="span12">
                     <div class="title-page">
-                        <h2 class="title">{{ team.name }}</h2>
+                        <h2 class="title">{{ curr_team.name }}</h2>
                     </div>
                 </div>
             </div>
@@ -32,21 +32,50 @@
                 <!-- Start Profile -->
                 <div class="span4 profile">
                     <div class="image-wrap">
-                        {% if user_is_coach %}
+                        {% if is_coach %}
                             <div class="hover-wrap">
                                 <span class="overlay-img"></span>
                                 <span class="overlay-text-thumb">Change photo</span>
                                 <input type="file" class="avatar-input" hidden name="avatar">
                             </div>
                         {% endif %}
-                        <img src="{{ team.logo.url }}" alt="John Doe">
+                        <img src="{{ curr_team.logo.url }}" alt="John Doe">
                     </div>
                 </div>
                 <!-- End Profile -->
 
                 <!-- Start Profile -->
                 <div class="span4 profile">
+                    {% if error %}
+                        <p class="error">{{ error }}</p>
+                    {% endif %}
+                    {% if is_coach %}
+                        {% if error %}
+                            <p class="error">{{ error }}</p>
+                        {% endif %}
+                        <form method="post" action="/core/team/{{ curr_team.name }}">{% csrf_token %}
+                            <label class="profile-description">Team name:</label>
+                            <input name="city" value="{{ curr_team.name }}">
 
+                            <label class="profile-description">Count members: {{ team_rel_users|length }}</label>
+                            <label class="profile-description">Count competitions: {{ competitions|length }}</label>
+                            <label class="profile-description">Created at: {{ curr_team.created_at|default:"Empty" }}</label>
+
+                            <label class="profile-description">Description:</label>
+                            <textarea name="description" class="textarea-team">{{ curr_team.description }}</textarea>
+                            <div class="clearfix">
+                                <input type='submit' class="button button-small" value="Save">
+                            </div>
+                        </form>
+                    {% else %}
+                        <label class="profile-description">Team name: {{ curr_team.name|default:"Empty" }}</label>
+                        <label class="profile-description">Count members: {{ team_rel_users|length }}</label>
+                        <label class="profile-description">Count competitions: {{ competitions_count|default:"0" }}</label>
+                        <label class="profile-description">Created at: {{ curr_team.created_at|default:"Empty" }}</label>
+                        <label class="profile-description">Description:</label>
+                        <p>{{ curr_team.description }}</p>
+                        <label id="curr-team-id" style="visibility: hidden;">{{ curr_team.pk }}</label>
+                    {% endif %}
                 </div>
 
                 <div class="span4 profile">
@@ -55,10 +84,14 @@
 
                     <div class="info-block">
                         <div class="info-text">
-                            {% for team_user in users %}
-                                <p class="member"><a
-                                        href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a>
-                                </p>
+                            {% for team_user in team_rel_users %}
+                                <ol class="member">
+                                {% if is_coach and team_user.user != user %}
+                                    <li class="invitations"><a class="team-name" href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a> <button class="button-decline">KICK</button></li>
+                                {% else %}
+                                    <li><a href="/core/user/{{ team_user.user.pk }}">{{ team_user.user.get_full_name }}</a></li>
+                                {% endif %}
+                                </ol>
                             {% endfor %}
                         </div>
                     </div>

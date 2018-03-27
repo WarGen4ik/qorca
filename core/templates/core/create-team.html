@@ -1,0 +1,47 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'create_team' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block profile %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block content %}
+    <div id="about" class="page-alternate">
+
+        <div class="container">
+            <h1>Create team</h1>
+            <p>Please fill in this form to create a team.</p>
+            <hr>
+            <form method="post" action="/core/create/team" enctype="multipart/form-data">{% csrf_token %}
+                <label for="name"><b>Name</b></label>
+                <input type="text" placeholder="Enter team name" name="name" required>
+
+                <label for="logo"><b>Logo</b></label>
+                <input type="file" name="logo" required class="logo-input">
+
+                <label for="description"><b>Description</b></label>
+                <textarea class="textarea-team" id="description" name="description"></textarea>
+
+                <div class="clearfix">
+                    <button onclick="location.href='/'" type="button" class="button button-small">Back</button>
+                    <input type='submit' class="button button-small" value="Create">
+                </div>
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+                {% if status %}
+                    <p class="success">Success</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
