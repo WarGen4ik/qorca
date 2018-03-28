@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     url(r'^users$', views.UserListView.as_view()),
     url(r'^user/(?P<pk>.+)$', views.GetUserProfileView.as_view()),
+    url(r'^download/badge/(?P<pk>.+)$', views.DownloadBadge.as_view()),
 
     url(r'^team/invitation$', views.InvitationToTeamView.as_view()),
     url(r'^team/invitation/accept$', views.InvitationAcceptView.as_view()),

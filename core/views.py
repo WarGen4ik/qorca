@@ -1,19 +1,19 @@
 import json
+import mimetypes
+import os
+from wsgiref.util import FileWrapper
 
-from django.contrib.auth.decorators import login_required
-from django.core import serializers
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import TemplateView
 
 from auth_main.models import User
 from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam
-from core.utils import update_session, get_session_attributes, queryset_to_dict
+from core.utils import get_session_attributes, queryset_to_dict, getBadge
 
 
 class UserListView(TemplateView):
@@ -63,7 +63,21 @@ class GetUserProfileView(TemplateView):
 
         opt = {'curr_user': user, 'is_teamlead': is_teamlead,
                'site': 'https://immense-ocean-83797.herokuapp.com'}
+
         return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
+
+
+class DownloadBadge(View):
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(pk=kwargs['pk'])
+        badge_path = getBadge(user.profile.avatar.url, user.get_full_name(), user.pk)
+        file_wrapper = FileWrapper(open(badge_path, 'rb'))
+        file_mimetype = mimetypes.guess_type(badge_path)
+        response = HttpResponse(file_wrapper, content_type=file_mimetype)
+        response['X-Sendfile'] = badge_path
+        response['Content-Length'] = os.stat(badge_path).st_size
+        response['Content-Disposition'] = 'attachment; filename={}'.format('{}\'s_badge.png'.format(user.get_full_name()).replace(' ', '_'))
+        return response
 
 
 class InvitationToTeamView(TemplateView):
