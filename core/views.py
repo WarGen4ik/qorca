@@ -61,7 +61,8 @@ class GetUserProfileView(TemplateView):
         else:
             is_teamlead = False
 
-        opt = {'curr_user': user, 'is_teamlead': is_teamlead}
+        opt = {'curr_user': user, 'is_teamlead': is_teamlead,
+               'site': 'https://immense-ocean-83797.herokuapp.com'}
         return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
 

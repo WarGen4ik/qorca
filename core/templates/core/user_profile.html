@@ -14,70 +14,71 @@
 {% endblock %}
 
 {% block profile %}
-<div id="about" class="page-alternate">
-<div class="container">
-    <!-- Title Page -->
-    <div class="row">
-        <div class="span12">
-            <div class="title-page">
-                <h2 class="title">Profile</h2>
-                <h3 class="title-description">{{ curr_user.get_full_name }}</h3>
-            </div>
-        </div>
-    </div>
-    <!-- End Title Page -->
-
-    <!-- People -->
-    <div class="row">
-
-        <!-- Start Profile -->
-    	<div class="span4 profile">
-        	<div class="image-wrap">
-                <img src="{{ curr_user.profile.avatar.url }}" alt="John Doe">
-            </div>
-            <h3 class="profile-name">{{ curr_user.email }}</h3>
-            <p class="profile-description"></p>
-
-            <div class="social">
-            	<ul class="social-icons">
-                	<li><a href="#"><i class="font-icon-social-twitter"></i></a></li>
-                    <li><a href="#"><i class="font-icon-social-dribbble"></i></a></li>
-                    <li><a href="#"><i class="font-icon-social-facebook"></i></a></li>
-                </ul>
-            </div>
-        </div>
-
-    	<div class="span4 profile">
-            {% if error %}
-                <p class="error">{{ error }}</p>
-            {% endif %}
-            <label class="profile-description">City: {{ curr_user.profile.city|default:"Empty" }}</label>
-            <label class="profile-description">Gender: {{ curr_gender|default:"Empty" }}</label>
-            <label class="profile-description">Phone number: {{ curr_user.profile.phone_number|default:"Empty" }}</label>
-            <label class="profile-description">Birth date: {{ curr_user.profile.birth_date|default:"Empty" }}</label>
-            <label id="curr-user-id" style="visibility: hidden;">{{ curr_user.pk }}</label>
-        {% if is_teamlead %}
-            <button id="send-invitation" type="button" class="button button-small">Send invitation</button>
-        {% endif %}
-        </div>
-
-        <div class="span4 profile">
-
-            <h3 class="spec">Information Block</h3>
-
-            <div class="info-block">
-                <div class="info-text">
-                    <h3><span class="color-text">NEW</span> Brushed- Responsive One Page Template</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas neque diam, luctus at laoreet in, auctor ut tellus. Etiam enim lacus, ornare et tempor, rhoncus rhoncus sem. Aliquam volutpat arcu et nibh mollis eleifend pharetra lorem scelerisque. Donec vel enim purus, id viverra neque. Cras in velit ante, eget pellentesque sem. Duis tincidunt erat quam.</p>
-
+    <script type="text/javascript" src="{% static 'js/qrcode.js' %}"></script>
+    <div id="about" class="page-alternate">
+        <div class="container">
+            <!-- Title Page -->
+            <div class="row">
+                <div class="span12">
+                    <div class="title-page">
+                        <h2 class="title">Profile</h2>
+                        <h3 class="title-description">{{ curr_user.get_full_name }}</h3>
+                    </div>
                 </div>
             </div>
-            <a class="button" target="_blank" href="">Purchase</a>
-        </div>
-        <!-- End Profile -->
+            <!-- End Title Page -->
 
-        <!-- Start Profile -->
-    	<div class="span4 profile"> <!--
+            <!-- People -->
+            <div class="row">
+
+                <!-- Start Profile -->
+                <div class="span4 profile">
+                    <div class="image-wrap">
+                        <img src="{{ curr_user.profile.avatar.url }}" alt="John Doe">
+                    </div>
+                    <h3 class="profile-name">{{ curr_user.email }}</h3>
+                    <p class="profile-description"></p>
+
+                    <div class="social">
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="font-icon-social-twitter"></i></a></li>
+                            <li><a href="#"><i class="font-icon-social-dribbble"></i></a></li>
+                            <li><a href="#"><i class="font-icon-social-facebook"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span4 profile">
+                    {% if error %}
+                        <p class="error">{{ error }}</p>
+                    {% endif %}
+                    <label class="profile-description">City: {{ curr_user.profile.city|default:"Empty" }}</label>
+                    <label class="profile-description">Gender: {{ curr_gender|default:"Empty" }}</label>
+                    <label class="profile-description">Phone
+                        number: {{ curr_user.profile.phone_number|default:"Empty" }}</label>
+                    <label class="profile-description">Birth
+                        date: {{ curr_user.profile.birth_date|default:"Empty" }}</label>
+                    <label id="curr-user-id" style="visibility: hidden;">{{ curr_user.pk }}</label>
+                    {% if is_teamlead %}
+                        <button id="send-invitation" type="button" class="button button-small">Send invitation</button>
+                    {% endif %}
+                </div>
+
+                <div class="span4 profile">
+
+                    <h3 class="spec">QR profile</h3>
+
+                    <div class="info-block">
+                        <div class="info-text">
+                            <div class="image-wrap" id="qr_code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Profile -->
+
+                <!-- Start Profile -->
+                <div class="span4 profile"> <!--
         	<div class="image-wrap">
                 <div class="hover-wrap">
                     <span class="overlay-img"></span>
@@ -98,11 +99,26 @@
                 </ul>
             </div>
         </div> -->
-        <!-- End Profile -->
+                    <!-- End Profile -->
 
+                </div>
+                <!-- End People -->
+            </div>
+        </div>
     </div>
-    <!-- End People -->
-</div>
-</div>
-</div>
+
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qr_code"), {
+            width: 500,
+            height: 500
+        });
+
+        function makeCode() {
+            var elText = "{{ site }}/core/user/{{ curr_user.pk }}";
+
+            qrcode.makeCode(elText);
+        }
+
+        makeCode();
+    </script>
 {% endblock %}
