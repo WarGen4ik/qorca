@@ -83,6 +83,8 @@
                                 class="button button-small">My team
                         </button>
                     {% endif %}
+                    <a href="/core/download/badge/{{ curr_user.pk }}" class="button button-small"
+                       style="padding-top: 4px; padding-bottom: 4px;">Download badge</a>
                 </div>
 
                 <div class="span4 profile">
@@ -108,23 +110,23 @@
                 <!-- End Profile -->
 
                 <!-- Start Profile -->
-{#                <div class="span4 teams">#}
-{#                    <h3 class="spec">My teams</h3>#}
-{#                    <div class="info-block">#}
-{#                        <div class="info-text">#}
-{#                            {% if teams_rel_user %}#}
-{#                                {% for team_rel_user in teams_rel_user %}#}
-{#                                    <p class="team"><a class="team-name"#}
-{#                                                       href="/core/teams/{{ team_rel_user.team.name }}">{{ team_rel_user.team.name }}</a>#}
-{#                                    </p>#}
-{#                                {% endfor %}#}
-{#                            {% else %}#}
-{#                                <p style="text-align: center">You have not joined any team yet</p>#}
-{#                            {% endif %}#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                </div>#}
+                {#                <div class="span4 teams">#}
+                {#                    <h3 class="spec">My teams</h3>#}
+                {#                    <div class="info-block">#}
+                {#                        <div class="info-text">#}
+                {#                            {% if teams_rel_user %}#}
+                {#                                {% for team_rel_user in teams_rel_user %}#}
+                {#                                    <p class="team"><a class="team-name"#}
+                {#                                                       href="/core/teams/{{ team_rel_user.team.name }}">{{ team_rel_user.team.name }}</a>#}
+                {#                                    </p>#}
+                {#                                {% endfor %}#}
+                {#                            {% else %}#}
+                {#                                <p style="text-align: center">You have not joined any team yet</p>#}
+                {#                            {% endif %}#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {##}
+                {#                </div>#}
                 <!-- End People -->
             </div>
         </div>
