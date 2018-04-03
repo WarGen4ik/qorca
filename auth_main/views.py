@@ -26,11 +26,12 @@ class RegisterView(TemplateView):
             user = User.objects.create_user(request.POST['email'],
                                             request.POST['first_name'],
                                             request.POST['last_name'],
-                                            request.POST['psw'])
+                                            request.POST['psw'],
+                                            )
             Profile.objects.create(user=user, city=request.POST['city'])
             login(request, user)
+            request.session['alerts'] = [{'type': 'success', 'message': 'You have been registered successful.'}]
             return redirect('/')
-            # return render(request, self.template_name, {'status': 'success'})
 
         return render(request, self.template_name, {'error': 'Passwords are not equal each other.'})
 

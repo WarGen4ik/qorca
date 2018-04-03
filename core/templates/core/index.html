@@ -87,7 +87,7 @@
                             {% for competition in competitions %}
 							<!-- Item Project and Filter Name -->
                         	<li class="item-thumbs span3 {{ competition.region }}">
-                            <h3>{{ competition.name }}</h3>
+                                <h3><a href="/core/competition/{{ competition.pk }}">{{ competition.name }}</a></h3>
                             	<!-- Fancybox - Gallery Enabled - Title - Full Image -->
                             	<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="{{ competition.name }}" href="/core/competition/{{ competition.pk }}">
 {#                                	<span class="overlay-img"></span>#}

@@ -68,11 +68,32 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="span4 profile">
-
-                </div>
                 <!-- End People -->
+            </div>
+            <div class="row">
+                <div class="span4 profile distances-competition">
+
+                    <ul>
+                        {% for distance in distances %}
+
+                            <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;">
+                                <h4 style="margin: 0;"><b>Distance №{{ forloop.counter0|add:1 }}</b></h4>
+                                <label for="id-length-{{ forloop.counter0 }}">Length</label>
+                                <input type="text" id="id-length-{{ forloop.counter0 }}" value="{{ distance.length }}"
+                                       disabled>
+                                <input hidden name="distance_id_{{ forloop.counter0 }}" value="{{ distance.pk }}">
+                                <label for="id-type-{{ forloop.counter0 }}">Distance type</label>
+                                <select id="id-type-{{ forloop.counter0 }}" disabled>
+                                    {% for type in types %}
+                                        <option value="{{ type.0 }}"
+                                                {% if type.0 == distance.distance_type %} selected {% endif %}
+                                        >{{ type.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

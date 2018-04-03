@@ -13,6 +13,9 @@
                 <li><a class="external" href="/#contact">Contact</a></li>
             {% endif %}
             {% if user.is_authenticated %}
+                {% if user.profile.role == 2 or user.is_staff %}
+                    <li><a class="external" href="/core/competition/create">Create competition</a> </li>
+                    {% endif %}
                 {% if title == 'profile' %}
                     <li><a class="current" style="color: #DE5E60;" href="/auth/profile">Profile</a></li>
                 {% else %}

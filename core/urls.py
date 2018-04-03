@@ -16,9 +16,12 @@ urlpatterns = [
     url(r'^teams/(?P<name>(.*))$', login_required(views.TeamView.as_view(), login_url=settings.LOGIN_REDIRECT_URL)),
     url(r'^create/team', views.CreateTeamView.as_view()),
 
-    url(r'^competition/signup/user$', views.CompetitionSignUpUser.as_view()),
-    url(r'^competition/signup/team$', views.CompetitionSignUpTeam.as_view()),
-    url(r'^competition/signout/user$', views.CompetitionSignOutUser.as_view()),
-    url(r'^competition/signout/team$', views.CompetitionSignOutTeam.as_view()),
+    # url(r'^competition/signup/user$', views.CompetitionSignUpUser.as_view()),
+    # url(r'^competition/signup/team$', views.CompetitionSignUpTeam.as_view()),
+    # url(r'^competition/signout/user$', views.CompetitionSignOutUser.as_view()),
+    # url(r'^competition/signout/team$', views.CompetitionSignOutTeam.as_view()),
+
+    url(r'^competition/create$', views.CreateCompetitionView.as_view()),
+    url(r'^competition/(?P<pk>(.+))/signup/single$', views.RegisterCompetitionView.as_view()),
     url(r'^competition/(?P<pk>(.+))$', views.CompetitionView.as_view()),
 ]

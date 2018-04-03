@@ -10,7 +10,7 @@ jQuery(function ($) {
     BRUSHED.mobileNav = function () {
         var windowWidth = $(window).width();
 
-        if (windowWidth <= 979) {
+        if (windowWidth <= 1100) {
             if ($('#mobile-nav').length > 0) {
                 mobileMenuClone.insertAfter('#menu');
                 $('#navigation-mobile #menu-nav').attr('id', 'menu-nav-mobile');
@@ -771,4 +771,20 @@ $("#input-find-user").keyup(function () {
             beforeSend(xhr, settings)
         }
     });
+});
+
+
+$("#count-distances").change(function () {
+    var value = this.value;
+    for (var i = 0; i < 10; i++){
+        var distance = $("#distance-" + i);
+        distance.css('display', 'none');
+        distance.find('#id-length-' + i).prop('required', false);
+        distance.find('#id-type-' + i).prop('required', false);
+        if (i < value) {
+            distance.css('display', '');
+            distance.find('#id-length-' + i).prop('required', true);
+            distance.find('#id-type-' + i).prop('required', true);
+        }
+    }
 });

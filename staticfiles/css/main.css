@@ -545,7 +545,7 @@ nav#menu #menu-nav li:first-child {
 
 nav#menu #menu-nav li a {
 	color: #FFFFFF;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 300;
 	line-height: 60px;
 	display: block;
@@ -1533,4 +1533,37 @@ footer {
 
 .page-alternate {
 	padding-bottom: 30%;
+}
+
+.profile ul {
+	list-style-type: none;
+}
+
+.distances {
+	width: 60%;
+}
+
+.distances-competition ul,
+.distances ul{
+	margin: 0;
+}
+
+.distances-competition li,
+.distances li {
+	margin-right: 40px;
+}
+
+.alerts {
+	background: #26292E;
+	z-index: 99;
+	position: relative;
+	padding: 50px;
+}
+
+.distances-competition {
+	width: 100%;
+}
+
+.distances-competition li {
+	display: inline-block;
 }

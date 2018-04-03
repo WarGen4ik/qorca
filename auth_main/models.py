@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
         )
 
         user.set_password(password)
@@ -110,6 +110,12 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=20, null=True)
     birth_date = models.DateField(null=True)
     city = models.CharField(max_length=100, null=True)
+
+    ROLES = (
+        (1, 'user'),
+        (2, 'manager'),
+    )
+    role = models.SmallIntegerField(choices=ROLES, default=1)
 
     def update_data(self, **kwargs):
         self.gender = int(kwargs.get('gender', self.gender))

@@ -25,6 +25,10 @@ def get_session_attributes(request):
     if 'team' in request.session:
         opt['team'] = Team.objects.filter(pk=request.session['team']).first()
 
+    if 'alerts' in request.session:
+        opt['alerts'] = request.session['alerts']
+        del request.session['alerts']
+
     return opt
 
 

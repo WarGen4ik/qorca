@@ -1,6 +1,7 @@
 import json
 import mimetypes
 import os
+import datetime
 from wsgiref.util import FileWrapper
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -12,8 +13,10 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from auth_main.models import User
-from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam
+from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam, Distance, \
+    UserDistance
 from core.utils import get_session_attributes, queryset_to_dict, getBadge
+from core.widgets import CompetitionSelectWidget
 
 
 class UserListView(TemplateView):
@@ -107,11 +110,20 @@ class InvitationAcceptView(TemplateView):
     def post(self, request):
         data = json.loads(request.body.decode('utf-8'))
         team = Team.objects.get(name=data['team_name'])
+        try:
+            get_object_or_404(TeamRelationToUser, user=request.user)
+            return HttpResponse(status=401)
+        except Http404:
+            pass
         TeamRelationToUser.objects.get_or_create(user=request.user, team=team)
-        inv = Invitations.objects.get(to_user=request.user, team=team, is_active=True)
+        inv = Invitations.objects.filter(to_user=request.user, team=team, is_active=True)
+        if inv.exists():
+            inv = inv.one()
+        else:
+            return HttpResponse(status=400)
         inv.is_active = False
         inv.save()
-        request.session['team'] = team
+        request.session['team'] = team.pk
         return HttpResponse(status=200)
 
 
@@ -119,7 +131,11 @@ class InvitationDeclineView(TemplateView):
     def post(self, request):
         data = json.loads(request.body.decode('utf-8'))
         team = Team.objects.get(name=data['team_name'])
-        inv = Invitations.objects.get(to_user=request.user, team=team, is_active=True)
+        inv = Invitations.objects.filter(to_user=request.user, team=team, is_active=True)
+        if inv.exists():
+            inv = inv.one()
+        else:
+            return HttpResponse(status=400)
         inv.is_active = False
         inv.save()
         return HttpResponse(status=200)
@@ -153,6 +169,8 @@ class CreateTeamView(TemplateView):
                                    logo=request.FILES['logo'],
                                    description=request.POST['description'])
         TeamRelationToUser.objects.create(team=team, user=request.user, is_coach=True)
+        request.session['team'] = team.pk
+        request.session['alerts'] = [{'type': 'success', 'message': 'Team has been created!'}]
         return redirect('/core/teams/{}'.format(team.name))
 
 
@@ -164,6 +182,7 @@ class CompetitionView(TemplateView):
 
         members_count = competition.getCountUsers()
         teams_count = competition.getTeamsUsers()
+        distances = competition.getDistances()
 
         if request.user.is_authenticated:
             can_signup = dict()
@@ -183,12 +202,16 @@ class CompetitionView(TemplateView):
             opt = {'competition': competition,
                    'members_count': members_count,
                    'teams_count': teams_count,
-                   'can_signup': can_signup, }
+                   'can_signup': can_signup,
+                   'distances': distances,
+                   'types': Distance.TYPES}
             return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
         return render(request, self.template_name, {'competition': competition,
                                                     'members_count': members_count,
-                                                    'teams_count': teams_count, })
+                                                    'teams_count': teams_count,
+                                                    'distances': distances,
+                                                    'types': Distance.TYPES})
 
 
 class CompetitionSignUpUser(View):
@@ -237,3 +260,57 @@ class CompetitionSignOutTeam(View):
             return HttpResponse(400)
 
         return HttpResponse(200)
+
+
+class CreateCompetitionView(TemplateView):
+    template_name = 'core/create_competition.html'
+
+    def get(self, request, *args, **kwargs):
+        widget = CompetitionSelectWidget()
+        return render(request, self.template_name, {'widget': widget, 'types': Distance.TYPES, 'range': range(10)})
+
+    def post(self, request):
+        competition = Competition.objects.create(
+            name=request.POST['name'],
+            description=request.POST['description'],
+            logo=request.FILES['logo'],
+            region=request.POST['region'],
+            track_count=request.POST['tracks_count'],
+            started_at=datetime.datetime.strptime(request.POST['started_at'], "%Y-%m-%d").date()
+        )
+
+        for i in range(10):
+            if request.POST['length_' + str(i)]:
+                Distance.objects.create(
+                    competition=competition,
+                    distance_type=request.POST['type_' + str(i)],
+                    length=request.POST['length_' + str(i)],
+                )
+            else:
+                break
+
+        return redirect('/')
+
+
+class RegisterCompetitionView(TemplateView):
+    template_name = 'core/register_on_competition.html'
+
+    def get(self, request, *args, **kwargs):
+        competition = Competition.objects.get(pk=kwargs['pk'])
+        distances = Distance.objects.filter(competition=competition).all()
+        return render(request, self.template_name, {'types': Distance.TYPES,
+                                                    'distances': distances,
+                                                    'competition': competition})
+
+    def post(self, request, *args, **kwargs):
+        for x in range(10):
+            time_name = 'time_{}'.format(x)
+            if time_name in request.POST:
+                distance = Distance.objects.get(pk=request.POST['distance_id_{}'.format(x)])
+                UserDistance.objects.create(
+                    distance=distance,
+                    user=request.user,
+                    time=request.POST[time_name]
+                )
+
+        return redirect('/')

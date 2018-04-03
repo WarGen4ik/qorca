@@ -45,15 +45,28 @@ class Invitations(models.Model):
 
 
 class Competition(models.Model):
-    regions = (
+    REGIONS = (
         ('world', 'World'),
         ('europe', 'Europe'),
         ('ukraine', 'Ukraine'),
     )
+    TRACKS = (
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6),
+        (7, 7),
+        (8, 8),
+        (9, 9),
+        (10, 10)
+    )
     name = models.CharField(max_length=255)
     description = models.TextField()
     logo = models.ImageField(upload_to='competitions/logos/', default='competitions/logos/no-img.png')
-    region = models.CharField(max_length=100, choices=regions)
+    region = models.CharField(max_length=100, choices=REGIONS)
+    track_count = models.SmallIntegerField(choices=TRACKS)
     started_at = models.DateField()
     created_at = models.DateTimeField(default=django.utils.timezone.now)
 
@@ -69,7 +82,7 @@ class Competition(models.Model):
     @staticmethod
     def getLastCompetitions(length=6):
         result_query = QuerySet(Competition)
-        for region in Competition.regions:
+        for region in Competition.REGIONS:
             result_query = result_query | Competition.objects\
                                             .filter(started_at__gt=django.utils.timezone.now()) \
                                             .filter(region=region[0]) \
@@ -77,6 +90,9 @@ class Competition(models.Model):
                                             .all()[:length]
 
         return result_query.order_by('-started_at')
+
+    def getDistances(self):
+        return Distance.objects.filter(competition=self).all()
 
 
 class CompetitionUser(models.Model):
@@ -89,3 +105,26 @@ class CompetitionTeam(models.Model):
     competition = models.ForeignKey(Competition)
     team = models.ForeignKey(Team)
     created_at = models.DateTimeField(default=django.utils.timezone.now)
+
+
+class Distance(models.Model):
+    TYPES = (
+        (1, 'Freestyle'),
+        (2, 'Butterfly'),
+        (3, 'Backstroke'),
+        (4, 'Breaststroke'),
+        (5, 'Dolphin kick'),
+    )
+
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
+    distance_type = models.SmallIntegerField(choices=TYPES)
+    length = models.SmallIntegerField()
+
+    def __str__(self):
+        return 'Competition: {} | Type: {} | Length: {}'.format(self.competition.name, self.get_distance_type_display(), self.length)
+
+
+class UserDistance(models.Model):
+    user = models.ForeignKey(User)
+    distance = models.ForeignKey(Distance)
+    time = models.TimeField()
