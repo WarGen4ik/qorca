@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 import django.utils.timezone
 
 
@@ -46,21 +47,21 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(
-        verbose_name='email',
+        _('Email'),
         max_length=255,
         unique=True,
     )
     first_name = models.CharField(
-        verbose_name='First name',
+        _('First name'),
         max_length=255
     )
     last_name = models.CharField(
-        verbose_name='First name',
+        _('Last name'),
         max_length=255
     )
-    created_at = models.DateTimeField(default=django.utils.timezone.now)
-    is_active = models.BooleanField('Незаблокований користувач', default=True)
-    is_admin = models.BooleanField('Адміністратор', default=False)
+    created_at = models.DateTimeField(_('Created at'), default=django.utils.timezone.now)
+    is_active = models.BooleanField(_('Is active user'), default=True)
+    is_admin = models.BooleanField(_('Administrator'), default=False)
 
     objects = UserManager()
 
@@ -94,28 +95,28 @@ class User(AbstractBaseUser):
         return self.email
 
     class Meta:
-        verbose_name = 'Користувачі'
-        verbose_name_plural = 'Користувачі'
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
-    avatar = models.ImageField(upload_to='avatars/', default='avatars/no-img.png')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(_('Avatar'), upload_to='avatars/', default='avatars/no-img.png')
     GENDER = (
-        (1, 'male'),
-        (2, 'female'),
+        (1, _('male')),
+        (2, _('female')),
     )
 
-    gender = models.SmallIntegerField(choices=GENDER, default=1)
-    phone_number = models.CharField(max_length=20, null=True)
-    birth_date = models.DateField(null=True)
-    city = models.CharField(max_length=100, null=True)
+    gender = models.SmallIntegerField(_('Gender'), choices=GENDER, default=1)
+    phone_number = models.CharField(_('Phone number'), max_length=20, null=True)
+    birth_date = models.DateField(_('Birth date'), null=True)
+    city = models.CharField(_('City'), max_length=100, null=True)
 
     ROLES = (
-        (1, 'user'),
-        (2, 'manager'),
+        (1, _('user')),
+        (2, _('manager')),
     )
-    role = models.SmallIntegerField(choices=ROLES, default=1)
+    role = models.SmallIntegerField(_('Role'), choices=ROLES, default=1)
 
     def update_data(self, **kwargs):
         self.gender = int(kwargs.get('gender', self.gender))

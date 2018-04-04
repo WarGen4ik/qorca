@@ -1,6 +1,7 @@
 import pyqrcode
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils import translation
 
 from core.models import TeamRelationToUser, Team
 
@@ -20,7 +21,8 @@ def update_session(session, user):
 def get_session_attributes(request):
     opt = dict()
 
-    opt['user'] = request.user
+    if request.user.is_authenticated:
+        opt['user'] = request.user
 
     if 'team' in request.session:
         opt['team'] = Team.objects.filter(pk=request.session['team']).first()
@@ -28,6 +30,12 @@ def get_session_attributes(request):
     if 'alerts' in request.session:
         opt['alerts'] = request.session['alerts']
         del request.session['alerts']
+
+    if 'language' in request.session:
+        opt['language'] = request.session['language']
+        print(request.session['language'])
+    else:
+        opt['language'] = 'en'
 
     return opt
 
@@ -84,3 +92,8 @@ def getBadge(avatar_url, fullname, id):
         os.remove(this_dir + file)
 
     return settings.BASE_DIR + '/media/badges/{}_badge.png'.format(id)
+
+
+def activate_language(session):
+    if 'language' in session:
+        translation.activate(session['language'])

@@ -1,4 +1,5 @@
 {% extends 'core/index.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block slider %}
@@ -16,8 +17,8 @@
 {% block content %}
     <div id="about" class="page-alternate">
     <div class="container">
-        <h1 class="title">Register on competition</h1>
-        <p class="title-description">Please fill this form to register on a competition</p>
+        <h1 class="title">{% trans 'Register on competition' %}</h1>
+        <p class="title-description">{% trans 'Please fill this form to register on competition.' %}</p>
 
         <!-- People -->
         <div class="row">
@@ -30,12 +31,12 @@
                         {% for distance in distances %}
 
                             <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;">
-                                <h4 style="margin: 0;"><b>Distance №{{ forloop.counter0|add:1 }}</b></h4>
-                                <label for="id-length-{{ forloop.counter0 }}">Length</label>
+                                <h4 style="margin: 0;"><b>{% trans 'Distance' %} №{{ forloop.counter0|add:1 }}</b></h4>
+                                <label for="id-length-{{ forloop.counter0 }}">{% trans 'Distance length' %}</label>
                                 <input type="text" id="id-length-{{ forloop.counter0 }}" value="{{ distance.length }}"
                                        disabled>
                                 <input hidden name="distance_id_{{ forloop.counter0 }}" value="{{ distance.pk }}">
-                                <label for="id-type-{{ forloop.counter0 }}">Distance type</label>
+                                <label for="id-type-{{ forloop.counter0 }}">{% trans 'Distance type' %}</label>
                                 <select id="id-type-{{ forloop.counter0 }}" disabled>
                                     {% for type in types %}
                                         <option value="{{ type.0 }}"
@@ -44,7 +45,7 @@
                                     {% endfor %}
                                 </select>
 
-                                <label for="id-time-{{ forloop.counter0 }}">Prediction time</label>
+                                <label for="id-time-{{ forloop.counter0 }}">{% trans 'Prediction time' %}</label>
                                 <input type="number" name="time_{{ forloop.counter0 }}"
                                        id="id-time-{{ forloop.counter0 }}" required>
                             </li>
@@ -52,15 +53,9 @@
                     </ul>
 
                     <div class="clearfix">
-                        <button onclick="location.href='/'" type="button" class="button button-small">Back</button>
-                        <input type='submit' class="button button-small" value="Register">
+                        <button onclick="location.href='/'" type="button" class="button button-small">{% trans 'Back' %}</button>
+                        <input type='submit' class="button button-small" value="{% trans 'Register' %}">
                     </div>
-                    {% if error %}
-                        <p class="error">{{ error }}</p>
-                    {% endif %}
-                    {% if status %}
-                        <p class="success">Success</p>
-                    {% endif %}
                 </div>
             </form>
         </div>

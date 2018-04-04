@@ -1,40 +1,49 @@
+{% load i18n %}
 {% load static %}
 
 {% block nav %}
     <nav id="menu">
         <ul id="menu-nav">
             {% if title == 'index' %}
-                <li class="current"><a href="#home-slider">Home</a></li>
-                <li><a href="#work">Competitions</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="current"><a href="#home-slider">{% trans 'Home' %}</a></li>
+                <li><a href="#work">{% trans 'Competitions' %}</a></li>
+                <li><a href="#contact">{% trans 'Contact' %}</a></li>
             {% else %}
-                <li><a class="external" href="/">Home</a></li>
-                <li><a class="external" href="/#work">Competitions</a></li>
-                <li><a class="external" href="/#contact">Contact</a></li>
+                <li><a class="external" href="/">{% trans 'Home' %}</a></li>
+                <li><a class="external" href="/#work">{% trans 'Competitions' %}</a></li>
+                <li><a class="external" href="/#contact">{% trans 'Contact' %}</a></li>
             {% endif %}
             {% if user.is_authenticated %}
                 {% if user.profile.role == 2 or user.is_staff %}
-                    <li><a class="external" href="/core/competition/create">Create competition</a> </li>
-                    {% endif %}
+                    <li><a class="external" href="/core/competition/create">{% trans 'Create competition' %}</a></li>
+                {% endif %}
                 {% if title == 'profile' %}
-                    <li><a class="current" style="color: #DE5E60;" href="/auth/profile">Profile</a></li>
+                    <li><a class="current" style="color: #DE5E60;" href="/auth/profile">{% trans 'Profile' %}</a></li>
                 {% else %}
-                    <li><a class="external" href="/auth/profile">Profile</a></li>
+                    <li><a class="external" href="/auth/profile">{% trans 'Profile' %}</a></li>
                 {% endif %}
                 {% if team %}
                     <li><a{% if title == 'team' %} class="current" {% else %} class="external" {% endif %}
-                                                   href="/core/teams/{{ team.name }}">Team</a></li>
+                                                   href="/core/teams/{{ team.name }}">{% trans 'Team' %}</a></li>
                 {% else %}
                     <li><a{% if title == 'create_team' %} class="current" {% endif %} class="external"
-                                                          href="/core/create/team">Create Team</a></li>
+                                                          href="/core/create/team">{% trans 'Create Team' %}</a></li>
                 {% endif %}
-                <li><a href="/auth/logout" class="external">Logout</a></li>
+                <li><a href="/auth/logout" class="external">{% trans 'Logout' %}</a></li>
             {% else %}
-                <li><a{% if title == 'register' %} class="current" {% endif %}  href="/auth/register" class="external">Sign
-                    up</a></li>
-                <li><a{% if title == 'login' %} class="current" {% endif %}  href="/auth/login" class="external">Sign
-                    in</a></li>
+                <li><a{% if title == 'register' %} class="current" {% endif %}  href="/auth/register"
+                                                   class="external">{% trans 'Sign up' %}</a></li>
+                <li><a{% if title == 'login' %} class="current" {% endif %}  href="/auth/login"
+                                                class="external">{% trans 'Sign in' %}</a></li>
             {% endif %}
+            <li>
+                <form id="language-form" action="/core/language" method="get">
+                    <select id="language-select" name="language">
+                        <option {% if language == 'en' %} selected {% endif %} value="en">en</option>
+                        <option {% if language == 'ua' %} selected {% endif %} value="ua">ua</option>
+                    </select>
+                </form>
+            </li>
         </ul>
     </nav>
 {% endblock %}

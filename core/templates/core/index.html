@@ -1,290 +1,226 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block splash_screen %}
     <!-- This section is for Splash Screen -->
     <div class="ole">
-    <section id="jSplash">
-        <div id="circle"></div>
-    </section>
+        <section id="jSplash">
+            <div id="circle"></div>
+        </section>
     </div>
     <!-- End of Splash Screen -->
 {% endblock %}
 {% block slider %}
-<!-- Homepage Slider -->
-<div id="home-slider">
-    <div class="overlay"></div>
+    <!-- Homepage Slider -->
+    <div id="home-slider">
+        <div class="overlay"></div>
 
-    <div class="slider-text">
-    	<div id="slidecaption"></div>
-    </div>
-
-	<div class="control-nav">
-        <a id="prevslide" class="load-item"><i class="font-icon-arrow-simple-left"></i></a>
-        <a id="nextslide" class="load-item"><i class="font-icon-arrow-simple-right"></i></a>
-        <ul id="slide-list"></ul>
-
-        <a id="nextsection" href="#work"><i class="font-icon-arrow-simple-down"></i></a>
-    </div>
-</div>
-<!-- End Homepage Slider -->
-{% endblock %}
-{% block header %}
-<!-- Header -->
-    {% with 'index' as title %}
-    <header>
-    <div class="sticky-nav">
-    	<a id="mobile-nav" class="menu-nav" href="#menu-nav"></a>
-
-        <div id="logo">
-        	<a id="goUp" href="/" title="Q-Orca">Q-Orca</a>
+        <div class="slider-text">
+            <div id="slidecaption"></div>
         </div>
 
-        {% block nav %}
-            {% include 'core/nav.html' %}
-        {% endblock %}
+        <div class="control-nav">
+            <a id="prevslide" class="load-item"><i class="font-icon-arrow-simple-left"></i></a>
+            <a id="nextslide" class="load-item"><i class="font-icon-arrow-simple-right"></i></a>
+            <ul id="slide-list"></ul>
+
+            <a id="nextsection" href="#work"><i class="font-icon-arrow-simple-down"></i></a>
+        </div>
     </div>
-    </header>
+    <!-- End Homepage Slider -->
+{% endblock %}
+{% block header %}
+    <!-- Header -->
+    {% with 'index' as title %}
+        <header>
+            <div class="sticky-nav">
+                <a id="mobile-nav" class="menu-nav" href="#menu-nav"></a>
+
+                <div id="logo">
+                    <a id="goUp" href="/" title="Q-Orca">Q-Orca</a>
+                </div>
+
+                {% block nav %}
+                    {% include 'core/nav.html' %}
+                {% endblock %}
+            </div>
+        </header>
     {% endwith %}
-<!-- End Header -->
+    <!-- End Header -->
 {% endblock %}
 
 {% block content %}
-<!-- Our Work Section -->
-<div id="work" class="page">
-	<div class="container">
-    	<!-- Title Page -->
-        <div class="row">
-            <div class="span12">
-                <div class="title-page">
-                    <h2 class="title">Competitions</h2>
-                    <h3 class="title-description">Check out all competitions here.</h3>
+    <!-- Our Work Section -->
+    <div id="work" class="page">
+        <div class="container">
+            <!-- Title Page -->
+            <div class="row">
+                <div class="span12">
+                    <div class="title-page">
+                        <h2 class="title">{% trans 'Competitions' %}</h2>
+                        <h3 class="title-description">{% trans 'Check out all competitions here.' %}</h3>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- End Title Page -->
+            <!-- End Title Page -->
 
-        <!-- Portfolio Projects -->
-        <div class="row">
-        	<div class="span3">
-            	<!-- Filter -->
-                <nav id="options" class="work-nav">
-                    <ul id="filters" class="option-set" data-option-key="filter">
-                    	<li class="type-work">Type of Competitions</li>
-                        <li><a href="#filter" data-option-value="*" class="selected">World</a></li>
-                        <li><a href="#filter" data-option-value=".ukraine">Ukraine</a></li>
-                        <li><a href="#filter" data-option-value=".europe">Europe</a></li>
-
-                    </ul>
-                </nav>
-                <!-- End Filter -->
-            </div>
-
-            <div class="span9">
-            	<div class="row">
-                	<section id="projects">
-                    	<ul id="thumbs">
-                            {% for competition in competitions %}
-							<!-- Item Project and Filter Name -->
-                        	<li class="item-thumbs span3 {{ competition.region }}">
-                                <h3><a href="/core/competition/{{ competition.pk }}">{{ competition.name }}</a></h3>
-                            	<!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                            	<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="{{ competition.name }}" href="/core/competition/{{ competition.pk }}">
-{#                                	<span class="overlay-img"></span>#}
-{#                                    <span class="overlay-img-thumb font-icon-plus"></span>#}
-                                </a>
-                                <!-- Thumb Image and Description -->
-                                <img src="{{ competition.logo.url }}" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis elementum odio. Curabitur pellentesque, dolor vel pharetra mollis.">
-                            </li>
-                        	<!-- End Item Project -->
-                            {% empty %}
-                                <p>There is no available competitions in this section :(</p>
-                            {% endfor %}
-
+            <!-- Portfolio Projects -->
+            <div class="row">
+                <div class="span3">
+                    <!-- Filter -->
+                    <nav id="options" class="work-nav">
+                        <ul id="filters" class="option-set" data-option-key="filter">
+                            <li class="type-work">{% trans 'Type of Competitions' %}</li>
+                            <li><a href="#filter" data-option-value="*" class="selected">{% trans 'World' %}</a></li>
+                            <li><a href="#filter" data-option-value=".ukraine">{% trans 'Ukraine' %}</a></li>
+                            <li><a href="#filter" data-option-value=".europe">{% trans 'Europe' %}</a></li>
 
                         </ul>
-                    </section>
+                    </nav>
+                    <!-- End Filter -->
+                </div>
 
-            	</div>
+                <div class="span9">
+                    <div class="row">
+                        <section id="projects">
+                            <ul id="thumbs">
+                                {% for competition in competitions %}
+                                    <!-- Item Project and Filter Name -->
+                                    <li class="item-thumbs span3 {{ competition.region }}">
+                                        <h3><a href="/core/competition/{{ competition.pk }}">{{ competition.name }}</a>
+                                        </h3>
+                                        <!-- Fancybox - Gallery Enabled - Title - Full Image -->
+                                        <a class="hover-wrap fancybox" data-fancybox-group="gallery"
+                                           title="{{ competition.name }}" href="/core/competition/{{ competition.pk }}">
+                                            {#                                	<span class="overlay-img"></span>#}
+                                            {#                                    <span class="overlay-img-thumb font-icon-plus"></span>#}
+                                        </a>
+                                        <!-- Thumb Image and Description -->
+                                        <img src="{{ competition.logo.url }}"
+                                             alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis elementum odio. Curabitur pellentesque, dolor vel pharetra mollis.">
+                                    </li>
+                                    <!-- End Item Project -->
+                                {% empty %}
+                                    <p>{% trans 'There is no available competitions in this section :(' %}</p>
+                                {% endfor %}
+
+
+                            </ul>
+                        </section>
+
+                    </div>
+                </div>
             </div>
+            <!-- End Portfolio Projects -->
         </div>
-        <!-- End Portfolio Projects -->
     </div>
-</div>
-<!-- End Our Work Section -->
+    <!-- End Our Work Section -->
 
 {% endblock %}
 {% block profile %}
-{% if user.is_authenticated %}
-<!-- About Section -->
-<div id="about" class="page-alternate">
-<div class="container">
-    <!-- Title Page -->
-    <div class="row">
-        <div class="span12">
-            <div class="title-page">
-                <h2 class="title"><a style="color:white;" href="/auth/profile">Your profile</a></h2>
-                <h3 class="title-description"><a style="color:white;" href="/auth/profile">{{ user.get_full_name }}</a></h3>
-            </div>
-        </div>
-    </div>
-    <!-- End Title Page -->
-
-    <!-- People -->
-    <div class="row">
-
-        <!-- Start Profile -->
-    	<div class="span4 profile">
-        	<div class="image-wrap">
-                <div class="hover-wrap">
-                    <span class="overlay-img"></span>
-                    <span class="overlay-text-thumb">Change photo</span>
-                    <input type="file" class="avatar-input" hidden name="avatar">
+    {% if user.is_authenticated %}
+        <!-- About Section -->
+        <div id="about" class="page-alternate">
+            <div class="container">
+                <!-- Title Page -->
+                <div class="row">
+                    <div class="span12">
+                        <div class="title-page">
+                            <h2 class="title"><a style="color:white;"
+                                                 href="/auth/profile">{% trans 'Your profile' %}</a></h2>
+                            <h3 class="title-description"><a style="color:white;"
+                                                             href="/auth/profile">{{ user.get_full_name }}</a></h3>
+                        </div>
+                    </div>
                 </div>
-                <img src="{{ user.profile.avatar.url }}" alt="John Doe" id="avatar">
-            </div>
-            <h3 class="profile-name">{{ user.email }}</h3>
-            <p class="profile-description">Purum <br> pum <br> pum</p>
+                <!-- End Title Page -->
 
-            <div class="social">
-            	<ul class="social-icons">
-                	<li><a href="#"><i class="font-icon-social-twitter"></i></a></li>
-                    <li><a href="#"><i class="font-icon-social-dribbble"></i></a></li>
-                    <li><a href="#"><i class="font-icon-social-facebook"></i></a></li>
-                </ul>
+                <!-- People -->
+                <div class="row">
+
+                    <!-- Start Profile -->
+                    <div class="span4 profile">
+                        <div class="image-wrap">
+                            <div class="hover-wrap">
+                                <span class="overlay-img"></span>
+                                <span class="overlay-text-thumb">{% trans 'Change photo' %}</span>
+                                <input type="file" class="avatar-input" hidden name="avatar">
+                            </div>
+                            <img src="{{ user.profile.avatar.url }}" alt="John Doe" id="avatar">
+                        </div>
+                        <h3 class="profile-name">{{ user.email }}</h3>
+                    </div>
+
+                    <div class="span4 profile">
+                        <label class="profile-description">{% trans 'City:' %} {{ user.profile.city|default:"Empty" }}</label>
+                        <label class="profile-description">{% trans 'Gender:' %} {{ gender|default:"Empty" }}</label>
+                        <label class="profile-description">{% trans 'Phone number:' %} {{ user.profile.phone_number|default:"Empty" }}</label>
+                        <label class="profile-description">{% trans 'Birth date:' %} {{ user.profile.birth_date|default:"Empty" }}</label>
+
+
+                    </div>
+
+                </div>
             </div>
         </div>
-        <!-- End Profile -->
-
-        <!-- Start Profile -->
-    	<div class="span4 profile">
-            <label class="profile-description">City: {{ user.profile.city|default:"Empty" }}</label>
-            <label class="profile-description">Gender: {{ gender|default:"Empty" }}</label>
-            <label class="profile-description">Phone number: {{ user.profile.phone_number|default:"Empty" }}</label>
-            <label class="profile-description">Birth date: {{ user.profile.birth_date|default:"Empty" }}</label>
-
-
-        </div>
-        <!-- End Profile -->
-
-    </div>
-    <!-- End People -->
-</div>
-</div>
-<!-- End About Section -->
-{% endif %}
+    {% endif %}
 {% endblock %}
 {% block contact %}
-<!-- Contact Section -->
-<div id="contact" class="page">
-<div class="container">
-    <!-- Title Page
-    <div class="row">
-        <div class="span12">
-            <div class="title-page">
-                <h2 class="title">Get in Touch</h2>
-                <h3 class="title-description">We’re currently accepting new client projects. We look forward to serving you.</h3>
-            </div>
-        </div>
-    </div>
-    End Title Page -->
+    <!-- Contact Section -->
+    <div id="contact" class="page">
+        <div class="container">
+            <div class="row">
+                <div class="span9">
 
-    <!-- Contact Form -->
-    <div class="row">
-    	<div class="span9">
+                    <form id="contact-form" class="contact-form" action="#">
+                        <p class="contact-name">
+                            <input id="contact_name" type="text" placeholder="{% trans 'Full Name' %}" value=""
+                                   name="name"/>
+                        </p>
+                        <p class="contact-email">
+                            <input id="contact_email" type="text" placeholder="{% trans 'Email Address' %}" value=""
+                                   name="email"/>
+                        </p>
+                        <p class="contact-message">
+                            <textarea id="contact_message" placeholder="{% trans 'Your Message' %}" name="message"
+                                      rows="15" cols="40"></textarea>
+                        </p>
+                        <p class="contact-submit">
+                            <a id="contact-submit" class="submit" href="#">{% trans 'Send Your Email' %}</a>
+                        </p>
 
-        	<form id="contact-form" class="contact-form" action="#">
-            	<p class="contact-name">
-            		<input id="contact_name" type="text" placeholder="Full Name" value="" name="name" />
-                </p>
-                <p class="contact-email">
-                	<input id="contact_email" type="text" placeholder="Email Address" value="" name="email" />
-                </p>
-                <p class="contact-message">
-                	<textarea id="contact_message" placeholder="Your Message" name="message" rows="15" cols="40"></textarea>
-                </p>
-                <p class="contact-submit">
-                	<a id="contact-submit" class="submit" href="#">Send Your Email</a>
-                </p>
+                        <div id="response">
 
-                <div id="response">
+                        </div>
+                    </form>
 
                 </div>
-            </form>
 
-        </div>
-
-        <div class="span3">
-        	<div class="contact-details">
-        		<h3>Contact Details</h3>
-                <ul>
-                    <li><a href="mailto:iwtdy143@gmail.com">iwtdy143@gmail.com</a></li>
-                    <li>(000) 000-0000</li>
-                    <li>
-                        Poltava National Technical University
-                        <br>
-                        Ukraine
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- End Contact Form -->
-</div>
-</div>
-<!-- End Contact Section -->
-<!-- Twitter Feed
-<div id="twitter-feed" class="page-alternate">
-	<div class="container">
-    	<div class="row">
-            <div class="span12">
-                <div class="follow">
-                    <a href="https://twitter.com/Bluxart" title="Follow Me on Twitter" target="_blank"><i class="font-icon-social-twitter"></i></a>
-                </div>
-
-                <div id="ticker" class="query">
+                <div class="span3">
+                    <div class="contact-details">
+                        <h3>{% trans 'Contact Details' %}</h3>
+                        <ul>
+                            <li><a href="mailto:iwtdy143@gmail.com">iwtdy143@gmail.com</a></li>
+                            <li>(000) 000-0000</li>
+                            <li>
+                                {% trans 'Poltava National Technical University' %}
+                                <br>
+                                {% trans 'Ukraine' %}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End Twitter Feed -->
-
-<!-- Socialize
-<div id="social-area" class="page">
-	<div class="container">
-    	<div class="row">
-            <div class="span12">
-                <nav id="social">
-                    <ul>
-                        <li><a href="https://twitter.com/Bluxart" title="Follow Me on Twitter" target="_blank"><span class="font-icon-social-twitter"></span></a></li>
-                        <li><a href="http://dribbble.com/Bluxart" title="Follow Me on Dribbble" target="_blank"><span class="font-icon-social-dribbble"></span></a></li>
-                        <li><a href="http://forrst.com/people/Bluxart" title="Follow Me on Forrst" target="_blank"><span class="font-icon-social-forrst"></span></a></li>
-                        <li><a href="http://www.behance.net/alessioatzeni" title="Follow Me on Behance" target="_blank"><span class="font-icon-social-behance"></span></a></li>
-                        <li><a href="https://www.facebook.com/Bluxart" title="Follow Me on Facebook" target="_blank"><span class="font-icon-social-facebook"></span></a></li>
-                        <li><a href="https://plus.google.com/105500420878314068694" title="Follow Me on Google Plus" target="_blank"><span class="font-icon-social-google-plus"></span></a></li>
-                        <li><a href="http://www.linkedin.com/in/alessioatzeni" title="Follow Me on LinkedIn" target="_blank"><span class="font-icon-social-linkedin"></span></a></li>
-                        <li><a href="http://themeforest.net/user/Bluxart" title="Follow Me on ThemeForest" target="_blank"><span class="font-icon-social-envato"></span></a></li>
-                        <li><a href="http://zerply.com/Bluxart/public" title="Follow Me on Zerply" target="_blank"><span class="font-icon-social-zerply"></span></a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Socialize -->
-</div>
 {% endblock %}
 {% block footer %}
-<!-- Footer -->
-<footer>
-	<p class="credits">&copy;2018 Q-Orca. <!--<a href="http://themes.alessioatzeni.com/html/brushed/" title="Brushed | Responsive One Page Template">Brushed Template</a> by <a href="http://www.alessioatzeni.com/" title="Alessio Atzeni | Web Designer &amp; Front-end Developer">Alessio Atzeni</a>--></p>
-</footer>
-<!-- End Footer -->
+    <footer>
+        <p class="credits">&copy;2018 Q-Orca.
+    </footer>
 
-<!-- Back To Top -->
-<a id="back-to-top" href="#">
-	<i class="font-icon-arrow-simple-up"></i>
-</a>
-<!-- End Back to Top -->
+    <a id="back-to-top" href="#">
+        <i class="font-icon-arrow-simple-up"></i>
+    </a>
 {% endblock %}

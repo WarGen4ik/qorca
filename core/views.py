@@ -11,11 +11,12 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import TemplateView
+from django.utils.translation import gettext as _
 
 from auth_main.models import User
 from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam, Distance, \
     UserDistance
-from core.utils import get_session_attributes, queryset_to_dict, getBadge
+from core.utils import get_session_attributes, queryset_to_dict, getBadge, activate_language
 from core.widgets import CompetitionSelectWidget
 
 
@@ -23,7 +24,7 @@ class UserListView(TemplateView):
     template_name = 'core/userlist.html'
 
     def get(self, request, *args, **kwargs):
-
+        activate_language(request.session)
         user_list = User.objects.order_by('-created_at')
         paginator = Paginator(user_list, 20)
         page = request.GET.get('page', 1)
@@ -39,6 +40,7 @@ class UserListView(TemplateView):
         return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         search = data['search'].strip()
         if ' ' in search:
@@ -57,6 +59,7 @@ class GetUserProfileView(TemplateView):
     template_name = 'core/user_profile.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         user = get_object_or_404(User, pk=kwargs['pk'])
         if 'team' in request.session:
             team = Team.objects.get(pk=request.session['team'])
@@ -72,6 +75,7 @@ class GetUserProfileView(TemplateView):
 
 class DownloadBadge(View):
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         user = User.objects.get(pk=kwargs['pk'])
         badge_path = getBadge(user.profile.avatar.url, user.get_full_name(), user.pk)
         file_wrapper = FileWrapper(open(badge_path, 'rb'))
@@ -85,6 +89,7 @@ class DownloadBadge(View):
 
 class InvitationToTeamView(TemplateView):
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         try:
             get_object_or_404(TeamRelationToUser,
@@ -108,6 +113,7 @@ class InvitationToTeamView(TemplateView):
 
 class InvitationAcceptView(TemplateView):
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         team = Team.objects.get(name=data['team_name'])
         try:
@@ -129,6 +135,7 @@ class InvitationAcceptView(TemplateView):
 
 class InvitationDeclineView(TemplateView):
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         team = Team.objects.get(name=data['team_name'])
         inv = Invitations.objects.filter(to_user=request.user, team=team, is_active=True)
@@ -145,6 +152,7 @@ class TeamView(TemplateView):
     template_name = 'core/team.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         team = Team.objects.get(name=kwargs['name'])
         team_rel_users = TeamRelationToUser.objects.filter(team=team)
         is_coach = team_rel_users.filter(user=request.user).first().is_coach
@@ -158,6 +166,7 @@ class CreateTeamView(TemplateView):
     template_name = 'core/create-team.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         if 'team' in request.session:
             return redirect('/core/teams/{}'.format(request.session['team'].name))
 
@@ -165,12 +174,13 @@ class CreateTeamView(TemplateView):
         return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
     def post(self, request):
+        activate_language(request.session)
         team = Team.objects.create(name=request.POST['name'],
                                    logo=request.FILES['logo'],
                                    description=request.POST['description'])
         TeamRelationToUser.objects.create(team=team, user=request.user, is_coach=True)
         request.session['team'] = team.pk
-        request.session['alerts'] = [{'type': 'success', 'message': 'Team has been created!'}]
+        request.session['alerts'] = [{'type': 'success', 'message': _('Team has been created!')}]
         return redirect('/core/teams/{}'.format(team.name))
 
 
@@ -178,6 +188,7 @@ class CompetitionView(TemplateView):
     template_name = 'core/competition.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         competition = Competition.objects.get(pk=kwargs['pk'])
 
         members_count = competition.getCountUsers()
@@ -216,6 +227,7 @@ class CompetitionView(TemplateView):
 
 class CompetitionSignUpUser(View):
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         competition = Competition.objects.get(pk=data['competition_id'])
         CompetitionUser.objects.get_or_create(competition=competition,
@@ -226,6 +238,7 @@ class CompetitionSignUpUser(View):
 
 class CompetitionSignUpTeam(View):
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         try:
             competition = Competition.objects.get(pk=data['competition_id'])
@@ -240,6 +253,7 @@ class CompetitionSignUpTeam(View):
 
 class CompetitionSignOutUser(View):
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         competition = Competition.objects.get(pk=data['competition_id'])
         CompetitionUser.objects.filter(competition=competition,
@@ -250,6 +264,7 @@ class CompetitionSignOutUser(View):
 
 class CompetitionSignOutTeam(View):
     def post(self, request):
+        activate_language(request.session)
         data = json.loads(request.body.decode('utf-8'))
         try:
             competition = Competition.objects.get(pk=data['competition_id'])
@@ -266,10 +281,12 @@ class CreateCompetitionView(TemplateView):
     template_name = 'core/create_competition.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         widget = CompetitionSelectWidget()
         return render(request, self.template_name, {'widget': widget, 'types': Distance.TYPES, 'range': range(10)})
 
     def post(self, request):
+        activate_language(request.session)
         competition = Competition.objects.create(
             name=request.POST['name'],
             description=request.POST['description'],
@@ -296,6 +313,7 @@ class RegisterCompetitionView(TemplateView):
     template_name = 'core/register_on_competition.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         competition = Competition.objects.get(pk=kwargs['pk'])
         distances = Distance.objects.filter(competition=competition).all()
         return render(request, self.template_name, {'types': Distance.TYPES,
@@ -303,6 +321,7 @@ class RegisterCompetitionView(TemplateView):
                                                     'competition': competition})
 
     def post(self, request, *args, **kwargs):
+        activate_language(request.session)
         for x in range(10):
             time_name = 'time_{}'.format(x)
             if time_name in request.POST:
@@ -313,4 +332,13 @@ class RegisterCompetitionView(TemplateView):
                     time=request.POST[time_name]
                 )
 
+        return redirect('/')
+
+
+class ChangeLanguage(View):
+    def get(self, request, *args, **kwargs):
+        # next = request.environ['HTTP_REGERER'].split('/')[]
+        # print(next)
+        if 'language' in request.GET:
+            request.session['language'] = request.GET['language']
         return redirect('/')

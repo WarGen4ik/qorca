@@ -1,4 +1,5 @@
 {% extends 'core/index.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block slider %}
@@ -39,28 +40,28 @@
 
                 <!-- Start Profile -->
                 <div class="span4 profile">
-                    <label class="profile-description">Region: {{ competition.region }}</label>
-                    <label class="profile-description">Members count: {{ members_count }}</label>
-                    <label class="profile-description">Teams count: {{ teams_count }}</label>
-                    <label class="profile-description">Started at: {{ competition.started_at|default:"Empty" }}</label>
+                    <label class="profile-description">{% trans 'Region:' %} {{ competition.region }}</label>
+                    <label class="profile-description">{% trans 'Members count:' %} {{ members_count }}</label>
+                    <label class="profile-description">{% trans 'Teams count:' %} {{ teams_count }}</label>
+                    <label class="profile-description">{% trans 'Started at:' %} {{ competition.started_at }}</label>
 
                     <label id="curr-competition-id" style="visibility: hidden;">{{ competition.pk }}</label>
 
                     {% if can_signup.team and can_signup.is_coach %}
-                        <button id="signup-team-competition" type="button" class="button button-small">Register team</button>
+                        <button id="signup-team-competition" type="button" class="button button-small">{% trans 'Register team' %}</button>
                         {% elif can_signup.team == False and can_signup.is_coach %}
-                        <button id="signout-team-competition" type="button" class="button button-small">Unregister team</button>
+                        <button id="signout-team-competition" type="button" class="button button-small">{% trans 'Unregister team' %}</button>
                     {% endif %}
                     {% if can_signup.user == True %}
-                        <button id="signup-user-competition" type="button" class="button button-small">Register as single</button>
+                        <button id="signup-user-competition" type="button" class="button button-small">{% trans 'Register as single' %}</button>
                         {% elif can_signup.team == None or can_signup.team and can_signup.user == False %}
-                        <button id="signout-user-competition" type="button" class="button button-small">Unregister as single</button>
+                        <button id="signout-user-competition" type="button" class="button button-small">{% trans 'Unregister as single' %}</button>
                     {% endif %}
                 </div>
 
                 <div class="span4 profile">
 
-                    <h3 class="spec">Description</h3>
+                    <h3 class="spec">{% trans 'Description' %}</h3>
 
                     <div class="info-block">
                         <div class="info-text competition-description">
@@ -77,12 +78,12 @@
                         {% for distance in distances %}
 
                             <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;">
-                                <h4 style="margin: 0;"><b>Distance №{{ forloop.counter0|add:1 }}</b></h4>
-                                <label for="id-length-{{ forloop.counter0 }}">Length</label>
+                                <h4 style="margin: 0;"><b>{% trans 'Distance' %} №{{ forloop.counter0|add:1 }}</b></h4>
+                                <label for="id-length-{{ forloop.counter0 }}">{% trans 'Distance length' %}</label>
                                 <input type="text" id="id-length-{{ forloop.counter0 }}" value="{{ distance.length }}"
                                        disabled>
                                 <input hidden name="distance_id_{{ forloop.counter0 }}" value="{{ distance.pk }}">
-                                <label for="id-type-{{ forloop.counter0 }}">Distance type</label>
+                                <label for="id-type-{{ forloop.counter0 }}">{% trans 'Distance type' %}</label>
                                 <select id="id-type-{{ forloop.counter0 }}" disabled>
                                     {% for type in types %}
                                         <option value="{{ type.0 }}"

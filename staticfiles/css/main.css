@@ -1551,6 +1551,7 @@ footer {
 .distances-competition li,
 .distances li {
 	margin-right: 40px;
+	display: inline-block;
 }
 
 .alerts {
@@ -1567,3 +1568,19 @@ footer {
 .distances-competition li {
 	display: inline-block;
 }
+
+#language-select {
+	background-color: #26292E;
+	border: none;
+	width: 50px;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	color: #FFFFFF;
+	display: block;
+	margin: 0 auto;
+	text-transform: uppercase;
+}
+
+
+/*.menu-nav > ul > li > form*/

@@ -4,23 +4,28 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
+from django.utils.translation import gettext as _
+from django.utils import translation
 
 from auth_main.models import User, Profile
 from core.models import TeamRelationToUser, Invitations
-from core.utils import get_session_attributes
+from core.utils import get_session_attributes, activate_language
 
 
 class RegisterView(TemplateView):
     template_name = 'auth_main/signup.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        activate_language(request.session)
+        return render(request, self.template_name, get_session_attributes(request))
 
     def post(self, request):
+        activate_language(request.session)
         if request.POST['psw'] == request.POST['psw-repeat']:
             try:
                 get_object_or_404(User, email=request.POST['email'])
-                return render(request, self.template_name, {'error': 'User with this email is already exist.'})
+                opt = {'error': _('User with this email is already exist.')}
+                return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
             except Http404:
                 pass
             user = User.objects.create_user(request.POST['email'],
@@ -30,25 +35,28 @@ class RegisterView(TemplateView):
                                             )
             Profile.objects.create(user=user, city=request.POST['city'])
             login(request, user)
-            request.session['alerts'] = [{'type': 'success', 'message': 'You have been registered successful.'}]
+            request.session['alerts'] = [{'type': 'success', 'message': _('You have been registered successful.')}]
             return redirect('/')
-
-        return render(request, self.template_name, {'error': 'Passwords are not equal each other.'})
+        opt = {'error': _('Passwords are not equal each other.')}
+        return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
 
 class LoginView(TemplateView):
     template_name = 'auth_main/signin.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
+        opt = get_session_attributes(request)
         try:
             next = request.environ['QUERY_STRING'].split('=')[1]
             if next:
                 request.session['next'] = next
         except:
             pass
-        return render(request, self.template_name)
+        return render(request, self.template_name, opt)
 
     def post(self, request):
+        activate_language(request.session)
         user = authenticate(email=request.POST['email'], password=request.POST['psw'])
         if user is not None:
             login(request, user)
@@ -59,14 +67,16 @@ class LoginView(TemplateView):
                 pass
 
             if 'next' in request.session:
+                del request.session['next']
                 return redirect(request.session['next'])
 
             return redirect('/')
-        return render(request, self.template_name)
+        return redirect('/auth/login')
 
 
 class LogoutView(TemplateView):
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         logout(request)
         return redirect('/')
 
@@ -75,6 +85,7 @@ class ProfileView(TemplateView):
     template_name = 'auth_main/profile.html'
 
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         if request.user.is_authenticated:
             teams_rel_user = None
             try:
@@ -91,6 +102,7 @@ class ProfileView(TemplateView):
             return redirect('/auth/login')
 
     def post(self, request):
+        activate_language(request.session)
         if request.user.is_authenticated:
             if 'city' in request.POST:
                 data = dict()
@@ -99,7 +111,8 @@ class ProfileView(TemplateView):
                 try:
                     request.user.profile.update_data(**data)
                 except ValueError:
-                    return render(request, self.template_name, {'error': 'Wrong date format'})
+                    opt = {'error': _('Wrong date format')}
+                    return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
                 return redirect('/auth/profile')
             else:

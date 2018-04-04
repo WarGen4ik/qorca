@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from core.models import Competition, Distance
 
@@ -13,4 +14,6 @@ class CompetitionSelectWidget(forms.Form):
         widget=forms.RadioSelect,
         choices=Competition.REGIONS,
     )
+    region.label = _('Region')
+    tracks_count.label = _('Count tracks')
 

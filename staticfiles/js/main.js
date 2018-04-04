@@ -788,3 +788,7 @@ $("#count-distances").change(function () {
         }
     }
 });
+
+$("#language-select").change(function () {
+    $("#language-form").submit();
+});

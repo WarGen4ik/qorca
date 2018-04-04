@@ -1,0 +1,582 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qorca 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-03 21:40+0300\n"
+"PO-Revision-Date: 2018-04-03 22:20+0300\n"
+"Language: ua\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: auth_main/models.py:50 auth_main/templates/auth_main/signin.html:25
+#: auth_main/templates/auth_main/signup.html:25
+msgid "Email"
+msgstr "Пошта"
+
+#: auth_main/models.py:55 auth_main/templates/auth_main/signup.html:28
+#: auth_main/templates/auth_main/signup.html:29
+msgid "First name"
+msgstr "Ім'я"
+
+#: auth_main/models.py:59 auth_main/templates/auth_main/signup.html:31
+#: auth_main/templates/auth_main/signup.html:32
+msgid "Last name"
+msgstr "Прізвище"
+
+#: auth_main/models.py:62 core/models.py:16 core/models.py:42 core/models.py:72
+#: core/models.py:102 core/models.py:108
+msgid "Created at"
+msgstr "Створено"
+
+#: auth_main/models.py:63
+msgid "Is active user"
+msgstr "Активний користувач"
+
+#: auth_main/models.py:64
+msgid "Administrator"
+msgstr "Адміністратор"
+
+#: auth_main/models.py:98
+msgid "User"
+msgstr "Користувач"
+
+#: auth_main/models.py:99
+msgid "Users"
+msgstr "Користувачі"
+
+#: auth_main/models.py:104
+msgid "Avatar"
+msgstr "Аватар"
+
+#: auth_main/models.py:106 auth_main/templates/auth_main/profile.html:69
+#: qorca/views.py:12
+msgid "male"
+msgstr "чоловік"
+
+#: auth_main/models.py:107 auth_main/templates/auth_main/profile.html:73
+#: qorca/views.py:12
+msgid "female"
+msgstr "жінка"
+
+#: auth_main/models.py:110
+msgid "Gender"
+msgstr "Стать"
+
+#: auth_main/models.py:111
+msgid "Phone number"
+msgstr "Номер телефону"
+
+#: auth_main/models.py:112
+msgid "Birth date"
+msgstr "Дата народження"
+
+#: auth_main/models.py:113 auth_main/templates/auth_main/signup.html:34
+#: auth_main/templates/auth_main/signup.html:35
+msgid "City"
+msgstr "Місто"
+
+#: auth_main/models.py:116
+msgid "user"
+msgstr "користувач"
+
+#: auth_main/models.py:117
+msgid "manager"
+msgstr "менеджер"
+
+#: auth_main/models.py:119
+msgid "Role"
+msgstr "Роль"
+
+#: auth_main/templates/auth_main/profile.html:24
+#: core/templates/core/nav.html:21 core/templates/core/nav.html:23
+#: core/templates/core/user_profile.html:25
+msgid "Profile"
+msgstr "Профіль"
+
+#: auth_main/templates/auth_main/profile.html:39
+#: core/templates/core/index.html:147 core/templates/core/team.html:39
+msgid "Change photo"
+msgstr "Змінити фото"
+
+#: auth_main/templates/auth_main/profile.html:63
+#: core/templates/core/index.html:156 core/templates/core/user_profile.html:45
+msgid "City:"
+msgstr "Місто:"
+
+#: auth_main/templates/auth_main/profile.html:65
+#: core/templates/core/index.html:157 core/templates/core/user_profile.html:46
+msgid "Gender:"
+msgstr "Стать:"
+
+#: auth_main/templates/auth_main/profile.html:76
+#: core/templates/core/index.html:158 core/templates/core/user_profile.html:47
+msgid "Phone number:"
+msgstr "Номер телефону:"
+
+#: auth_main/templates/auth_main/profile.html:78
+#: core/templates/core/index.html:159 core/templates/core/user_profile.html:48
+msgid "Birth date:"
+msgstr "Дата народження"
+
+#: auth_main/templates/auth_main/profile.html:80
+msgid "Update"
+msgstr "Змінити"
+
+#: auth_main/templates/auth_main/profile.html:84
+msgid "My team"
+msgstr "Моя команда"
+
+#: auth_main/templates/auth_main/profile.html:88
+#: core/templates/core/user_profile.html:54
+msgid "Download badge"
+msgstr "Скачати бейдж"
+
+#: auth_main/templates/auth_main/profile.html:93
+msgid "Invitations to teams"
+msgstr "Запрошення в команду"
+
+#: auth_main/templates/auth_main/profile.html:101
+msgid "ACCEPT"
+msgstr "ПРИЙНяТИ"
+
+#: auth_main/templates/auth_main/profile.html:102
+msgid "DECLINE"
+msgstr "ВІДХИЛИТИ"
+
+#: auth_main/templates/auth_main/profile.html:106
+msgid "You have no invitations yet"
+msgstr "У вас поки що нема запрошень"
+
+#: auth_main/templates/auth_main/signin.html:21 core/templates/core/nav.html:35
+msgid "Sign in"
+msgstr "Вхід"
+
+#: auth_main/templates/auth_main/signin.html:22
+msgid "Please fill in this form to sign in."
+msgstr "Будь ласка, заповніть дану форму для входу."
+
+#: auth_main/templates/auth_main/signin.html:26
+#: auth_main/templates/auth_main/signup.html:26
+msgid "Enter Email"
+msgstr "Введіть пошту"
+
+#: auth_main/templates/auth_main/signin.html:28
+#: auth_main/templates/auth_main/signup.html:37
+msgid "Password"
+msgstr "Пароль"
+
+#: auth_main/templates/auth_main/signin.html:29
+#: auth_main/templates/auth_main/signup.html:38
+msgid "Enter Password"
+msgstr "Введіть пароль"
+
+#: auth_main/templates/auth_main/signin.html:32
+#: auth_main/templates/auth_main/signup.html:44
+msgid "Remember me"
+msgstr "Запам'ятати мене"
+
+#: auth_main/templates/auth_main/signin.html:36
+#: auth_main/templates/auth_main/signup.html:50
+#: core/templates/core/create-team.html:35
+#: core/templates/core/create_competition.html:62
+#: core/templates/core/register_on_competition.html:56
+msgid "Back"
+msgstr "Назад"
+
+#: auth_main/templates/auth_main/signin.html:37
+msgid "Sign In"
+msgstr "Вхід"
+
+#: auth_main/templates/auth_main/signup.html:21
+msgid "Sign Up"
+msgstr "Реєстрація"
+
+#: auth_main/templates/auth_main/signup.html:22
+msgid "Please fill in this form to create an account."
+msgstr "Будь ласка, заповніть дану форму, щоб зареєструватись."
+
+#: auth_main/templates/auth_main/signup.html:40
+#: auth_main/templates/auth_main/signup.html:41
+msgid "Repeat Password"
+msgstr "Повторіть пароль"
+
+#: auth_main/templates/auth_main/signup.html:47
+msgid "By creating an account you agree to our"
+msgstr "При реєстраціїї ви погоджуєтесь з "
+
+#: auth_main/templates/auth_main/signup.html:47
+msgid "Terms & Privacy"
+msgstr "Правилами і політикой конфіденційності"
+
+#: auth_main/templates/auth_main/signup.html:51 core/templates/core/nav.html:34
+msgid "Sign up"
+msgstr "Реєстрація"
+
+#: auth_main/templates/auth_main/signup.html:57
+#: core/templates/core/create-team.html:42
+msgid "Success"
+msgstr "Успіх"
+
+#: auth_main/views.py:24
+msgid "User with this email is already exist."
+msgstr "Користувач з даною поштою вже зареєстрований."
+
+#: auth_main/views.py:34
+msgid "You have been registered successful."
+msgstr "Ви були успішно зареєстровані."
+
+#: auth_main/views.py:37
+msgid "Passwords are not equal each other."
+msgstr "Паролі не співпадають."
+
+#: auth_main/views.py:104
+msgid "Wrong date format"
+msgstr "Невірний формат дати"
+
+#: core/models.py:13
+msgid "Team name"
+msgstr "Назва команди"
+
+#: core/models.py:14 core/models.py:68 core/templates/core/create-team.html:28
+#: core/templates/core/create_competition.html:43
+msgid "Logo"
+msgstr "Логотип"
+
+#: core/models.py:15 core/models.py:67 core/templates/core/competition.html:64
+#: core/templates/core/create-team.html:31
+#: core/templates/core/create_competition.html:58
+msgid "Description"
+msgstr "Опис"
+
+#: core/models.py:31
+msgid "Is coach"
+msgstr "Тренер"
+
+#: core/models.py:41
+msgid "Is active invitation"
+msgstr "Активне запрошення"
+
+#: core/models.py:50 core/templates/core/index.html:75
+msgid "World"
+msgstr "Світ"
+
+#: core/models.py:51 core/templates/core/index.html:77
+msgid "Europe"
+msgstr "Європа"
+
+#: core/models.py:52 core/templates/core/index.html:76
+#: core/templates/core/index.html:209
+msgid "Ukraine"
+msgstr "Україна"
+
+#: core/models.py:66
+msgid "Competition name"
+msgstr "Назва змагання"
+
+#: core/models.py:69
+msgid "Region"
+msgstr "Регіон"
+
+#: core/models.py:70
+msgid "Count tracks"
+msgstr "Кількість доріжок"
+
+#: core/models.py:71 core/templates/core/create_competition.html:40
+msgid "Started at"
+msgstr "Початок"
+
+#: core/models.py:113
+msgid "Freestyle"
+msgstr "Вільний стиль"
+
+#: core/models.py:114
+msgid "Butterfly"
+msgstr "Баттерфлай"
+
+#: core/models.py:115
+msgid "Backstroke"
+msgstr "На спині"
+
+#: core/models.py:116
+msgid "Breaststroke"
+msgstr "Брас"
+
+#: core/models.py:117
+msgid "Dolphin kick"
+msgstr "Комплексне плавання"
+
+#: core/models.py:121 core/templates/core/competition.html:86
+#: core/templates/core/create_competition.html:81
+#: core/templates/core/register_on_competition.html:39
+msgid "Distance type"
+msgstr "Тип дистанції"
+
+#: core/models.py:122 core/templates/core/competition.html:82
+#: core/templates/core/create_competition.html:79
+#: core/templates/core/register_on_competition.html:35
+msgid "Distance length"
+msgstr "Довжина дистанції"
+
+#: core/models.py:131
+msgid "Time for distance"
+msgstr "Час для дистанції"
+
+#: core/templates/core/base.html:16
+msgid "Qorca - fast and shtoto tam competitions"
+msgstr "Q-Orca - швидкі і шось то там змагання"
+
+#: core/templates/core/competition.html:43
+msgid "Region:"
+msgstr "Регіон:"
+
+#: core/templates/core/competition.html:44
+msgid "Members count:"
+msgstr "Кількість учасників:"
+
+#: core/templates/core/competition.html:45
+msgid "Teams count:"
+msgstr "Кількість команд:"
+
+#: core/templates/core/competition.html:46
+msgid "Started at:"
+msgstr "Початок:"
+
+#: core/templates/core/competition.html:51
+msgid "Register team"
+msgstr "Зареєструвати команду"
+
+#: core/templates/core/competition.html:53
+msgid "Unregister team"
+msgstr "Відреєструвати команду"
+
+#: core/templates/core/competition.html:56
+msgid "Register as single"
+msgstr "Зареєструватись особисто"
+
+#: core/templates/core/competition.html:58
+msgid "Unregister as single"
+msgstr "Відреєструватись особисто"
+
+#: core/templates/core/competition.html:81
+#: core/templates/core/create_competition.html:78
+#: core/templates/core/register_on_competition.html:34
+msgid "Distance"
+msgstr "Дистанція"
+
+#: core/templates/core/create-team.html:21
+msgid "Create team"
+msgstr "Створити команду"
+
+#: core/templates/core/create-team.html:22
+msgid "Please fill in this form to create a team."
+msgstr "Будь ласка, заповніть дану форму, щоб створити команду."
+
+#: core/templates/core/create-team.html:25
+#: core/templates/core/create_competition.html:37
+#: core/templates/core/userlist.html:43
+msgid "Name"
+msgstr "Назва"
+
+#: core/templates/core/create-team.html:26
+msgid "Enter team name"
+msgstr "Введіть назву команди"
+
+#: core/templates/core/create-team.html:36
+#: core/templates/core/create_competition.html:63
+msgid "Create"
+msgstr "Створити"
+
+#: core/templates/core/create_competition.html:24
+#: core/templates/core/nav.html:18
+msgid "Create competition"
+msgstr "Створити змагання"
+
+#: core/templates/core/create_competition.html:25
+msgid "Please fill this form to create a competition"
+msgstr "Будь ласка, заповніть дану форму, щоб створити змагання."
+
+#: core/templates/core/create_competition.html:38
+msgid "Enter competition title"
+msgstr "Введіть назву змагання"
+
+#: core/templates/core/create_competition.html:51
+msgid "Count distances"
+msgstr "Кількість дистанцій"
+
+#: core/templates/core/index.html:61 core/templates/core/nav.html:9
+#: core/templates/core/nav.html:13
+msgid "Competitions"
+msgstr "Змагання"
+
+#: core/templates/core/index.html:62
+msgid "Check out all competitions here."
+msgstr "Переглянути всі змагання можна тут."
+
+#: core/templates/core/index.html:74
+msgid "Type of Competitions"
+msgstr "Тип змагання"
+
+#: core/templates/core/index.html:105
+msgid "There is no available competitions in this section :("
+msgstr "У данній секції немає змагань :("
+
+#: core/templates/core/index.html:131
+msgid "Your profile"
+msgstr "Ваш профіль"
+
+#: core/templates/core/index.html:178
+msgid "Full Name"
+msgstr "Повне ім'я"
+
+#: core/templates/core/index.html:182
+msgid "Email Address"
+msgstr "Електронна пошта"
+
+#: core/templates/core/index.html:186
+msgid "Your Message"
+msgstr "Ваше повідомлення"
+
+#: core/templates/core/index.html:190
+msgid "Send Your Email"
+msgstr "Відправити Ваше повідомлення"
+
+#: core/templates/core/index.html:202
+msgid "Contact Details"
+msgstr "Контакти"
+
+#: core/templates/core/index.html:207
+msgid "Poltava National Technical University"
+msgstr "Полтавськи національний технічний університет"
+
+#: core/templates/core/nav.html:8 core/templates/core/nav.html:12
+msgid "Home"
+msgstr "Головна"
+
+#: core/templates/core/nav.html:10 core/templates/core/nav.html:14
+msgid "Contact"
+msgstr "Контакти"
+
+#: core/templates/core/nav.html:27
+msgid "Team"
+msgstr "Команда"
+
+#: core/templates/core/nav.html:30
+msgid "Create Team"
+msgstr "Створити команду"
+
+#: core/templates/core/nav.html:32
+msgid "Logout"
+msgstr "Вийти"
+
+#: core/templates/core/register_on_competition.html:20
+msgid "Register on competition"
+msgstr "Зареєструватись на змагання"
+
+#: core/templates/core/register_on_competition.html:21
+msgid "Please fill this form to register on competition."
+msgstr "Будь ласка, заповніть дану форму, щоб зареєструватись на змагання."
+
+#: core/templates/core/register_on_competition.html:48
+msgid "Prediction time"
+msgstr "Очікуваний час"
+
+#: core/templates/core/register_on_competition.html:57
+msgid "Register"
+msgstr "Реєстрація"
+
+#: core/templates/core/team.html:52 core/templates/core/team.html:68
+msgid "Team name:"
+msgstr "Назва команди:"
+
+#: core/templates/core/team.html:55 core/templates/core/team.html:69
+msgid "Count members:"
+msgstr "Кількість учасників:"
+
+#: core/templates/core/team.html:56 core/templates/core/team.html:70
+msgid "Count competitions:"
+msgstr "Кількість змагань:"
+
+#: core/templates/core/team.html:57 core/templates/core/team.html:71
+msgid "Created at:"
+msgstr "Створено:"
+
+#: core/templates/core/team.html:59 core/templates/core/team.html:72
+msgid "Description:"
+msgstr "Опис:"
+
+#: core/templates/core/team.html:62
+msgid "Save"
+msgstr "Зберегти"
+
+#: core/templates/core/team.html:65
+msgid "Find new members"
+msgstr "Знайти учасників"
+
+#: core/templates/core/team.html:80
+msgid "Members"
+msgstr "Учасники"
+
+#: core/templates/core/team.html:89
+msgid "KICK"
+msgstr "ВИГНАТИ"
+
+#: core/templates/core/user_profile.html:51
+msgid "Send invitation"
+msgstr "Відправити запрошення"
+
+#: core/templates/core/userlist.html:24
+msgid "User list"
+msgstr "Список користувачів"
+
+#: core/templates/core/userlist.html:25
+msgid "User Search"
+msgstr "Пошук користувачів"
+
+#: core/templates/core/userlist.html:27
+msgid "Find user"
+msgstr "Знайти користувача"
+
+#: core/templates/core/userlist.html:30
+msgid "Search"
+msgstr "Знайти"
+
+#: core/templates/core/userlist.html:44
+msgid "Location"
+msgstr "Місто"
+
+#: core/templates/core/userlist.html:60
+msgid "first"
+msgstr "перша"
+
+#: core/templates/core/userlist.html:61
+msgid "previous"
+msgstr "попередня"
+
+#: core/templates/core/userlist.html:66
+msgid "Page"
+msgstr "Сторінка"
+
+#: core/templates/core/userlist.html:66
+msgid "of"
+msgstr "з"
+
+#: core/templates/core/userlist.html:71
+msgid "next"
+msgstr "наступна"
+
+#: core/templates/core/userlist.html:72
+msgid "last"
+msgstr "остання"
+
+#: core/views.py:174
+msgid "Team has been created!"
+msgstr "Команду було створено!"
