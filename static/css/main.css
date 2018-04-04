@@ -28,7 +28,7 @@ body{
 	color:#7F8289;
 	font-weight:300;
 	font-size:16px;
-	font-family: 'Titillium Web', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	line-height:28px;
 }
 
@@ -113,7 +113,7 @@ hr {
 
 input, button, select, textarea {
 	font-weight: 300;
-	font-family: 'Titillium Web', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	outline: 0;
 }
 
@@ -205,7 +205,7 @@ h6{
 	margin:0 0 20px 0;
 	color:#FFFFFF;
 	font-weight:300;
-	font-family: 'Titillium Web', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	line-height:1.5em;
 }
 
@@ -240,6 +240,7 @@ h3.spec {
     line-height: 1em;
     margin-bottom: 30px;
     text-transform: uppercase;
+	text-align: center;
 }
 
 
@@ -544,7 +545,7 @@ nav#menu #menu-nav li:first-child {
 
 nav#menu #menu-nav li a {
 	color: #FFFFFF;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 300;
 	line-height: 60px;
 	display: block;
@@ -760,7 +761,7 @@ nav#menu #menu-nav li a:hover {
 
 .item-thumbs .hover-wrap .overlay-img-thumb {
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	margin: -16px 0 0 -16px;
 	color: #FFFFFF;
@@ -1404,3 +1405,182 @@ footer .credits {
 .th_first {
 	text-align: left;
 }
+
+.invitations .button-accept {
+	background-color: darkgreen;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+	color: whitesmoke;
+	font-weight: bold;
+	margin-left:10px;
+}
+
+.invitations .button-decline {
+	background-color: darkred;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+	color: whitesmoke;
+	font-weight: bold;
+	margin-left:10px;
+}
+
+.invitations .button-accept:hover {
+	background-color: #009600;
+}
+.invitations .button-decline:hover {
+	background-color: red;
+}
+
+.info-block {
+	border: none;
+}
+
+.teams {
+	clear: both;
+	float: left;
+	border: 1px solid darkred;
+	margin: 2%;
+	width: 45%;
+	text-align: center;
+}
+
+.info-text {
+	padding-right: inherit;
+}
+
+.info-text > p{
+	text-align: center;
+}
+
+.team {
+	text-align: left;
+	padding-right: 3%;
+	font-size: 15pt;
+}
+
+.member {
+	text-align: left;
+}
+
+.button-small{
+	padding: 5px;
+	/*width: 60px;*/
+}
+
+.last-page,
+.first-page{
+	width: 70px;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+}
+
+.pagination > .current {
+	width: 90px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.logo-input {
+	margin-bottom: 10px;
+}
+
+.textarea-team {
+	min-width: 20%;
+	min-height: 40pt;
+}
+
+.no-competitions {
+	border: 1px solid red;
+}
+
+.competition-description {
+	padding: 0;
+}
+
+.current {
+	color: #DE5E60;
+}
+
+#input-find-user {
+	background-image: url('/static/img/searchicon.png'); /* Add a search icon to input */
+	background-position: 10px 12px; /* Position the search icon */
+	/*background-repeat: no-repeat; !* Do not repeat the icon image *!*/
+	/*width: 100%; !* Full-width *!*/
+	font-size: 16px; /* Increase font-size */
+	/*padding: 12px 20px 12px 40px; !* Add some padding *!*/
+	/*border: 1px solid #ddd; !* Add a grey border *!*/
+	margin-bottom: 0; /* Add some space below the input */
+}
+
+.button-very-small {
+	padding: 5px;=
+}
+
+.search-div {
+	margin-bottom: 10px;
+}
+
+footer {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    width: 100%; /* Ширина слоя */
+}
+
+.page-alternate {
+	padding-bottom: 30%;
+}
+
+.profile ul {
+	list-style-type: none;
+}
+
+.distances {
+	width: 60%;
+}
+
+.distances-competition ul,
+.distances ul{
+	margin: 0;
+}
+
+.distances-competition li,
+.distances li {
+	margin-right: 40px;
+	display: inline-block;
+}
+
+.alerts {
+	background: #26292E;
+	z-index: 99;
+	position: relative;
+	padding: 50px;
+}
+
+.distances-competition {
+	width: 100%;
+}
+
+.distances-competition li {
+	display: inline-block;
+}
+
+#language-select {
+	background-color: #26292E;
+	border: none;
+	width: 50px;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	color: #FFFFFF;
+	display: block;
+	margin: 0 auto;
+	text-transform: uppercase;
+}
+
+
+/*.menu-nav > ul > li > form*/
