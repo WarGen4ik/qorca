@@ -3,7 +3,7 @@ from django.utils import translation
 from django.utils.translation import gettext as _
 
 from core.models import Competition
-from core.utils import get_session_attributes, activate_language
+from core.utils import get_session_attributes, activate_language, get_age_group
 
 
 def main(request, *args, **kwargs):
@@ -13,6 +13,7 @@ def main(request, *args, **kwargs):
     opt['competitions'] = competitions
     if request.user.is_authenticated:
         opt.update({'gender': _('male') if request.user.profile.gender == 1 else _('female')})
+        request.user.profile.get_age_group()
         return render(request, 'core/index.html', dict(opt, **get_session_attributes(request)))
     else:
         return render(request, 'core/index.html', dict(opt, **get_session_attributes(request)))

@@ -77,7 +77,11 @@ class DownloadBadge(View):
     def get(self, request, *args, **kwargs):
         activate_language(request.session)
         user = User.objects.get(pk=kwargs['pk'])
-        badge_path = getBadge(user.profile.avatar.url, user.get_full_name(), user.pk)
+        try:
+            team = TeamRelationToUser.objects.get(user=user).team.name
+        except:
+            team = 'Single'
+        badge_path = getBadge(user.profile.avatar.url, user.get_full_name(), user, team)
         file_wrapper = FileWrapper(open(badge_path, 'rb'))
         file_mimetype = mimetypes.guess_type(badge_path)
         response = HttpResponse(file_wrapper, content_type=file_mimetype)

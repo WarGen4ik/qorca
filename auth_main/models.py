@@ -1,5 +1,6 @@
 import datetime
 
+import math
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -128,6 +129,19 @@ class Profile(models.Model):
         self.city = kwargs.get('city', self.city)
         self.avatar = kwargs.get('avatar', self.avatar)
         self.save()
+
+    def get_age_group(self):
+        try:
+            born = self.birth_date
+            today = datetime.date.today()
+            age = today.year - born.year - ((today.month, today.day) < (born.month, born.day)) - 25
+            if age < 0:
+                return None
+            groups = 'ABCDEFGHIJKLMN'
+            age_group = groups[math.floor(age / 5)]
+            return age_group
+        except:
+            return None
 
     def __str__(self):
         return self.user.email
