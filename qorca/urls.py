@@ -23,6 +23,7 @@ from django.views.generic import RedirectView
 from . import views
 
 urlpatterns = [
+    url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.main),
     url(r'^auth/', include('auth_main.urls')),
