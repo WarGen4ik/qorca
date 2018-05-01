@@ -95,6 +95,31 @@ class Competition(models.Model):
     def getDistances(self):
         return Distance.objects.filter(competition=self).all()
 
+    def canUserRegister(self, user):
+        if not CompetitionUser.objects.filter(user=user, competition=self).exists():
+            team = TeamRelationToUser.objects.filter(user=user).first()
+            if team:
+                if not CompetitionTeam.objects.filter(team=team.team, competition=self).exists():
+                    return 1
+            else:
+                return 1
+        else:
+            return -1
+
+        return 0
+
+    def canTeamRegister(self, team, user):
+        team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
+        if team_rel_user.is_coach:
+            if not CompetitionTeam.objects.filter(team=team, competition=self).exists():
+                team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
+                if team_rel_user.is_coach:
+                    return 1
+            else:
+                return -1
+
+        return 0
+
 
 class CompetitionUser(models.Model):
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
@@ -128,4 +153,4 @@ class Distance(models.Model):
 class UserDistance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE)
-    time = models.TimeField(_('Time for distance'), )
+    time = models.IntegerField(_('Time for distance'), )

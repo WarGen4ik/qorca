@@ -201,18 +201,16 @@ class CompetitionView(TemplateView):
 
         if request.user.is_authenticated:
             can_signup = dict()
-            can_signup['user'] = not CompetitionUser.objects.filter(user=request.user, competition=competition).exists()
+
+            can_signup['user'] = competition.canUserRegister(request.user)
             if 'team' in request.session:
-                can_signup['team'] = not CompetitionTeam.objects.filter(team__pk=request.session['team'],
-                                                                        competition=competition).exists()
-
-                if not can_signup['team']:
-                    can_signup['user'] = 5
-
-                can_signup['is_coach'] = TeamRelationToUser.objects.filter(user=request.user,
-                                                                           is_coach=True).exists()
+                can_signup['team'] = competition.canTeamRegister(Team.objects.filter(pk=request.session['team']).first(), request.user)
             else:
-                can_signup['team'] = False
+                team = TeamRelationToUser.objects.filter(user=request.user).first()
+                if team:
+                    can_signup['team'] = competition.canTeamRegister(team, request.user)
+                else:
+                    can_signup['team'] = 0
 
             opt = {'competition': competition,
                    'members_count': members_count,
@@ -227,58 +225,6 @@ class CompetitionView(TemplateView):
                                                     'teams_count': teams_count,
                                                     'distances': distances,
                                                     'types': Distance.TYPES})
-
-
-class CompetitionSignUpUser(View):
-    def post(self, request):
-        activate_language(request.session)
-        data = json.loads(request.body.decode('utf-8'))
-        competition = Competition.objects.get(pk=data['competition_id'])
-        CompetitionUser.objects.get_or_create(competition=competition,
-                                              user=request.user)
-
-        return HttpResponse(200)
-
-
-class CompetitionSignUpTeam(View):
-    def post(self, request):
-        activate_language(request.session)
-        data = json.loads(request.body.decode('utf-8'))
-        try:
-            competition = Competition.objects.get(pk=data['competition_id'])
-            team = TeamRelationToUser.objects.get(user=request.user, is_coach=True).team
-            CompetitionTeam.objects.get_or_create(competition=competition,
-                                                  team=team)
-        except:
-            return HttpResponse(400)
-
-        return HttpResponse(200)
-
-
-class CompetitionSignOutUser(View):
-    def post(self, request):
-        activate_language(request.session)
-        data = json.loads(request.body.decode('utf-8'))
-        competition = Competition.objects.get(pk=data['competition_id'])
-        CompetitionUser.objects.filter(competition=competition,
-                                       user=request.user).delete()
-
-        return HttpResponse(200)
-
-
-class CompetitionSignOutTeam(View):
-    def post(self, request):
-        activate_language(request.session)
-        data = json.loads(request.body.decode('utf-8'))
-        try:
-            competition = Competition.objects.get(pk=data['competition_id'])
-            team = TeamRelationToUser.objects.get(user=request.user, is_coach=True).team
-            CompetitionTeam.objects.filter(competition=competition,
-                                           team=team).delete()
-        except:
-            return HttpResponse(400)
-
-        return HttpResponse(200)
 
 
 class CreateCompetitionView(TemplateView):
@@ -319,30 +265,123 @@ class RegisterCompetitionView(TemplateView):
     def get(self, request, *args, **kwargs):
         activate_language(request.session)
         competition = Competition.objects.get(pk=kwargs['pk'])
-        distances = Distance.objects.filter(competition=competition).all()
-        return render(request, self.template_name, {'types': Distance.TYPES,
-                                                    'distances': distances,
-                                                    'competition': competition})
+        if competition.canUserRegister(request.user) == 1:
+            distances = Distance.objects.filter(competition=competition).all()
+            return render(request, self.template_name, {'types': Distance.TYPES,
+                                                        'distances': distances,
+                                                        'competition': competition})
+
+        request.session['alerts'] = [
+            {'type': 'error', 'message': _('You cannot register on this competition')}]
+
+        return redirect('/')
 
     def post(self, request, *args, **kwargs):
         activate_language(request.session)
-        for x in range(10):
-            time_name = 'time_{}'.format(x)
-            if time_name in request.POST:
-                distance = Distance.objects.get(pk=request.POST['distance_id_{}'.format(x)])
-                UserDistance.objects.create(
-                    distance=distance,
-                    user=request.user,
-                    time=request.POST[time_name]
-                )
+        if request.user.is_authenticated:
+            competition = Competition.objects.get(pk=kwargs['pk'])
+            if competition.canUserRegister(request.user) == 1:
+                for x in range(10):
+                    time_name = 'time_{}'.format(x)
+                    if time_name in request.POST:
+                        distance = Distance.objects.get(pk=request.POST['distance_id_{}'.format(x)])
+                        UserDistance.objects.create(
+                            distance=distance,
+                            user=request.user,
+                            time=request.POST[time_name]
+                        )
+                CompetitionUser.objects.create(user=request.user, competition=Competition.objects.get(pk=kwargs['pk']))
+                request.session['alerts'] = [{'type': 'success', 'message': _('You have been registrated successful!')}]
+            else:
+                request.session['alerts'] = [{'type': 'error', 'message': _('You have been already registrated on this competition!')}]
+
+        return redirect('/')
+
+
+class UnregisterCompetitionView(View):
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            competition = Competition.objects.get(pk=kwargs['pk'])
+            if competition.canUserRegister(request.user) == -1:
+                CompetitionUser.objects.get(user=request.user, competition=competition).delete()
+                for distance in Distance.objects.filter(competition=competition).all():
+                    UserDistance.objects.filter(user=request.user, distance=distance).delete()
+            request.session['alerts'] = [{'type': 'success', 'message': _('You have been unregistrated successful!')}]
+
+        return redirect('/')
+
+
+class TeamRegisterCompetitionView(TemplateView):
+    template_name = 'core/team_register_on_competition.html'
+
+    def get(self, request, *args, **kwargs):
+        activate_language(request.session)
+        competition = Competition.objects.get(pk=kwargs['pk'])
+        if 'team' in request.session:
+            team = Team.objects.filter(pk=request.session['team']).first()
+        else:
+            team = TeamRelationToUser.objects.get(user=request.user).team
+        if competition.canTeamRegister(team, request.user) == 1:
+            users = TeamRelationToUser.objects.filter(team=team).all()
+            distances = Distance.objects.filter(competition=competition).all()
+            return render(request, self.template_name, {'types': Distance.TYPES,
+                                                        'distances': distances,
+                                                        'competition': competition,
+                                                        'users': users})
+
+        request.session['alerts'] = [
+            {'type': 'error', 'message': _('You cannot register team on this competition')}]
+
+        return redirect('/')
+
+    def post(self, request, *args, **kwargs):
+        activate_language(request.session)
+        if request.user.is_authenticated:
+            competition = Competition.objects.get(pk=kwargs['pk'])
+            if 'team' in request.session:
+                team = Team.objects.filter(pk=request.session['team']).first()
+            else:
+                team = TeamRelationToUser.objects.get(user=request.user).team
+            if competition.canTeamRegister(team, request.user) == 1:
+                users = TeamRelationToUser.objects.filter(team=team).all()
+                for user in users:
+                    for x in range(10):
+                        time_name = 'time_{}-{}'.format(x, user.user.pk)
+                        if time_name in request.POST:
+                            distance = Distance.objects.get(pk=request.POST['distance_id_{}'.format(x)])
+                            UserDistance.objects.create(
+                                distance=distance,
+                                user=user.user,
+                                time=request.POST[time_name]
+                            )
+                CompetitionTeam.objects.create(team=team, competition=Competition.objects.get(pk=kwargs['pk']))
+                request.session['alerts'] = [{'type': 'success', 'message': _('Your team has been registrated successful!')}]
+            else:
+                request.session['alerts'] = [{'type': 'error', 'message': _('Your team has been already registrated on this competition!')}]
+
+        return redirect('/')
+
+
+class TeamUnregisterCompetitionView(View):
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if 'team' in request.session:
+                team = Team.objects.filter(pk=request.session['team']).first()
+            else:
+                team = TeamRelationToUser.objects.get(user=request.user).team
+            competition = Competition.objects.get(pk=kwargs['pk'])
+            if competition.canTeamRegister(team, request.user) == -1:
+                CompetitionTeam.objects.get(team=team, competition=competition).delete()
+                for rel in TeamRelationToUser.objects.filter(team=team).all():
+                    for distance in Distance.objects.filter(competition=competition).all():
+                        UserDistance.objects.filter(user=rel.user, distance=distance).delete()
+            request.session['alerts'] = [{'type': 'success', 'message': _('Your team has been unregistrated successful!')}]
 
         return redirect('/')
 
 
 class ChangeLanguage(View):
     def get(self, request, *args, **kwargs):
-        # next = request.environ['HTTP_REGERER'].split('/')[]
-        # print(next)
         if 'language' in request.GET:
             request.session['language'] = request.GET['language']
         return redirect('/')

@@ -1,0 +1,66 @@
+{% extends 'core/index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'register_on_competition' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block profile %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block content %}
+    <div id="about" class="page-alternate">
+    <div class="container">
+        <h1 class="title">{% trans 'Register on competition' %}</h1>
+        <p class="title-description">{% trans 'Please fill this form to register on competition.' %}</p>
+
+        <!-- People -->
+        <div class="row">
+
+            <form method="post" action="/core/competition/{{ competition.pk }}/signup/team" enctype="multipart/form-data">{% csrf_token %}
+                <!-- Start Profile -->
+                <div class="col-xs-12 profile distances" style="width: 100%">
+                {% for user in users %}
+                    <h2>{{ user.user.get_full_name }}</h2>
+                    <ul>
+                        {% for distance in distances %}
+
+                            <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;">
+                                <h4 style="margin: 0;"><b>{% trans 'Distance' %} №{{ forloop.counter0|add:1 }}</b></h4>
+                                <label for="id-length-{{ forloop.counter0 }}-{{ user.pk }}">{% trans 'Distance length' %}</label>
+                                <input type="text" id="id-length-{{ forloop.counter0 }}" value="{{ distance.length }}"
+                                       disabled>
+                                <input hidden name="distance_id_{{ forloop.counter0 }}" value="{{ distance.pk }}">
+                                <label for="id-type-{{ forloop.counter0 }}">{% trans 'Distance type' %}</label>
+                                <select id="id-type-{{ forloop.counter0 }}" disabled>
+                                    {% for type in types %}
+                                        <option value="{{ type.0 }}"
+                                                {% if type.0 == distance.distance_type %} selected {% endif %}
+                                        >{{ type.1 }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <label for="id-time-{{ forloop.counter0 }}-{{ user.user.pk }}">{% trans 'Prediction time' %}</label>
+                                <input type="number" name="time_{{ forloop.counter0 }}-{{ user.user.pk }}"
+                                       id="id-time-{{ forloop.counter0 }}-{{ user.user.pk }}" required>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="clearfix">
+                        <button onclick="location.href='/'" type="button" class="button button-small">{% trans 'Back' %}</button>
+                        <input type='submit' class="button button-small" value="{% trans 'Register' %}">
+                    </div>
+                {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+{% endblock %}

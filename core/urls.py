@@ -25,5 +25,8 @@ urlpatterns = [
 
     url(r'^competition/create$', views.CreateCompetitionView.as_view()),
     url(r'^competition/(?P<pk>(.+))/signup/single$', views.RegisterCompetitionView.as_view()),
+    url(r'^competition/(?P<pk>(.+))/signout/single$', views.UnregisterCompetitionView.as_view()),
+    url(r'^competition/(?P<pk>(.+))/signup/team', views.TeamRegisterCompetitionView.as_view()),
+    url(r'^competition/(?P<pk>(.+))/signout/team', views.TeamUnregisterCompetitionView.as_view()),
     url(r'^competition/(?P<pk>(.+))$', views.CompetitionView.as_view()),
 ]
