@@ -87,16 +87,16 @@ def getBadge(avatar_url, fullname, user, team_name, distances=None):
     draw.text((500, 20), fullname, font=font, fill="black")
     draw.text((500, 100), team_name, font=font, fill="black")
     font_small = ImageFont.truetype(settings.BASE_DIR + "/staticfiles/fonts/TitilliumWeb-Regular.ttf", 40)
+    font_tiny = ImageFont.truetype(settings.BASE_DIR + "/staticfiles/fonts/TitilliumWeb-Regular.ttf", 20)
     draw.text((50, 500), 'Age group: \'' + str(user.profile.get_age_group()) + '\'', font=font_small, fill="black")
-    # draw.text((500, 200), 'Distances:', font=font_small, fill="black")
-    # distances_text = ''
-    # i = 1
-    # for distance in distances:
-    #     distances_text += 'Distance №' + str(i) + '\n'
-    #     i += 1
-    #     distances_text += distance.type + ' - ' + str(distance.length) + ' m\n'
-    #
-    # draw.text((500, 260), distances_text, font=font_small, fill="black")
+    draw.text((500, 200), 'Distances:', font=font_small, fill="black")
+    distances_text = ''
+    i = 0
+    for distance in distances:
+        i += 1
+        distances_text += str(i) + '. ' + distance.get_type_display() + ' - ' + str(distance.length) + ' m\n'
+
+    draw.text((500, 260), distances_text, font=font_tiny, fill="black")
     background.save(settings.BASE_DIR + '/media/badges/{}_badge.png'.format(user.id))
 
     this_dir = settings.BASE_DIR + '/tmp/'

@@ -17,6 +17,7 @@ from auth_main.models import User
 from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam, Distance, \
     UserDistance
 from core.utils import get_session_attributes, queryset_to_dict, getBadge, activate_language
+from core.utils.PredictionTimeExcel import PredictionTimeExcel
 from core.widgets import CompetitionSelectWidget
 
 
@@ -77,11 +78,20 @@ class DownloadBadge(View):
     def get(self, request, *args, **kwargs):
         activate_language(request.session)
         user = User.objects.get(pk=kwargs['pk'])
+        competition = Competition.objects.get(pk=kwargs['comp'])
         try:
-            team = TeamRelationToUser.objects.get(user=user).team.name
+            team = TeamRelationToUser.objects.get(user=user).team
+            CompetitionTeam.objects.get(team=team, competition=competition)
+            team = team.name
         except:
             team = 'Single'
-        badge_path = getBadge(user.profile.avatar.url, user.get_full_name(), user, team)
+
+        distances = Distance.objects.filter(competition=competition).all()
+        # distances = list()
+        # for distance in Distance.objects.filter(competition=competition).all():
+        #     distances.append(UserDistance.objects.get(user=user, distance=distance))
+
+        badge_path = getBadge(user.profile.avatar.url, user.get_full_name(), user, team, distances)
         file_wrapper = FileWrapper(open(badge_path, 'rb'))
         file_mimetype = mimetypes.guess_type(badge_path)
         response = HttpResponse(file_wrapper, content_type=file_mimetype)
@@ -201,23 +211,34 @@ class CompetitionView(TemplateView):
 
         if request.user.is_authenticated:
             can_signup = dict()
+            is_registed = False
 
             can_signup['user'] = competition.canUserRegister(request.user)
             if 'team' in request.session:
-                can_signup['team'] = competition.canTeamRegister(Team.objects.filter(pk=request.session['team']).first(), request.user)
+                team = Team.objects.filter(pk=request.session['team']).first()
+                can_signup['team'] = competition.canTeamRegister(team, request.user)
+                is_registed = CompetitionTeam.objects.filter(team=team, competition=competition).exists()
             else:
-                team = TeamRelationToUser.objects.filter(user=request.user).first()
+                team = TeamRelationToUser.objects.filter(user=request.user).first().team
                 if team:
                     can_signup['team'] = competition.canTeamRegister(team, request.user)
+                    is_registed = CompetitionTeam.objects.filter(team=team, competition=competition).exists()
                 else:
                     can_signup['team'] = 0
+
+            if can_signup['user'] == -1:
+                is_registed = True
+
+            is_manager = competition.is_manager(request.user)
 
             opt = {'competition': competition,
                    'members_count': members_count,
                    'teams_count': teams_count,
                    'can_signup': can_signup,
                    'distances': distances,
-                   'types': Distance.TYPES}
+                   'types': Distance.TYPES,
+                   'is_registed': is_registed,
+                   'is_manager': is_manager}
             return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 
         return render(request, self.template_name, {'competition': competition,
@@ -231,11 +252,15 @@ class CreateCompetitionView(TemplateView):
     template_name = 'core/create_competition.html'
 
     def get(self, request, *args, **kwargs):
+        if request.user.profile.role == 1:
+            raise Http404
         activate_language(request.session)
         widget = CompetitionSelectWidget()
         return render(request, self.template_name, {'widget': widget, 'types': Distance.TYPES, 'range': range(10)})
 
     def post(self, request):
+        if request.user.profile.role == 1:
+            raise Http404
         activate_language(request.session)
         competition = Competition.objects.create(
             name=request.POST['name'],
@@ -243,14 +268,15 @@ class CreateCompetitionView(TemplateView):
             logo=request.FILES['logo'],
             region=request.POST['region'],
             track_count=request.POST['tracks_count'],
-            started_at=datetime.datetime.strptime(request.POST['started_at'], "%Y-%m-%d").date()
+            started_at=datetime.datetime.strptime(request.POST['started_at'], "%Y-%m-%d").date(),
+            created_by=request.user,
         )
 
         for i in range(10):
             if request.POST['length_' + str(i)]:
                 Distance.objects.create(
                     competition=competition,
-                    distance_type=request.POST['type_' + str(i)],
+                    type=request.POST['type_' + str(i)],
                     length=request.POST['length_' + str(i)],
                 )
             else:
@@ -343,6 +369,7 @@ class TeamRegisterCompetitionView(TemplateView):
             else:
                 team = TeamRelationToUser.objects.get(user=request.user).team
             if competition.canTeamRegister(team, request.user) == 1:
+                competition.unregisterSingleMembersFromTeam(team)
                 users = TeamRelationToUser.objects.filter(team=team).all()
                 for user in users:
                     for x in range(10):
@@ -385,3 +412,19 @@ class ChangeLanguage(View):
         if 'language' in request.GET:
             request.session['language'] = request.GET['language']
         return redirect('/')
+
+
+class DownloadPredictions(View):
+    def get(self, request, *args, **kwargs):
+        competition = Competition.objects.get(pk=kwargs['pk'])
+        if competition.is_manager(request.user):
+            path = PredictionTimeExcel(competition).create_excel()
+            file_wrapper = FileWrapper(open(path, 'rb'))
+            file_mimetype = mimetypes.guess_type(path)
+            response = HttpResponse(file_wrapper, content_type=file_mimetype)
+            response['X-Sendfile'] = path
+            response['Content-Length'] = os.stat(path).st_size
+            response['Content-Disposition'] = 'attachment; filename={}'.format('{}\'s_predictions.xlsx'.format(competition.name).replace(' ', '_'))
+            return response
+
+        raise Http404

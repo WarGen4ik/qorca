@@ -70,6 +70,7 @@ class Competition(models.Model):
     track_count = models.SmallIntegerField(_('Count tracks'), choices=TRACKS)
     started_at = models.DateField(_('Started at'), )
     created_at = models.DateTimeField(_('Created at'), default=django.utils.timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first())
 
     def __str__(self):
         return self.name
@@ -120,6 +121,18 @@ class Competition(models.Model):
 
         return 0
 
+    def unregisterSingleMembersFromTeam(self, team):
+        for rel in team.teamrelationtouser_set.all():
+            CompetitionUser.objects.filter(user=rel.user, competition=self).delete()
+
+    def is_manager(self, user):
+        if user.profile.role == 1:
+            return False
+
+        if self.created_by.id != user.id:
+            return False
+        return True
+
 
 class CompetitionUser(models.Model):
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
@@ -143,11 +156,11 @@ class Distance(models.Model):
     )
 
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
-    distance_type = models.SmallIntegerField(_('Distance type'), choices=TYPES)
+    type = models.SmallIntegerField(_('Distance type'), choices=TYPES)
     length = models.SmallIntegerField(_('Distance length'), )
 
     def __str__(self):
-        return 'Competition: {} | Type: {} | Length: {}'.format(self.competition.name, self.get_distance_type_display(), self.length)
+        return 'Competition: {} | Type: {} | Length: {}'.format(self.competition.name, self.get_type_display(), self.length)
 
 
 class UserDistance(models.Model):

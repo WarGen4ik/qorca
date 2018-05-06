@@ -7,7 +7,8 @@ from . import views
 urlpatterns = [
     url(r'^users$', views.UserListView.as_view()),
     url(r'^user/(?P<pk>.+)$', views.GetUserProfileView.as_view()),
-    url(r'^download/badge/(?P<pk>.+)$', views.DownloadBadge.as_view()),
+    url(r'^download/badge/(?P<pk>.+)/(?P<comp>.+)$', views.DownloadBadge.as_view()),
+    url(r'^download/predictions/(?P<pk>.+)$', views.DownloadPredictions.as_view()),
 
     url(r'^team/invitation$', views.InvitationToTeamView.as_view()),
     url(r'^team/invitation/accept$', views.InvitationAcceptView.as_view()),
@@ -17,11 +18,6 @@ urlpatterns = [
     url(r'^create/team', views.CreateTeamView.as_view()),
 
     url(r'language', views.ChangeLanguage.as_view()),
-
-    # url(r'^competition/signup/user$', views.CompetitionSignUpUser.as_view()),
-    # url(r'^competition/signup/team$', views.CompetitionSignUpTeam.as_view()),
-    # url(r'^competition/signout/user$', views.CompetitionSignOutUser.as_view()),
-    # url(r'^competition/signout/team$', views.CompetitionSignOutTeam.as_view()),
 
     url(r'^competition/create$', views.CreateCompetitionView.as_view()),
     url(r'^competition/(?P<pk>(.+))/signup/single$', views.RegisterCompetitionView.as_view()),

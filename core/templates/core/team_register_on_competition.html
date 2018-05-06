@@ -41,7 +41,7 @@
                                 <select id="id-type-{{ forloop.counter0 }}" disabled>
                                     {% for type in types %}
                                         <option value="{{ type.0 }}"
-                                                {% if type.0 == distance.distance_type %} selected {% endif %}
+                                                {% if type.0 == distance.type %} selected {% endif %}
                                         >{{ type.1 }}</option>
                                     {% endfor %}
                                 </select>
