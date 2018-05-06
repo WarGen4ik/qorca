@@ -219,11 +219,14 @@ class CompetitionView(TemplateView):
                 can_signup['team'] = competition.canTeamRegister(team, request.user)
                 is_registed = CompetitionTeam.objects.filter(team=team, competition=competition).exists()
             else:
-                team = TeamRelationToUser.objects.filter(user=request.user).first().team
-                if team:
-                    can_signup['team'] = competition.canTeamRegister(team, request.user)
-                    is_registed = CompetitionTeam.objects.filter(team=team, competition=competition).exists()
-                else:
+                try:
+                    team = TeamRelationToUser.objects.filter(user=request.user).first().team
+                    if team:
+                        can_signup['team'] = competition.canTeamRegister(team, request.user)
+                        is_registed = CompetitionTeam.objects.filter(team=team, competition=competition).exists()
+                    else:
+                        can_signup['team'] = 0
+                except:
                     can_signup['team'] = 0
 
             if can_signup['user'] == -1:
