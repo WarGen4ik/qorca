@@ -1,7 +1,10 @@
 Django==1.11.6
+django-jet==1.0.6
+et-xmlfile==1.0.1
 gunicorn==19.7.1
+jdcal==1.4
+openpyxl==2.5.3
 Pillow==5.0.0
 pypng==0.0.18
 PyQRCode==1.2.1
 pytz==2018.3
-django-jet==1.0.6
