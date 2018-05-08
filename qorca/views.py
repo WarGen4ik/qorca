@@ -3,7 +3,7 @@ from django.utils import translation
 from django.utils.translation import gettext as _
 
 from core.models import Competition
-from core.utils import get_session_attributes, activate_language, get_age_group
+from core.utils import get_session_attributes, activate_language
 
 
 def main(request, *args, **kwargs):

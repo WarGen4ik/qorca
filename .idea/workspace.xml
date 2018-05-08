@@ -2,44 +2,145 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1174d68a-f5e8-43b5-b3a5-1bbd0182b136" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/123.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_3viH1IJ.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_E21gxp0.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_XYwxIT7.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_x6IdhHW.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-01-04_15-55-25.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-01-15_14-03-11.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-01-15_14-03-11_j1bWOCY.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-03-12_16-08-20.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-03-12_16-08-20_guHNzmQ.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-05-01_21-38-07_RwvSBCz.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-05-04_17-33-29.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/predictions/11.xlsx" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/predictions/12.xlsx" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/migrations/0014_competition_count_days.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/migrations/0015_competition_is_creating_finished.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/migrations/0016_distance_day.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/migrations/0017_auto_20180507_2032.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/migrations/0018_relayrace_relayraceteam_userrelayrace.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/core/create_competition_distances.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libcom_err-beb60336.so.2.1" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libcrypto-1e9dee74.so.1.0.2n" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libgssapi_krb5-174f8956.so.2.2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libk5crypto-622ef25b.so.3.1" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libkeyutils-1-ff31573b.2.so" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libkrb5-fb0d2caa.so.3.3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libkrb5support-d7ce89d4.so.0.1" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/liblber-2-d7edd0dc.4.so.2.10.7" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libldap_r-2-41a2533b.4.so.2.10.7" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libpq-389351b6.so.5.10" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libsasl2-e96a0dbf.so.2.0.22" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libselinux-cf8f9094.so.1" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libsepol-b4f5b513.so.1" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libssl-3309e9a3.so.1.0.2n" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/.libs/libz-a147dcb0.so.1.2.3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/_psycopg.cpython-35m-x86_64-linux-gnu.so" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/DESCRIPTION.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/INSTALLER" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/METADATA" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/RECORD" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/WHEEL" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/metadata.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2-2.7.4.dist-info/top_level.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/_ipaddress.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/_json.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/_range.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/errorcodes.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/extensions.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/extras.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/pool.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/psycopg1.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/sql.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/dbapi20.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/dbapi20_tpc.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_async.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_async_keyword.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_bugX000.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_bug_gc.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_cancel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_connection.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_copy.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_cursor.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_dates.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_errcodes.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_extras_dictcursor.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_fast_executemany.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_green.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_ipaddress.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_lobject.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_module.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_notify.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_psycopg2_dbapi20.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_quote.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_replication.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_sql.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_transaction.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_types_basic.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_types_extras.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/test_with.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/testconfig.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tests/testutils.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/psycopg2/tz.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0002_invitations.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0003_auto_20180316_0710.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0004_auto_20180319_1400.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0005_auto_20180319_1402.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0006_auto_20180319_1403.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0007_competition_region.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0008_auto_20180326_1808.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0009_auto_20180329_1830.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0010_auto_20180403_1926.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0011_auto_20180501_1217.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0012_auto_20180501_1952.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0013_competition_created_by.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0014_competition_count_days.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0015_competition_is_creating_finished.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0016_distance_day.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0017_auto_20180507_2032.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/migrations/0018_relayrace_relayraceteam_userrelayrace.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1444508588186627070.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1444508588186627070_2lypk4E.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1444508588186627070_2lypk4E_9jSsSW5.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1444508588186627070_KCQGmr6.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1444508588186627070_KCQGmr6_Jz8YlfG.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1444508588186627070_PQCqXvn.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1482348473118896641.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1482348473118896641_4XkgKfW.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1482348473118896641_4XkgKfW_LJIIpPi.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1482348473118896641_4XkgKfW_LJIIpPi_L2oyDov.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1482348473118896641_RO8lDuI.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/1482348473118896641_Vqncmub.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/2l4WkSmVBn4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/2l4WkSmVBn4_eGhUzrw.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/402ee998c850.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/9GFMqU7jqTY.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/9a2uix1hdGg.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/Screenshot_from_2018-01-04_15-55-25.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/c3zG4sP5YLI.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/avatars/no-img_y29EpyI.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/badges/12_badge.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/badges/18_badge.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/badges/19_badge.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/badges/3_badge.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/badges/6_badge.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/badges/9_badge.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/123.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/402ee998c850.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_3viH1IJ.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_E21gxp0.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_XYwxIT7.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/402ee998c850_x6IdhHW.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/4324.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/4324_2dg0ncK.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/4324_Lw98Yb9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Logo_Wodnik.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-01-04_15-55-25.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-01-15_14-03-11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-01-15_14-03-11_j1bWOCY.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-03-12_16-08-20.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-03-12_16-08-20_guHNzmQ.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-05-01_21-38-07.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-05-01_21-38-07_RwvSBCz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/Screenshot_from_2018-05-04_17-33-29.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/competitions/logos/index.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/logos/123.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/logos/402ee998c850.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/logos/402ee998c850_UlOqkYm.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/logos/402ee998c850_fPZANBJ.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/logos/Screenshot_from_2018-01-15_14-03-11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/predictions/11.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/media/predictions/12.xlsx" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/admin.py" afterPath="$PROJECT_DIR$/core/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/models.py" afterPath="$PROJECT_DIR$/core/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/base.html" afterPath="$PROJECT_DIR$/core/templates/core/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/competition.html" afterPath="$PROJECT_DIR$/core/templates/core/competition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/create_competition.html" afterPath="$PROJECT_DIR$/core/templates/core/create_competition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/index.html" afterPath="$PROJECT_DIR$/core/templates/core/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/nav.html" afterPath="$PROJECT_DIR$/core/templates/core/nav.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/register_on_competition.html" afterPath="$PROJECT_DIR$/core/templates/core/register_on_competition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/team.html" afterPath="$PROJECT_DIR$/core/templates/core/team.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/team_register_on_competition.html" afterPath="$PROJECT_DIR$/core/templates/core/team_register_on_competition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/user_profile.html" afterPath="$PROJECT_DIR$/core/templates/core/user_profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/core/userlist.html" afterPath="$PROJECT_DIR$/core/templates/core/userlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/urls.py" afterPath="$PROJECT_DIR$/core/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/utils/PredictionTimeExcel.py" afterPath="$PROJECT_DIR$/core/utils/PredictionTimeExcel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/utils/__init__.py" afterPath="$PROJECT_DIR$/core/utils/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/views.py" afterPath="$PROJECT_DIR$/core/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/widgets.py" afterPath="$PROJECT_DIR$/core/widgets.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/core/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/qorca/settings.py" afterPath="$PROJECT_DIR$/qorca/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/qorca/views.py" afterPath="$PROJECT_DIR$/qorca/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -60,13 +161,35 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1986">
-              <caret line="522" column="22" lean-forward="false" selection-start-line="522" selection-start-column="22" selection-end-line="522" selection-end-column="22" />
+            <state relative-caret-position="78">
+              <caret line="416" column="44" lean-forward="false" selection-start-line="416" selection-start-column="44" selection-end-line="416" selection-end-column="44" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/qorca/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="186">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/qorca/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="64" lean-forward="false" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -211,6 +334,11 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="WarGen4ik &lt;illko997@gmail.ru&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -247,10 +375,8 @@
         <option value="$PROJECT_DIR$/qorca/settings/local.py" />
         <option value="$PROJECT_DIR$/qorca/settings/base.py" />
         <option value="$PROJECT_DIR$/qorca/base.py" />
-        <option value="$PROJECT_DIR$/qorca/views.py" />
         <option value="$PROJECT_DIR$/core/templates/core/user_profile.html" />
         <option value="$PROJECT_DIR$/core/templates/core/base.html" />
-        <option value="$PROJECT_DIR$/qorca/settings.py" />
         <option value="$PROJECT_DIR$/qorca/urls.py" />
         <option value="$PROJECT_DIR$/core/templates/core/index.html" />
         <option value="$PROJECT_DIR$/auth_main/templates/auth_main/profile.html" />
@@ -266,6 +392,8 @@
         <option value="$PROJECT_DIR$/auth_main/models.py" />
         <option value="$PROJECT_DIR$/core/utils/PredictionTimeExcel.py" />
         <option value="$PROJECT_DIR$/core/views.py" />
+        <option value="$PROJECT_DIR$/qorca/settings.py" />
+        <option value="$PROJECT_DIR$/qorca/views.py" />
       </list>
     </option>
   </component>
@@ -324,7 +452,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
+              <option name="myItemId" value="qorca" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -338,11 +466,93 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
+              <option name="myItemId" value="media" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="predictions" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="media" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="logos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="media" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="competitions" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="media" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="badges" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="media" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="avatars" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qorca" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -702,6 +912,14 @@
       <option name="presentableId" value="Default" />
       <updated>1519128831968</updated>
     </task>
+    <task id="LOCAL-00001" summary="commit">
+      <created>1525746720049</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1525746720049</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -735,6 +953,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <default-breakpoints>
@@ -749,7 +971,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out.png" />
     <entry file="file://$PROJECT_DIR$/core/utils/badge.py" />
     <entry file="file://$PROJECT_DIR$/media/badges/12_badge.png">
       <provider selected="true" editor-type-id="images">
@@ -895,25 +1116,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/qorca/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="36" lean-forward="false" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/qorcaenv/lib/python3.5/site-packages/django/views/generic/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qorca/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -963,6 +1169,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
           <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -970,6 +1177,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1152">
           <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,10 +1293,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1986">
-          <caret line="522" column="22" lean-forward="false" selection-start-line="522" selection-start-column="22" selection-end-line="522" selection-end-column="22" />
+        <state relative-caret-position="78">
+          <caret line="416" column="44" lean-forward="false" selection-start-line="416" selection-start-column="44" selection-end-line="416" selection-end-column="44" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qorca/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qorca/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="64" lean-forward="false" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
