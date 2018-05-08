@@ -15,10 +15,8 @@
 {% endblock %}
 
 {% block profile %}
-    <script type="text/javascript" src="{% static 'js/qrcode.js' %}"></script>
     <div id="about" class="page-alternate">
         <div class="container">
-            <!-- Title Page -->
             <div class="row">
                 <div class="span12">
                     <div class="title-page">
@@ -27,12 +25,8 @@
                     </div>
                 </div>
             </div>
-            <!-- End Title Page -->
 
-            <!-- People -->
             <div class="row">
-
-                <!-- Start Profile -->
                 <div class="span4 profile">
                     <div class="image-wrap">
                         <img src="{{ curr_user.profile.avatar.url }}" alt="John Doe">
@@ -48,45 +42,11 @@
                     <label class="profile-description">{% trans 'Birth date:' %} {{ curr_user.profile.birth_date|default:"Empty" }}</label>
                     <label id="curr-user-id" style="visibility: hidden;">{{ curr_user.pk }}</label>
                     {% if is_teamlead %}
-                        <button id="send-invitation" type="button" class="button button-small">{% trans 'Send invitation' %}</button>
+                        <button id="send-invitation" type="button"
+                                class="button button-small">{% trans 'Send invitation' %}</button>
                     {% endif %}
-
                 </div>
-
-                <div class="span4 profile">
-
-{#                    <h3 class="spec">QR profile</h3>#}
-{##}
-{#                    <div class="info-block">#}
-{#                        <div class="info-text">#}
-{#                            <div class="image-wrap" id="qr_code">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-                </div>
-                <!-- End Profile -->
-
-                <!-- Start Profile -->
-                <div class="span4 profile">
-
-                </div>
-                <!-- End People -->
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        var qrcode = new QRCode(document.getElementById("qr_code"), {
-            width: 500,
-            height: 500
-        });
-
-        function makeCode() {
-            var elText = "{{ site }}/core/user/{{ curr_user.pk }}";
-
-            qrcode.makeCode(elText);
-        }
-
-        makeCode();
-    </script>
 {% endblock %}

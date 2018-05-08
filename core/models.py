@@ -64,13 +64,15 @@ class Competition(models.Model):
         (10, 10)
     )
     name = models.CharField(_('Competition name'), max_length=255)
-    description = models.TextField(_('Description') )
+    count_days = models.SmallIntegerField(_('Count days'))
+    description = models.TextField(_('Description'))
     logo = models.ImageField(_('Logo'), upload_to='competitions/logos/', default='competitions/logos/no-img.png')
     region = models.CharField(_('Region'), max_length=100, choices=REGIONS)
     track_count = models.SmallIntegerField(_('Count tracks'), choices=TRACKS)
+    is_creating_finished = models.BooleanField(_('Is creating finished'), default=False)
     started_at = models.DateField(_('Started at'), )
     created_at = models.DateTimeField(_('Created at'), default=django.utils.timezone.now)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first())
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -86,6 +88,7 @@ class Competition(models.Model):
         result_query = QuerySet(Competition)
         for region in Competition.REGIONS:
             result_query = result_query | Competition.objects\
+                                            .filter(is_creating_finished=True)\
                                             .filter(started_at__gt=django.utils.timezone.now()) \
                                             .filter(region=region[0]) \
                                             .order_by('-started_at') \
@@ -93,31 +96,49 @@ class Competition(models.Model):
 
         return result_query.order_by('-started_at')
 
-    def getDistances(self):
-        return Distance.objects.filter(competition=self).all()
+    def getDistances(self, day):
+        return Distance.objects.filter(competition=self, day=day).all()
+
+    def getRelayRaces(self):
+        return RelayRace.objects.filter(competition=self).all()
 
     def canUserRegister(self, user):
-        if not CompetitionUser.objects.filter(user=user, competition=self).exists():
-            team = TeamRelationToUser.objects.filter(user=user).first()
-            if team:
-                if not CompetitionTeam.objects.filter(team=team.team, competition=self).exists():
+        if user.is_authenticated:
+            if not CompetitionUser.objects.filter(user=user, competition=self, is_complete=True).exists():
+                team = get_object_or_404(TeamRelationToUser, user=user)
+                if team:
+                    if not CompetitionTeam.objects.filter(team=team.team, competition=self).exists():
+                        return 1
+                else:
                     return 1
             else:
-                return 1
-        else:
-            return -1
+                return -1
 
         return 0
 
     def canTeamRegister(self, team, user):
-        team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
-        if team_rel_user.is_coach:
-            if not CompetitionTeam.objects.filter(team=team, competition=self).exists():
-                team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
-                if team_rel_user.is_coach:
-                    return 1
-            else:
-                return -1
+        if user.is_authenticated:
+            team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
+            if team_rel_user.is_coach:
+                if not CompetitionTeam.objects.filter(team=team, competition=self, is_complete=True).exists():
+                    team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
+                    if team_rel_user.is_coach:
+                        return 1
+                else:
+                    return -1
+
+        return 0
+
+    def canTeamRegisterRelay(self, team, user):
+        if user.is_authenticated:
+            team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
+            if team_rel_user.is_coach:
+                if not CompetitionTeam.objects.filter(team=team, competition=self, is_complete=True).exists():
+                    team_rel_user = TeamRelationToUser.objects.get(team=team, user=user)
+                    if team_rel_user.is_coach:
+                        return 1
+                else:
+                    return -1
 
         return 0
 
@@ -138,12 +159,20 @@ class CompetitionUser(models.Model):
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(_('Created at'), default=django.utils.timezone.now)
+    is_complete = models.BooleanField(_('Is user registration completed'), default=False)
+
+    def __str__(self):
+        return self.competition.name + ' | ' + self.user.get_full_name()
 
 
 class CompetitionTeam(models.Model):
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     created_at = models.DateTimeField(_('Created at'), default=django.utils.timezone.now)
+    is_complete = models.BooleanField(_('Is team registration completed'), default=False)
+
+    def __str__(self):
+        return self.competition.name + ' | ' + self.team.name
 
 
 class Distance(models.Model):
@@ -157,7 +186,8 @@ class Distance(models.Model):
 
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
     type = models.SmallIntegerField(_('Distance type'), choices=TYPES)
-    length = models.SmallIntegerField(_('Distance length'), )
+    length = models.SmallIntegerField(_('Distance length'),)
+    day = models.SmallIntegerField(_('Day number'))
 
     def __str__(self):
         return 'Competition: {} | Type: {} | Length: {}'.format(self.competition.name, self.get_type_display(), self.length)
@@ -166,4 +196,35 @@ class Distance(models.Model):
 class UserDistance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE)
-    time = models.IntegerField(_('Time for distance'), )
+    time = models.IntegerField(_('Time for distance'),)
+    result_time = models.IntegerField(_('Result time'), default=0)
+
+
+class RelayRace(models.Model):
+    TYPES = (
+        (1, _('Mixed')),
+        (2, _('Separated')),
+    )
+    length = models.IntegerField(_('Relay race length'))
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
+    count_members = models.SmallIntegerField(_('Count members'))
+    day = models.SmallIntegerField(_('Day number'))
+    type = models.SmallIntegerField(_('Distance type'), choices=TYPES)
+
+    def __str__(self):
+        return self.competition.name + ' | ' + self.get_type_display() + '/{}'.format(self.length)
+
+
+class RelayRaceTeam(models.Model):
+    name = models.CharField(_('Team for relay race'), max_length=255)
+    relay_race = models.ForeignKey(RelayRace, on_delete=models.CASCADE)
+    result_time = models.IntegerField(_('Result time'), default=0)
+    time = models.IntegerField(_('Time for distance'),)
+
+    def __str__(self):
+        return self.relay_race.competition.name + ' | ' + self.name
+
+
+class UserRelayRace(models.Model):
+    team = models.ForeignKey(RelayRaceTeam, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

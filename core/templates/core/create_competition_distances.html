@@ -1,0 +1,60 @@
+{% extends 'core/index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'create_competition' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block profile %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block content %}
+    <div id="about" class="page-alternate">
+        <div class="container">
+            <h1 class="title">{{ day }}</h1>
+            <p class="title-description">{% trans 'Please fill this form to fill competition distances' %}</p>
+
+            <div class="row">
+
+                <form method="post">{% csrf_token %}
+                    <div class="span4 profile distances">
+                        <label for="count-distances"><b>{% trans 'Count distances' %}</b></label>
+                        <select id="count-distances">
+                            {% for i in range %}
+                                <option value="{{ i|add:1 }}">{{ i|add:1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <ul>
+                            {% for i in range %}
+                                <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;
+                                        {% if i != 0 %} display: none; {% endif %}" id="distance-{{ i }}">
+                                    <p style="margin: 0;"><b>{% trans 'Distance' %} №{{ i|add:1 }}</b></p>
+                                    <label for="id-length-{{ i }}">{% trans 'Distance length' %}</label>
+                                    <input type="number" id="id-length-{{ i }}" name="length_{{ i }}" {% if i == 0 %} required {% endif %}>
+                                    <label for="id-type-{{ i }}">{% trans 'Distance type' %}</label>
+                                    <select name="type_{{ i }}" id="id-type-{{ i }}" {% if i == 0 %} required {% endif %}>
+                                        {% for type in types %}
+                                            <option value="{{ type.0 }}">{{ type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="clearfix">
+                            <button onclick="location.href='/'" type="button"
+                                    class="button button-small">{% trans 'Back' %}</button>
+                            <input class="button button-small" type="submit" value="{% trans 'Continue' %}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

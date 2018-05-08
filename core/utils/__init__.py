@@ -109,7 +109,3 @@ def getBadge(avatar_url, fullname, user, team_name, distances=None):
 def activate_language(session):
     if 'language' in session:
         translation.activate(session['language'])
-
-
-def get_age_group(birth_year):
-    print(birth_year)

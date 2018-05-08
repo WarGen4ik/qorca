@@ -3,16 +3,13 @@
 {% load static %}
 
 {% block splash_screen %}
-    <!-- This section is for Splash Screen -->
     <div class="ole">
         <section id="jSplash">
             <div id="circle"></div>
         </section>
     </div>
-    <!-- End of Splash Screen -->
 {% endblock %}
 {% block slider %}
-    <!-- Homepage Slider -->
     <div id="home-slider">
         <div class="overlay"></div>
 
@@ -28,10 +25,8 @@
             <a id="nextsection" href="#work"><i class="font-icon-arrow-simple-down"></i></a>
         </div>
     </div>
-    <!-- End Homepage Slider -->
 {% endblock %}
 {% block header %}
-    <!-- Header -->
     {% with 'index' as title %}
         <header>
             <div class="sticky-nav">
@@ -47,14 +42,11 @@
             </div>
         </header>
     {% endwith %}
-    <!-- End Header -->
 {% endblock %}
 
 {% block content %}
-    <!-- Our Work Section -->
     <div id="work" class="page">
         <div class="container">
-            <!-- Title Page -->
             <div class="row">
                 <div class="span12">
                     <div class="title-page">
@@ -63,12 +55,9 @@
                     </div>
                 </div>
             </div>
-            <!-- End Title Page -->
 
-            <!-- Portfolio Projects -->
             <div class="row">
                 <div class="span3">
-                    <!-- Filter -->
                     <nav id="options" class="work-nav">
                         <ul id="filters" class="option-set" data-option-key="filter">
                             <li class="type-work">{% trans 'Type of Competitions' %}</li>
@@ -78,7 +67,6 @@
 
                         </ul>
                     </nav>
-                    <!-- End Filter -->
                 </div>
 
                 <div class="span9">
@@ -86,21 +74,15 @@
                         <section id="projects">
                             <ul id="thumbs">
                                 {% for competition in competitions %}
-                                    <!-- Item Project and Filter Name -->
                                     <li class="item-thumbs span3 {{ competition.region }}">
                                         <h3><a href="/core/competition/{{ competition.pk }}">{{ competition.name }}</a>
                                         </h3>
-                                        <!-- Fancybox - Gallery Enabled - Title - Full Image -->
                                         <a class="hover-wrap fancybox" data-fancybox-group="gallery"
                                            title="{{ competition.name }}" href="/core/competition/{{ competition.pk }}">
-                                            {#                                	<span class="overlay-img"></span>#}
-                                            {#                                    <span class="overlay-img-thumb font-icon-plus"></span>#}
                                         </a>
-                                        <!-- Thumb Image and Description -->
                                         <img src="{{ competition.logo.url }}"
                                              alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis elementum odio. Curabitur pellentesque, dolor vel pharetra mollis.">
                                     </li>
-                                    <!-- End Item Project -->
                                 {% empty %}
                                     <p>{% trans 'There is no available competitions in this section :(' %}</p>
                                 {% endfor %}
@@ -112,18 +94,14 @@
                     </div>
                 </div>
             </div>
-            <!-- End Portfolio Projects -->
         </div>
     </div>
-    <!-- End Our Work Section -->
 
 {% endblock %}
 {% block profile %}
     {% if user.is_authenticated %}
-        <!-- About Section -->
         <div id="about" class="page-alternate">
             <div class="container">
-                <!-- Title Page -->
                 <div class="row">
                     <div class="span12">
                         <div class="title-page">
@@ -134,12 +112,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Title Page -->
 
-                <!-- People -->
                 <div class="row">
-
-                    <!-- Start Profile -->
                     <div class="span4 profile">
                         <div class="image-wrap">
                             <div class="hover-wrap">
@@ -157,8 +131,6 @@
                         <label class="profile-description">{% trans 'Gender:' %} {{ gender|default:"Empty" }}</label>
                         <label class="profile-description">{% trans 'Phone number:' %} {{ user.profile.phone_number|default:"Empty" }}</label>
                         <label class="profile-description">{% trans 'Birth date:' %} {{ user.profile.birth_date|default:"Empty" }}</label>
-
-
                     </div>
 
                 </div>
@@ -167,53 +139,52 @@
     {% endif %}
 {% endblock %}
 {% block contact %}
-    <!-- Contact Section -->
-    <div id="contact" class="page">
-        <div class="container">
-            <div class="row">
-                <div class="span9">
-
-                    <form id="contact-form" class="contact-form" action="#">
-                        <p class="contact-name">
-                            <input id="contact_name" type="text" placeholder="{% trans 'Full Name' %}" value=""
-                                   name="name"/>
-                        </p>
-                        <p class="contact-email">
-                            <input id="contact_email" type="text" placeholder="{% trans 'Email Address' %}" value=""
-                                   name="email"/>
-                        </p>
-                        <p class="contact-message">
-                            <textarea id="contact_message" placeholder="{% trans 'Your Message' %}" name="message"
-                                      rows="15" cols="40"></textarea>
-                        </p>
-                        <p class="contact-submit">
-                            <a id="contact-submit" class="submit" href="#">{% trans 'Send Your Email' %}</a>
-                        </p>
-
-                        <div id="response">
-
-                        </div>
-                    </form>
-
-                </div>
-
-                <div class="span3">
-                    <div class="contact-details">
-                        <h3>{% trans 'Contact Details' %}</h3>
-                        <ul>
-                            <li><a href="mailto:iwtdy143@gmail.com">iwtdy143@gmail.com</a></li>
-                            <li>(000) 000-0000</li>
-                            <li>
-                                {% trans 'Poltava National Technical University' %}
-                                <br>
-                                {% trans 'Ukraine' %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <div id="contact" class="page">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="span9">#}
+{##}
+{#                    <form id="contact-form" class="contact-form" action="#">#}
+{#                        <p class="contact-name">#}
+{#                            <input id="contact_name" type="text" placeholder="{% trans 'Full Name' %}" value=""#}
+{#                                   name="name"/>#}
+{#                        </p>#}
+{#                        <p class="contact-email">#}
+{#                            <input id="contact_email" type="text" placeholder="{% trans 'Email Address' %}" value=""#}
+{#                                   name="email"/>#}
+{#                        </p>#}
+{#                        <p class="contact-message">#}
+{#                            <textarea id="contact_message" placeholder="{% trans 'Your Message' %}" name="message"#}
+{#                                      rows="15" cols="40"></textarea>#}
+{#                        </p>#}
+{#                        <p class="contact-submit">#}
+{#                            <a id="contact-submit" class="submit" href="#">{% trans 'Send Your Email' %}</a>#}
+{#                        </p>#}
+{##}
+{#                        <div id="response">#}
+{##}
+{#                        </div>#}
+{#                    </form>#}
+{##}
+{#                </div>#}
+{##}
+{#                <div class="span3">#}
+{#                    <div class="contact-details">#}
+{#                        <h3>{% trans 'Contact Details' %}</h3>#}
+{#                        <ul>#}
+{#                            <li><a href="mailto:iwtdy143@gmail.com">iwtdy143@gmail.com</a></li>#}
+{#                            <li>(000) 000-0000</li>#}
+{#                            <li>#}
+{#                                {% trans 'Poltava National Technical University' %}#}
+{#                                <br>#}
+{#                                {% trans 'Ukraine' %}#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
 {% block footer %}
     <footer>
@@ -223,4 +194,8 @@
     <a id="back-to-top" href="#">
         <i class="font-icon-arrow-simple-up"></i>
     </a>
+{% endblock %}
+
+
+{% block script %}
 {% endblock %}

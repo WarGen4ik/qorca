@@ -17,7 +17,6 @@
 {% block profile %}
     <div id="about" class="page-alternate">
         <div class="container">
-            <!-- Title Page -->
             <div class="row">
                 <div class="span12">
                     <div class="title-page">
@@ -25,12 +24,8 @@
                     </div>
                 </div>
             </div>
-            <!-- End Title Page -->
 
-            <!-- People -->
             <div class="row">
-
-                <!-- Start Profile -->
                 <div class="span4 profile">
                     <div class="image-wrap">
                         {% if is_coach %}
@@ -43,9 +38,7 @@
                         <img src="{{ curr_team.logo.url }}" alt="John Doe">
                     </div>
                 </div>
-                <!-- End Profile -->
 
-                <!-- Start Profile -->
                 <div class="span4 profile">
                     {% if is_coach %}
                         <form method="post" action="/core/team/{{ curr_team.name }}">{% csrf_token %}
@@ -76,9 +69,7 @@
                 </div>
 
                 <div class="span4 profile">
-
                     <h3 class="spec">{% trans 'Members' %}</h3>
-
                     <div class="info-block">
                         <div class="info-text">
                             <ol class="member">
@@ -97,9 +88,6 @@
                             </ol>
                         </div>
                     </div>
-                </div>
-                <div class="span4 profile">
-
                 </div>
             </div>
         </div>

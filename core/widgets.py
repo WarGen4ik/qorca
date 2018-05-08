@@ -5,7 +5,11 @@ from core.models import Competition, Distance
 
 
 class CompetitionSelectWidget(forms.Form):
-    tracks_count = forms.ChoiceField(
+    count_days = forms.ChoiceField(
+        required=True,
+        choices=[('1', '1'), ('2', '2')],
+    )
+    track_count = forms.ChoiceField(
         required=True,
         choices=Competition.TRACKS,
     )
@@ -15,5 +19,6 @@ class CompetitionSelectWidget(forms.Form):
         choices=Competition.REGIONS,
     )
     region.label = _('Region')
-    tracks_count.label = _('Count tracks')
+    track_count.label = _('Count tracks')
+    count_days.label = _('Count days')
 

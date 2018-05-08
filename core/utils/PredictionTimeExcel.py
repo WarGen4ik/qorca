@@ -14,6 +14,100 @@ class PredictionTimeExcel:
         self.competition = competition
 
     def create_excel(self):
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        alignment = Alignment(horizontal='center')
+        border = Border(
+            left=Side(border_style="thin", color='000000'),
+            right=Side(border_style="thin", color='000000'),
+            top=Side(border_style="thin", color='000000'),
+            bottom=Side(border_style="thin", color='000000'),
+            outline=Side(border_style="thin", color='000000')
+        )
+        for day in range(self.competition.count_days):
+            if day != 0:
+                ws = wb.create_sheet()
+            ws.title = _('Day ') + str(day+1)
+            alf_index = 1
+            index = 1
+            columns = [_('Member'), _('Age group'), _('Team'), _('Time'), _('Track')]
+            distance_index = 1
+            for distance in Distance.objects.filter(competition=self.competition, day=1).all():
+                char = self.get_char(alf_index - 1)
+                next_char = self.get_char(alf_index + 3)
+                ws.merge_cells('{}{}:{}{}'.format(char, index, next_char, index))
+                ws['{}{}'.format(char, index)].font = Font(size=14, bold=True)
+                ws['{}{}'.format(char, index)].alignment = alignment
+                ws['{}{}'.format(char, index)] = _('Distance ') + '№{}'.format(distance_index)
+                index += 2
+                for x in range(4):
+                    ws.column_dimensions[self.get_char(x)].width = 15
+
+                not_end = True
+                swim_index = 1
+                column_index = 1
+                while not_end:
+                    users_distances = UserDistance.objects.filter(distance=distance, distance__competition=self.competition, is_complete=True)\
+                    .order_by('time')[(swim_index - 1) * self.competition.track_count:swim_index * self.competition.track_count]
+                    if not users_distances:
+                        not_end = False
+                        break
+                    ws.merge_cells('{}{}:{}{}'.format(char, index, next_char, index))
+                    ws['{}{}'.format(char, index)].font = Font(size=12, bold=True)
+                    ws['{}{}'.format(char, index)] = _('Swim ') + '№{}'.format(swim_index)
+                    ws['{}{}'.format(char, index)].alignment = alignment
+                    # ws['{}{}'.format(char, index)].border = border
+                    index += 1
+                    ws['{}{}'.format(self.get_char(column_index - 1), index)] = columns[column_index-1]
+                    ws['{}{}'.format(self.get_char(column_index - 1), index)].alignment = alignment
+                    ws['{}{}'.format(self.get_char(column_index - 1), index)].border = border
+                    ws['{}{}'.format(self.get_char(column_index), index)] = columns[column_index]
+                    ws['{}{}'.format(self.get_char(column_index), index)].alignment = alignment
+                    ws['{}{}'.format(self.get_char(column_index), index)].border = border
+                    ws['{}{}'.format(self.get_char(column_index + 1), index)] = columns[column_index+1]
+                    ws['{}{}'.format(self.get_char(column_index + 1), index)].alignment = alignment
+                    ws['{}{}'.format(self.get_char(column_index + 1), index)].border = border
+                    ws['{}{}'.format(self.get_char(column_index + 2), index)] = columns[column_index+2]
+                    ws['{}{}'.format(self.get_char(column_index + 2), index)].alignment = alignment
+                    ws['{}{}'.format(self.get_char(column_index + 2), index)].border = border
+                    ws['{}{}'.format(self.get_char(column_index + 3), index)] = columns[column_index+3]
+                    ws['{}{}'.format(self.get_char(column_index + 3), index)].alignment = alignment
+                    ws['{}{}'.format(self.get_char(column_index + 3), index)].border = border
+                    index += 1
+
+                    track_index = 1
+                    if len(users_distances) == 4:
+                        tracks = [index+1, index+2, index, index+3]
+                    elif len(users_distances) == 3:
+                        tracks = [index+1, index+2, index, index+3]
+                    else:
+                        tracks = [index, index+1, index+2, index+3]
+                    for user_distance in users_distances:
+                        ws['{}{}'.format(self.get_char(column_index - 1), tracks[track_index-1])] = user_distance.user.full_name
+                        ws['{}{}'.format(self.get_char(column_index - 1), tracks[track_index-1])].border = border
+                        ws['{}{}'.format(self.get_char(column_index), tracks[track_index-1])] = user_distance.user.profile.get_age_group()
+                        ws['{}{}'.format(self.get_char(column_index), tracks[track_index-1])].border = border
+                        try:
+                            team = TeamRelationToUser.objects.filter(user=user_distance.user).first().team
+                            CompetitionTeam.objects.get(team=team, competition=self.competition, is_complete=True)
+                            team = team.name
+                        except:
+                            team = 'Single'
+                        ws['{}{}'.format(self.get_char(column_index + 1), tracks[track_index-1])] = team
+                        ws['{}{}'.format(self.get_char(column_index + 1), tracks[track_index-1])].border = border
+                        ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])] = user_distance.time
+                        ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])].border = border
+                        ws['{}{}'.format(self.get_char(column_index + 3), index + track_index -1)] = track_index
+                        ws['{}{}'.format(self.get_char(column_index + 3), index + track_index -1)].border = border
+                        track_index += 1
+                    index += 5
+                    swim_index += 1
+                distance_index += 1
+        path = settings.BASE_DIR + "/media/predictions/" + str(self.competition.id) + ".xlsx"
+        wb.save(path)
+        return path
+
+    def create_excel1(self):
         members = self.get_all_members()
         distances = Distance.objects.filter(competition=self.competition).all()
         members_distances = dict()

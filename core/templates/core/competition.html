@@ -17,7 +17,6 @@
 {% block profile %}
     <div id="about" class="page-alternate">
         <div class="container">
-            <!-- Title Page -->
             <div class="row">
                 <div class="span12">
                     <div class="title-page">
@@ -25,20 +24,14 @@
                     </div>
                 </div>
             </div>
-            <!-- End Title Page -->
 
-            <!-- People -->
             <div class="row">
-
-                <!-- Start Profile -->
                 <div class="span4 profile">
                     <div class="image-wrap">
                         <img src="{{ competition.logo.url }}" alt="John Doe">
                     </div>
                 </div>
-                <!-- End Profile -->
 
-                <!-- Start Profile -->
                 <div class="span4 profile">
                     <label class="profile-description">{% trans 'Region:' %} {{ competition.region }}</label>
                     <label class="profile-description">{% trans 'Members count:' %} {{ members_count }}</label>
@@ -48,7 +41,7 @@
                     <label id="curr-competition-id" style="visibility: hidden;">{{ competition.pk }}</label>
                     {% if can_signup %}
                         {% if can_signup.team == 1 %}
-                            <a id="signup-team-competition" href="/core/competition/{{ competition.pk }}/signup/team"
+                            <a id="signup-team-competition" href="/core/competition/{{ competition.pk }}/signup/team/1/0"
                                class="button button-small"
                                style="margin-bottom: 10px; margin-top: 10px">{% trans 'Register team' %}</a>
                         {% elif can_signup.team == -1 %}
@@ -59,7 +52,7 @@
                             </form>
                         {% endif %}
                         {% if can_signup.user == 1 %}
-                            <a id="signup-user-competition" href="/core/competition/{{ competition.pk }}/signup/single"
+                            <a id="signup-user-competition" href="/core/competition/{{ competition.pk }}/signup/single/1/0"
                                class="button button-small">{% trans 'Register as single' %}</a>
                         {% elif can_signup.user == -1 %}
                             <form method="post" action="/core/competition/{{ competition.pk }}/signout/single">
@@ -90,11 +83,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- End People -->
             </div>
             <div class="row">
                 <div class="span4 profile distances-competition">
-
+                    <h2>{% trans 'Distances' %}</h2>
+                    {% if distances_second %} <h3> {% trans 'Day 1' %}</h3> {% endif %}
                     <ul>
                         {% for distance in distances %}
 
@@ -117,6 +110,35 @@
                     </ul>
                 </div>
             </div>
+
+            {% if distances_second %}
+                <div class="row">
+                <div class="span4 profile distances-competition">
+                    {% if distances_second %} <h3> {% trans 'Day 2' %}</h3> {% endif %}
+                    <ul>
+                        {% for distance in distances_second %}
+
+                            <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;">
+                                <h4 style="margin: 0;"><b>{% trans 'Distance' %} №{{ forloop.counter0|add:1 }}</b></h4>
+                                <label for="id-length-{{ forloop.counter0 }}">{% trans 'Distance length' %}</label>
+                                <input type="text" id="id-length-{{ forloop.counter0 }}" value="{{ distance.length }}"
+                                       disabled>
+                                <input hidden name="distance_id_{{ forloop.counter0 }}" value="{{ distance.pk }}">
+                                <label for="id-type-{{ forloop.counter0 }}">{% trans 'Distance type' %}</label>
+                                <select id="id-type-{{ forloop.counter0 }}" disabled>
+                                    {% for type in types %}
+                                        <option value="{{ type.0 }}"
+                                                {% if type.0 == distance.type %} selected {% endif %}
+                                        >{{ type.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
         </div>
     </div>
 {% endblock %}

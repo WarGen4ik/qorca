@@ -42,6 +42,7 @@
                         <option {% if language == 'en' %} selected {% endif %} value="en">en</option>
                         <option {% if language == 'ua' %} selected {% endif %} value="ua">ua</option>
                     </select>
+                    <input name="next" type="hidden" value="{{ request.path }}">
                 </form>
             </li>
         </ul>
