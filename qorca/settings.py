@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +24,7 @@ SECRET_KEY = '7ad+hin-9=$2b-6x@rb80o@w7!e1e5(n_4j&%mx7fi2h1#z8ff'
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'qorca.herokuapp.com', 'www.qorca.ml']
+ALLOWED_HOSTS = ['127.0.0.1', 'qorca.herokuapp.com', 'www.qorca.ml', 'qorca.ml']
 
 DATABASES = {
     'default': {
@@ -35,7 +36,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 INSTALLED_APPS = [
