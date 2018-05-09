@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1174d68a-f5e8-43b5-b3a5-1bbd0182b136" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/auth_main/templates/auth_main/reset_verification.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/auth_main/templates/email/email_confirm_en.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/auth_main/templates/email/email_confirm_ua.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/auth_main/templates/email/new_password_ru.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/auth_main/templates/email/new_password_ua.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auth_main/models.py" afterPath="$PROJECT_DIR$/auth_main/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auth_main/templates/auth_main/signin.html" afterPath="$PROJECT_DIR$/auth_main/templates/auth_main/signin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auth_main/urls.py" afterPath="$PROJECT_DIR$/auth_main/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auth_main/views.py" afterPath="$PROJECT_DIR$/auth_main/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/qorca/settings.py" afterPath="$PROJECT_DIR$/qorca/settings.py" />
     </list>
@@ -36,8 +28,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/qorca/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+            <state relative-caret-position="288">
+              <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
               <folding>
                 <element signature="e#309#318#0" expanded="true" />
               </folding>
@@ -48,8 +40,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/auth_main/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="179" column="45" lean-forward="false" selection-start-line="179" selection-start-column="45" selection-end-line="179" selection-end-column="45" />
+            <state relative-caret-position="234">
+              <caret line="43" column="61" lean-forward="false" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -249,10 +241,10 @@
         <option value="$PROJECT_DIR$/auth_main/templates/email/email_confirm_ua.html" />
         <option value="$PROJECT_DIR$/qorca/views.py" />
         <option value="$PROJECT_DIR$/auth_main/models.py" />
-        <option value="$PROJECT_DIR$/qorca/settings.py" />
         <option value="$PROJECT_DIR$/auth_main/templates/auth_main/signin.html" />
         <option value="$PROJECT_DIR$/auth_main/urls.py" />
         <option value="$PROJECT_DIR$/auth_main/templates/auth_main/reset_verification.html" />
+        <option value="$PROJECT_DIR$/qorca/settings.py" />
         <option value="$PROJECT_DIR$/auth_main/views.py" />
       </list>
     </option>
@@ -767,13 +759,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/staticfiles/js/waypoints.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-702">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/admin/js/vendor/xregexp/xregexp.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
@@ -1097,10 +1082,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/auth_main/migrations/0012_auto_20180509_1530.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/qorca/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+        <state relative-caret-position="288">
+          <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding>
             <element signature="e#309#318#0" expanded="true" />
           </folding>
@@ -1109,8 +1102,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/auth_main/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="179" column="45" lean-forward="false" selection-start-line="179" selection-start-column="45" selection-end-line="179" selection-end-column="45" />
+        <state relative-caret-position="234">
+          <caret line="43" column="61" lean-forward="false" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>

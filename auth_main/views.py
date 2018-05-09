@@ -41,7 +41,7 @@ class RegisterView(TemplateView):
                 link = request.build_absolute_uri() + '/verificate/' + user.profile.verification_code
                 send_mail('Q-ORCA email confirm', '',
                           settings.EMAIL_HOST_USER,
-                          [user.email, ], fail_silently=True,
+                          [user.email, ], fail_silently=False,
                           html_message=file.read().replace('{link}', link))
             # else:
             #     user.profile.is_verificated = True
