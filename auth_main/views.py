@@ -41,12 +41,12 @@ class RegisterView(TemplateView):
                 link = request.build_absolute_uri() + '/verificate/' + user.profile.verification_code
                 send_mail('Q-ORCA email confirm', '',
                           settings.EMAIL_HOST_USER,
-                          [user.email, ], fail_silently=False,
+                          [user.email, ], fail_silently=settings.DEBUG,
                           html_message=file.read().replace('{link}', link))
             # else:
             #     user.profile.is_verificated = True
             #     user.profile.save()
-            request.session['alerts'] = [{'type': 'success', 'message': _('Please, verificate your email to finish registration.')}]
+            request.session['alerts'] = [{'type': 'success', 'message': _('We have sent verification link to your email. Please, follow it to verificate your email. If there is no letter, please check "spam" in your email.')}]
             return redirect('/')
         request.session['alerts'] = [{'type': 'error', 'message': _('Passwords are not equal each other.')}]
         return render(request, self.template_name, get_session_attributes(request))
@@ -142,6 +142,8 @@ class VerificateView(TemplateView):
             raise Http404
 
         profile = get_object_or_404(Profile, verification_code=kwargs['code'])
+        if profile.is_verificated:
+            raise Http404
         profile.is_verificated = True
         profile.save()
 
@@ -171,8 +173,11 @@ class VerificateResetView(TemplateView):
             user = get_object_or_404(User, email=request.POST['email'])
         except Http404:
             request.session['alerts'] = [
-                {'type': 'success', 'error': _('There is no user with this email.')}]
+                {'type': 'error', 'message': _('There is no user with this email.')}]
             return redirect(request.path)
+        if user.profile.is_verificated:
+            raise Http404
+
         user.profile.reset_code()
 
         with open(settings.BASE_DIR + '/auth_main/templates/email/email_confirm_{}.html'.format(
@@ -183,5 +188,79 @@ class VerificateResetView(TemplateView):
                       [user.email, ], fail_silently=True,
                       html_message=file.read().replace('{link}', link))
 
-        request.session['alerts'] = [{'type': 'success', 'message': _('Verification code has been sent to your email.')}]
+        request.session['alerts'] = [{'type': 'success', 'message': _('We have sent verification link to your email. Please, follow it to verificate your email. If there is no letter, please check "spam" in your email/')}]
         return redirect('/')
+
+
+class NewPasswordView(TemplateView):
+    template_name = 'auth_main/reset_password_email.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+
+        user = get_object_or_404(User, email=request.POST['email'])
+        if not user.profile.is_verificated:
+            request.session['alerts'] = [
+                {'type': 'error', 'message': _('You need to verificate your email.')}]
+            return redirect('/')
+        user.profile.reset_code()
+
+        with open(settings.BASE_DIR + '/auth_main/templates/email/new_password_{}.html'.format(
+                translation.get_language())) as file:
+            link = settings.BASE_URL + '/auth/password/reset/' + user.profile.verification_code
+            send_mail('Q-ORCA password reset', '',
+                      settings.EMAIL_HOST_USER,
+                      [user.email, ], fail_silently=True,
+                      html_message=file.read().replace('{link}', link))
+
+        request.session['alerts'] = [
+            {'type': 'success', 'message': _('We have sent to you mail with instructions to reset your password.')}]
+
+        return redirect('/')
+
+
+class ResetPasswordView(TemplateView):
+    template_name = 'auth_main/reset_password.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+
+        profile = get_object_or_404(Profile, verification_code=kwargs['code'])
+        if not profile.is_verificated:
+            request.session['alerts'] = [
+                {'type': 'error', 'message': _('You need to verificate your email.')}]
+            return redirect('/')
+
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+
+        profile = get_object_or_404(Profile, verification_code=kwargs['code'])
+        if not profile.is_verificated:
+            request.session['alerts'] = [
+                {'type': 'error', 'message': _('You need to verificate your email.')}]
+            return redirect('/')
+
+        if request.POST['psw'] != request.POST['psw_r']:
+            request.session['alerts'] = [
+                {'type': 'error', 'message': _('Passwords are not equal each other.')}]
+            return redirect(request.path)
+
+        profile.user.set_password(request.POST['psw'])
+        profile.user.save()
+        profile.reset_code()
+
+        request.session['alerts'] = [
+            {'type': 'success', 'message': _('You have been changed your password.')}]
+
+        return redirect('/auth/login')
