@@ -75,6 +75,8 @@ class User(AbstractBaseUser):
         # The user is identified by their email address
         return self.last_name + ' ' + self.first_name
 
+    full_name = property(get_full_name)
+
     def get_short_name(self):
         # The user is identified by their email address
         return self.email
