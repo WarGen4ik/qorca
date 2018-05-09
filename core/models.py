@@ -180,7 +180,7 @@ class Distance(models.Model):
         (1, _('Freestyle')),
         (2, _('Butterfly')),
         (3, _('Backstroke')),
-        (4, _('Breaststroke')),
+        (4, _('Breaststroke')), #brass
         (5, _('Dolphin kick')),
     )
 
