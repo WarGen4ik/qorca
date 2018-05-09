@@ -139,7 +139,7 @@ class InvitationAcceptView(TemplateView):
         TeamRelationToUser.objects.get_or_create(user=request.user, team=team)
         inv = Invitations.objects.filter(to_user=request.user, team=team, is_active=True)
         if inv.exists():
-            inv = inv.one()
+            inv = inv.first()
         else:
             return HttpResponse(status=400)
         inv.is_active = False
@@ -155,7 +155,7 @@ class InvitationDeclineView(TemplateView):
         team = Team.objects.get(name=data['team_name'])
         inv = Invitations.objects.filter(to_user=request.user, team=team, is_active=True)
         if inv.exists():
-            inv = inv.one()
+            inv = inv.first()
         else:
             return HttpResponse(status=400)
         inv.is_active = False
@@ -351,6 +351,10 @@ class RegisterCompetitionView(TemplateView):
             raise Http404
 
         if competition.canUserRegister(request.user) == 1:
+            if request.user.profile.birth_date is None:
+                request.session['alerts'] = [
+                    {'type': 'error', 'message': _('You need to fill your birth date in profile to register on competition')}]
+                return redirect('/core/competition/{}'.format(competition.pk))
             distances = Distance.objects.filter(competition=competition, day=kwargs['day']).all()
             msg = _('Day ') + kwargs['day']
             return render(request, self.template_name, {'types': Distance.TYPES,
@@ -428,6 +432,16 @@ class TeamRegisterCompetitionView(TemplateView):
         else:
             team = TeamRelationToUser.objects.get(user=request.user).team
         if competition.canTeamRegister(team, request.user) == 1:
+            users_without_birthdate = ''
+            for rel in TeamRelationToUser.objects.filter(team=team).all():
+                if rel.user.profile.birth_date is None:
+                    users_without_birthdate += rel.user.get_full_name() + ', '
+
+            if users_without_birthdate:
+                request.session['alerts'] = [
+                    {'type': 'error', 'message': users_without_birthdate[:-2] + ' ' + _('need to fill birth date in profile to register on this competition.')}]
+                return redirect('/core/competition/{}'.format(competition.pk))
+
             msg = _('Day ') + kwargs['day']
             users = TeamRelationToUser.objects.filter(team=team).all()
             distances = Distance.objects.filter(competition=competition, day=kwargs['day']).all()

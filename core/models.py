@@ -105,11 +105,11 @@ class Competition(models.Model):
     def canUserRegister(self, user):
         if user.is_authenticated:
             if not CompetitionUser.objects.filter(user=user, competition=self, is_complete=True).exists():
-                team = get_object_or_404(TeamRelationToUser, user=user)
-                if team:
+                try:
+                    team = get_object_or_404(TeamRelationToUser, user=user)
                     if not CompetitionTeam.objects.filter(team=team.team, competition=self).exists():
                         return 1
-                else:
+                except Http404:
                     return 1
             else:
                 return -1
