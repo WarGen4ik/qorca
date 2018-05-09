@@ -1,6 +1,9 @@
 import datetime
 
 import math
+import random
+import string
+
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -100,6 +103,10 @@ class User(AbstractBaseUser):
         verbose_name_plural = _('Users')
 
 
+def generate_email_hash():
+    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(62))
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(_('Avatar'), upload_to='avatars/', default='avatars/no-img.png')
@@ -112,6 +119,8 @@ class Profile(models.Model):
     phone_number = models.CharField(_('Phone number'), max_length=20, null=True)
     birth_date = models.DateField(_('Birth date'), null=True)
     city = models.CharField(_('City'), max_length=100, null=True)
+    is_verificated = models.BooleanField(_('Is user verificated'), default=False)
+    verification_code = models.CharField(_('Verification code'), max_length=63, default=generate_email_hash)
 
     ROLES = (
         (1, _('user')),
@@ -145,3 +154,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+    def reset_code(self):
+        self.verification_code = generate_email_hash()
+        self.save()

@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, logout, login
+from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -24,8 +26,8 @@ class RegisterView(TemplateView):
         if request.POST['psw'] == request.POST['psw-repeat']:
             try:
                 get_object_or_404(User, email=request.POST['email'])
-                opt = {'error': _('User with this email is already exist.')}
-                return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
+                request.session['alerts'] = [{'type': 'error', 'message': _('User with this email is already exist.')}]
+                return render(request, self.template_name, get_session_attributes(request))
             except Http404:
                 pass
             user = User.objects.create_user(request.POST['email'],
@@ -34,11 +36,20 @@ class RegisterView(TemplateView):
                                             request.POST['psw'],
                                             )
             Profile.objects.create(user=user, city=request.POST['city'])
-            login(request, user)
-            request.session['alerts'] = [{'type': 'success', 'message': _('You have been registered successful.')}]
+            # if settings.DEBUG:
+            with open(settings.BASE_DIR + '/auth_main/templates/email/email_confirm_{}.html'.format(translation.get_language())) as file:
+                link = request.build_absolute_uri() + '/verificate/' + user.profile.verification_code
+                send_mail('Q-ORCA email confirm', '',
+                          settings.EMAIL_HOST_USER,
+                          [user.email, ], fail_silently=True,
+                          html_message=file.read().replace('{link}', link))
+            # else:
+            #     user.profile.is_verificated = True
+            #     user.profile.save()
+            request.session['alerts'] = [{'type': 'success', 'message': _('Please, verificate your email to finish registration.')}]
             return redirect('/')
-        opt = {'error': _('Passwords are not equal each other.')}
-        return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
+        request.session['alerts'] = [{'type': 'error', 'message': _('Passwords are not equal each other.')}]
+        return render(request, self.template_name, get_session_attributes(request))
 
 
 class LoginView(TemplateView):
@@ -58,7 +69,11 @@ class LoginView(TemplateView):
     def post(self, request):
         activate_language(request.session)
         user = authenticate(email=request.POST['email'], password=request.POST['psw'])
+
         if user is not None:
+            if not user.profile.is_verificated:
+                request.session['alerts'] = [{'type': 'error', 'message': _('Please verificate your email to log in.')}]
+                return redirect('/auth/verification/reset')
             login(request, user)
 
             try:
@@ -119,3 +134,54 @@ class ProfileView(TemplateView):
                 request.user.profile.avatar = request.FILES['img']
                 request.user.profile.save()
                 return HttpResponse()
+
+
+class VerificateView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+
+        profile = get_object_or_404(Profile, verification_code=kwargs['code'])
+        profile.is_verificated = True
+        profile.save()
+
+        login(request, profile.user)
+        request.session['alerts'] = [{'type': 'success', 'message': _('Your email has been verificated')}]
+        try:
+            request.session['team'] = get_object_or_404(TeamRelationToUser, user=request.user).team.pk
+        except Http404:
+            pass
+        return redirect('/')
+
+
+class VerificateResetView(TemplateView):
+    template_name = 'auth_main/reset_verification.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+
+        try:
+            user = get_object_or_404(User, email=request.POST['email'])
+        except Http404:
+            request.session['alerts'] = [
+                {'type': 'success', 'error': _('There is no user with this email.')}]
+            return redirect(request.path)
+        user.profile.reset_code()
+
+        with open(settings.BASE_DIR + '/auth_main/templates/email/email_confirm_{}.html'.format(
+                translation.get_language())) as file:
+            link = settings.BASE_URL + '/auth/register/verificate/' + user.profile.verification_code
+            send_mail('Q-ORCA email confirm', '',
+                      settings.EMAIL_HOST_USER,
+                      [user.email, ], fail_silently=True,
+                      html_message=file.read().replace('{link}', link))
+
+        request.session['alerts'] = [{'type': 'success', 'message': _('Verification code has been sent to your email.')}]
+        return redirect('/')

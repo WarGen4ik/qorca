@@ -16,28 +16,20 @@
 
 {% block content %}
     <div id="about" class="page-alternate">
-        <form action="/auth/login" method="post">{% csrf_token %}
+        <form method="post">{% csrf_token %}
             <div class="container">
-                <h1>{% trans 'Sign in' %}</h1>
-                <p>{% trans 'Please fill in this form to sign in.' %}</p>
+                <h1>{% trans 'Send verification code' %}</h1>
+                <p>{% trans 'Please fill in this form.' %}</p>
                 <hr>
 
                 <label for="email"><b>{% trans 'Email' %}</b></label>
                 <input type="text" placeholder="{% trans 'Enter Email' %}" name="email" required>
 
-                <label for="psw"><b>{% trans 'Password' %}</b></label>
-                <input type="password" placeholder="{% trans 'Enter Password' %}" name="psw" required>
-
-                <label>
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> {% trans 'Remember me' %}
-                </label>
-
                 <div class="clearfix">
                     <button onclick="location.href='/'" type="button" class="button button-small">{% trans 'Back' %}</button>
-                    <input type="submit" class="button button-small" value="{% trans 'Sign In' %}">
+                    <input type="submit" class="button button-small" value="{% trans 'Send' %}">
                 </div>
 
-                <a class="button button-small" style="margin-top: 5px; padding: 5px 18px;" href="/password/reset">{% trans "Reset password" %}</a>
             </div>
         </form>
     </div>
