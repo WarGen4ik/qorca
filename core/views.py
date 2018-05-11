@@ -390,6 +390,7 @@ class RegisterCompetitionView(TemplateView):
                             distance=distance,
                             user=request.user,
                             time=time,
+                            result_time=None,
                         )
             if int(kwargs['rel']) == 0:
                 obj = CompetitionUser.objects.create(user=request.user, competition=competition)
