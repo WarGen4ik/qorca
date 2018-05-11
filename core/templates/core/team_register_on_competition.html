@@ -51,7 +51,7 @@
                                         </select>
 
                                         <label for="id-time-{{ forloop.counter0 }}-{{ user.user.pk }}">{% trans 'Prediction time' %}</label>
-                                        <input type="number" name="time_{{ forloop.counter0 }}-{{ user.user.pk }}"
+                                        <input type="text" class="mytime" name="time_{{ forloop.counter0 }}-{{ user.user.pk }}"
                                                id="id-time-{{ forloop.counter0 }}-{{ user.user.pk }}">
                                     </li>
                                 {% endfor %}
@@ -67,4 +67,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+
+    <script src="{% static "js/inputmask/dist/jquery.inputmask.bundle.js" %}"></script>
+    <script src="{% static "js/inputmask/dist/inputmask/inputmask.extensions.js" %}"></script>
+    <script src="{% static "js/inputmask/dist/inputmask/inputmask.numeric.extensions.js" %}"></script>
+    <script>
+        $('.mytime').inputmask('99:99:99');
+    </script>
 {% endblock %}

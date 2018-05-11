@@ -196,8 +196,8 @@ class Distance(models.Model):
 class UserDistance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE)
-    time = models.CharField(_('Time for distance'), max_length=100)
-    result_time = models.CharField(_('Result time'), max_length=100, default='')
+    time = models.TimeField(_('Time for distance'), blank=True, null=True)
+    result_time = models.TimeField(_('Result time'), blank=True, null=True)
 
 
 class RelayRace(models.Model):
@@ -229,7 +229,3 @@ class UserRelayRace(models.Model):
     team = models.ForeignKey(RelayRaceTeam, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
-# class PredictionFiles(models.Model):
-#     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
-#     file = models.FileField(upload_to='/predictions')

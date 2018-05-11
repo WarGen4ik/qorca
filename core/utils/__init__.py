@@ -1,4 +1,5 @@
 import pyqrcode
+import requests
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils import translation
@@ -60,6 +61,14 @@ import os
 
 
 def getBadge(avatar_url, fullname, user, team_name, distances=None):
+    r = requests.get(avatar_url, stream=True)
+    if r.status_code == 200:
+        with open('tmp/{}'.format(avatar_url.split('/')[-1]), 'wb') as f:
+            for chunk in r:
+                f.write(chunk)
+
+    avatar_url = settings.BASE_DIR + '/tmp/' + avatar_url.split('/')[-1]
+
     url = pyqrcode.create('https://qorca.herokuapp.com/core/user/{}'.format(user.id))
 
     url.png(settings.BASE_DIR + '/tmp/code.png', scale=10)
@@ -68,7 +77,7 @@ def getBadge(avatar_url, fullname, user, team_name, distances=None):
     qr.save(settings.BASE_DIR + '/tmp/{}_qr.png'.format(user.id))
     qr = Image.open(settings.BASE_DIR + '/tmp/{}_qr.png'.format(user.id), 'r')
 
-    avatar = Image.open(settings.BASE_DIR + avatar_url, 'r')
+    avatar = Image.open(avatar_url, 'r')
     avatar.thumbnail((400, 400), Image.ANTIALIAS)
     avatar.save(settings.BASE_DIR + '/tmp/{}_avatar.png'.format(user.id))
     avatar = Image.open(settings.BASE_DIR + '/tmp/{}_avatar.png'.format(user.id), 'r')
@@ -109,3 +118,6 @@ def getBadge(avatar_url, fullname, user, team_name, distances=None):
 def activate_language(session):
     if 'language' in session:
         translation.activate(session['language'])
+    else:
+        translation.activate(settings.LANGUAGE_CODE)
+        session['language'] = settings.LANGUAGE_CODE

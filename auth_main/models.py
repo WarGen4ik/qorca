@@ -160,3 +160,12 @@ class Profile(models.Model):
     def reset_code(self):
         self.verification_code = generate_email_hash()
         self.save()
+
+
+class ContactMessage(models.Model):
+    full_name = models.CharField(_('Full name'), max_length=255, blank=True)
+    email = models.CharField(_('Email'), max_length=255, blank=True)
+    message = models.TextField(_('Message'))
+
+    def __str__(self):
+        return self.full_name + ' | ' + self.email

@@ -1,12 +1,7 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if (IE 9)]><html class="no-js ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!-->
-<html lang="en-US"> <!--<![endif]-->
+<html lang="en-US">
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -18,8 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="HandheldFriendly" content="true"/>
     <meta name="MobileOptimized" content="320"/>
-
-    <!--[if IEMobile]>  <meta http-equiv="cleartype" content="on">  <![endif]-->
 
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
@@ -42,13 +35,15 @@
     {#    <link href='{% static "css/google_font.css" %}' rel='stylesheet' type='text/css'>#}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-    <!-- Main Style -->
     <link href="{% static "css/main.css" %}" rel="stylesheet">
 
     <link rel="apple-touch-icon" href="#">
     <link rel="apple-touch-icon" sizes="114x114" href="#">
     <link rel="apple-touch-icon" sizes="72x72" href="#">
     <link rel="apple-touch-icon" sizes="144x144" href="#">
+
+    {% block styles %}
+    {% endblock %}
 
     {#    <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}"/>#}
 

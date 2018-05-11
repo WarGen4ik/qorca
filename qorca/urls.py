@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^auth/', include('auth_main.urls')),
     url(r'^core/', include('core.urls')),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/favicon.ico'), name='favicon'),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

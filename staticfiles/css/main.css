@@ -1582,5 +1582,11 @@ footer {
 	text-transform: uppercase;
 }
 
-
+.mybutton {
+	width: 220px !important;
+	padding: 8px 18px !important;
+	display: block !important;
+	margin: 0 !important;
+	margin-bottom: 5px !important;
+}
 /*.menu-nav > ul > li > form*/

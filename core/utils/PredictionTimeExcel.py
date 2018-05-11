@@ -30,7 +30,7 @@ class PredictionTimeExcel:
             ws.title = _('Day ') + str(day+1)
             alf_index = 1
             index = 1
-            columns = [_('Member'), _('Age group'), _('Team'), _('Time'), _('Track')]
+            columns = [_('Member'), _('Age group'), _('Team'), _('City'), _('Time'), _('Track')]
             distance_index = 1
             for distance in Distance.objects.filter(competition=self.competition, day=1).all():
                 char = self.get_char(alf_index - 1)
@@ -48,7 +48,7 @@ class PredictionTimeExcel:
                 column_index = 1
                 while not_end:
                     users_distances = UserDistance.objects.filter(distance=distance, distance__competition=self.competition)\
-                    .order_by('time')[(swim_index - 1) * self.competition.track_count:swim_index * self.competition.track_count]
+                    .order_by('-time')[(swim_index - 1) * self.competition.track_count:swim_index * self.competition.track_count]
                     if not users_distances:
                         not_end = False
                         break
@@ -73,13 +73,16 @@ class PredictionTimeExcel:
                     ws['{}{}'.format(self.get_char(column_index + 3), index)] = columns[column_index+3]
                     ws['{}{}'.format(self.get_char(column_index + 3), index)].alignment = alignment
                     ws['{}{}'.format(self.get_char(column_index + 3), index)].border = border
+                    ws['{}{}'.format(self.get_char(column_index + 4), index)] = columns[column_index+4]
+                    ws['{}{}'.format(self.get_char(column_index + 4), index)].alignment = alignment
+                    ws['{}{}'.format(self.get_char(column_index + 4), index)].border = border
                     index += 1
 
                     track_index = 1
                     if len(users_distances) == 4:
-                        tracks = [index+1, index+2, index, index+3]
+                        tracks = [index, index+3, index+2, index+1]
                     elif len(users_distances) == 3:
-                        tracks = [index+1, index+2, index, index+3]
+                        tracks = [index, index+1, index+2, index+3]
                     else:
                         tracks = [index, index+1, index+2, index+3]
                     for user_distance in users_distances:
@@ -95,10 +98,12 @@ class PredictionTimeExcel:
                             team = 'Single'
                         ws['{}{}'.format(self.get_char(column_index + 1), tracks[track_index-1])] = team
                         ws['{}{}'.format(self.get_char(column_index + 1), tracks[track_index-1])].border = border
-                        ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])] = user_distance.time
+                        ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])] = user_distance.user.profile.city
                         ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])].border = border
-                        ws['{}{}'.format(self.get_char(column_index + 3), index + track_index -1)] = track_index
-                        ws['{}{}'.format(self.get_char(column_index + 3), index + track_index -1)].border = border
+                        ws['{}{}'.format(self.get_char(column_index + 3), tracks[track_index-1])] = user_distance.time
+                        ws['{}{}'.format(self.get_char(column_index + 3), tracks[track_index-1])].border = border
+                        ws['{}{}'.format(self.get_char(column_index + 4), index + track_index -1)] = track_index
+                        ws['{}{}'.format(self.get_char(column_index + 4), index + track_index -1)].border = border
                         track_index += 1
                     index += 5
                     swim_index += 1

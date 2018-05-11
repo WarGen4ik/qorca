@@ -42,34 +42,26 @@
                     {% if can_signup %}
                         {% if can_signup.team == 1 %}
                             <a id="signup-team-competition" href="/core/competition/{{ competition.pk }}/signup/team/1/0"
-                               class="button button-small"
-                               style="margin-bottom: 10px; margin-top: 10px">{% trans 'Register team' %}</a>
+                               class="button button-small mybutton">{% trans 'Register team' %}</a>
                         {% elif can_signup.team == -1 %}
-                            <form method="post" action="/core/competition/{{ competition.pk }}/signout/team">
-                                {% csrf_token %}
-                                <input id="signout-team-competition" type="submit"
-                                       class="button button-small" value="{% trans 'Unregister team' %}"/>
-                            </form>
+                            <a id="signout-team-competition" href="/core/competition/{{ competition.pk }}/signout/team"
+                               class="button button-small mybutton">{% trans 'Unregister team' %}</a>
                         {% endif %}
                         {% if can_signup.user == 1 %}
                             <a id="signup-user-competition" href="/core/competition/{{ competition.pk }}/signup/single/1/0"
-                               class="button button-small">{% trans 'Register as single' %}</a>
+                               class="button button-small mybutton">{% trans 'Register as single' %}</a>
                         {% elif can_signup.user == -1 %}
-                            <form method="post" action="/core/competition/{{ competition.pk }}/signout/single">
-                                {% csrf_token %}
-                                <input id="signout-user-competition" type="submit"
-                                       class="button button-small" value="{% trans 'Unregister as single' %}"/>
-                            </form>
-
+                            <a id="signout-user-competition" href="/core/competition/{{ competition.pk }}/signout/single"
+                                   class="button button-small mybutton">{% trans 'Unregister as single' %}</a>
                         {% endif %}
                     {% endif %}
                     {% if user.is_authenticated and is_registed %}
-                        <a href="/core/download/badge/{{ user.pk }}/{{ competition.pk }}" class="button button-small"
-                           style="padding-top: 4px; padding-bottom: 4px;">{% trans 'Download badge' %}</a>
+                        <a href="/core/download/badge/{{ user.pk }}/{{ competition.pk }}" class="button button-small mybutton"
+                            >{% trans 'Download badge' %}</a>
                     {% endif %}
                     {% if is_manager %}
-                        <a href="/core/download/predictions/{{ competition.pk }}" class="button button-small"
-                           style="padding-top: 4px; padding-bottom: 4px; margin-left: 0; margin-top: 17px">{% trans 'Download predictions' %}</a>
+                        <a href="/core/download/predictions/{{ competition.pk }}" class="button button-small mybutton"
+                           >{% trans 'Download predictions' %}</a>
                     {% endif %}
                 </div>
 

@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_main.apps.AuthMainConfig',
     'core.apps.CoreConfig',
-    # 'storages',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +107,12 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-LANGUAGE_CODE = 'en-US'
+LANGUAGE_CODE = 'ua'
+
+LANGUAGES = (
+  ('ua', 'Ukrainian'),
+  ('en', 'English'),
+)
 
 TIME_ZONE = 'UTC'
 

@@ -98,7 +98,7 @@ class DownloadBadge(View):
         response['X-Sendfile'] = badge_path
         response['Content-Length'] = os.stat(badge_path).st_size
         response['Content-Disposition'] = 'attachment; filename={}'.format(
-            '{}\'s_badge.png'.format(user.get_full_name()).replace(' ', '_'))
+            '{}\'s_badge.png'.format(user.id).replace(' ', '_'))
         return response
 
 
@@ -308,6 +308,7 @@ class CreateCompetitionDistancesView(TemplateView):
         })
 
     def post(self, request, *args, **kwargs):
+        activate_language(request.session)
         if not request.user.is_authenticated or request.user.profile.role == 1:
             raise Http404
 
@@ -378,11 +379,17 @@ class RegisterCompetitionView(TemplateView):
                 time_name = 'time_{}'.format(x)
                 if time_name in request.POST:
                     if request.POST[time_name]:
+                        try:
+                            time = datetime.datetime.strptime(request.POST[time_name], '%H:%M:%S').time()
+                        except ValueError:
+                            request.session['alerts'] = [
+                                {'type': 'error', 'message': _('Wrong time format')}]
+                            return redirect('/core/competition/{}'.format(competition.pk))
                         distance = Distance.objects.get(pk=request.POST['distance_id_{}'.format(x)])
                         UserDistance.objects.create(
                             distance=distance,
                             user=request.user,
-                            time=request.POST[time_name],
+                            time=time,
                         )
             if int(kwargs['rel']) == 0:
                 obj = CompetitionUser.objects.create(user=request.user, competition=competition)
@@ -403,7 +410,8 @@ class RegisterCompetitionView(TemplateView):
 
 
 class UnregisterCompetitionView(View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         if request.user.is_authenticated:
             competition = Competition.objects.get(pk=kwargs['pk'])
             if competition.canUserRegister(request.user) == -1:
@@ -477,11 +485,17 @@ class TeamRegisterCompetitionView(TemplateView):
                     time_name = 'time_{}-{}'.format(x, user.user.pk)
                     if time_name in request.POST:
                         if request.POST[time_name]:
+                            try:
+                                time = datetime.datetime.strptime(request.POST[time_name], '%H:%M:%S').time()
+                            except ValueError:
+                                request.session['alerts'] = [
+                                    {'type': 'error', 'message': _('Wrong time format')}]
+                                return redirect('/core/competition/{}'.format(competition.pk))
                             distance = Distance.objects.get(pk=request.POST['distance_id_{}'.format(x)])
                             UserDistance.objects.create(
                                 distance=distance,
                                 user=user.user,
-                                time=request.POST[time_name]
+                                time=time
                             )
             if int(kwargs['rel']) == 0:
                 obj = CompetitionTeam.objects.create(team=team, competition=competition)
@@ -503,6 +517,7 @@ class TeamRegisterCompetitionView(TemplateView):
 
 class TeamUnregisterCompetitionView(View):
     def post(self, request, *args, **kwargs):
+        activate_language(request.session)
         if request.user.is_authenticated:
             if 'team' in request.session:
                 team = Team.objects.filter(pk=request.session['team']).first()
@@ -526,9 +541,10 @@ class ChangeLanguage(View):
             request.session['language'] = request.GET['language']
         return redirect(request.GET['next'])
 
-from django.core.files.storage import default_storage
+
 class DownloadPredictions(View):
     def get(self, request, *args, **kwargs):
+        activate_language(request.session)
         competition = Competition.objects.get(pk=kwargs['pk'])
         if competition.is_manager(request.user):
             path = PredictionTimeExcel(competition).create_excel()
@@ -548,6 +564,7 @@ class DownloadPredictions(View):
 
 class ConfirmCompetitionView(View):
     def post(self, request, *args, **kwargs):
+        activate_language(request.session)
         competition = get_object_or_404(Competition, pk=kwargs['pk'])
         competition.is_creating_finished = True
         competition.save()

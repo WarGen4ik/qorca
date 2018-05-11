@@ -4,12 +4,13 @@ from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 from django.utils.translation import gettext as _
 from django.utils import translation
 
-from auth_main.models import User, Profile
+from auth_main.models import User, Profile, ContactMessage
 from core.models import TeamRelationToUser, Invitations
 from core.utils import get_session_attributes, activate_language
 
@@ -264,3 +265,18 @@ class ResetPasswordView(TemplateView):
             {'type': 'success', 'message': _('You have been changed your password.')}]
 
         return redirect('/auth/login')
+
+
+class ContactView(View):
+    def post(self, request, *args, **kwargs):
+        activate_language(request.session)
+        ContactMessage.objects.create(
+            full_name=request.POST['name'],
+            email=request.POST['email'],
+            message=request.POST['message'],
+        )
+
+        request.session['alerts'] = [
+            {'type': 'success', 'message': _('We will read your message as soon as possible.')}]
+
+        return redirect('/')

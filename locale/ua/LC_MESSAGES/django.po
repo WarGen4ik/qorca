@@ -749,11 +749,11 @@ msgstr "Доріжка"
 #, fuzzy
 #| msgid "Distance"
 msgid "Distance "
-msgstr "Дистанція"
+msgstr "Дистанція "
 
 #: core/utils/PredictionTimeExcel.py:57
 msgid "Swim "
-msgstr "Заплив"
+msgstr "Заплив "
 
 #: core/utils/PredictionTimeExcel.py:153
 msgid "Length:"
