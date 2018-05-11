@@ -20,9 +20,6 @@ SECRET_KEY = '7ad+hin-9=$2b-6x@rb80o@w7!e1e5(n_4j&%mx7fi2h1#z8ff'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# Application definition
-
-DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'qorca.herokuapp.com', 'www.qorca.ml', 'qorca.ml']
 
@@ -143,22 +140,6 @@ MEDIA_URL = '/media/'
 SESSION_COOKIE_AGE = 3600
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-if not DEBUG:
-    BASE_URL = 'http://www.qorca.ml'
-    EMAIL_HOST = 'smtp.sendgrid.net'
-    EMAIL_PORT = '587'
-    EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
-    EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
-    EMAIL_USE_TLS = True
-else:
-    BASE_URL = 'http://127.0.0.1:8000'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = '587'
-    EMAIL_HOST_USER = 'qorca.messager@gmail.com'
-    EMAIL_HOST_PASSWORD = 'qqazwsxdec1'
-    EMAIL_USE_TLS = True
-
 
 AWS_USER = 'qorca-user'
 AWS_ACCESS_KEY = 'AKIAIL3OGJHGMHQPRXKA'
