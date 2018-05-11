@@ -196,8 +196,8 @@ class Distance(models.Model):
 class UserDistance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE)
-    time = models.IntegerField(_('Time for distance'),)
-    result_time = models.IntegerField(_('Result time'), default=0)
+    time = models.CharField(_('Time for distance'), max_length=100)
+    result_time = models.CharField(_('Result time'), max_length=100, default='')
 
 
 class RelayRace(models.Model):

@@ -47,7 +47,7 @@
                                     </select>
 
                                     <label for="id-time-{{ forloop.counter0 }}">{% trans 'Prediction time' %}</label>
-                                    <input type="number" name="time_{{ forloop.counter0 }}"
+                                    <input class="mytime" type="text" name="time_{{ forloop.counter0 }}"
                                            id="id-time-{{ forloop.counter0 }}">
                                 </li>
                             {% endfor %}
@@ -64,4 +64,15 @@
         </div>
     </div>
 {% endblock %}
+
+{% block script %}
+
+    <script src="{% static "js/inputmask/dist/jquery.inputmask.bundle.js" %}"></script>
+    <script src="{% static "js/inputmask/dist/inputmask/inputmask.extensions.js" %}"></script>
+    <script src="{% static "js/inputmask/dist/inputmask/inputmask.numeric.extensions.js" %}"></script>
+    <script>
+        $('.mytime').inputmask('99:99:99');
+    </script>
+{% endblock %}
+
 
