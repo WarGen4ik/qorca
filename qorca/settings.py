@@ -22,7 +22,7 @@ SECRET_KEY = '7ad+hin-9=$2b-6x@rb80o@w7!e1e5(n_4j&%mx7fi2h1#z8ff'
 
 # Application definition
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'qorca.herokuapp.com', 'www.qorca.ml', 'qorca.ml']
 
