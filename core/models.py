@@ -228,3 +228,8 @@ class RelayRaceTeam(models.Model):
 class UserRelayRace(models.Model):
     team = models.ForeignKey(RelayRaceTeam, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+# class PredictionFiles(models.Model):
+#     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
+#     file = models.FileField(upload_to='/predictions')

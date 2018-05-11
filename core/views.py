@@ -526,7 +526,7 @@ class ChangeLanguage(View):
             request.session['language'] = request.GET['language']
         return redirect(request.GET['next'])
 
-
+from django.core.files.storage import default_storage
 class DownloadPredictions(View):
     def get(self, request, *args, **kwargs):
         competition = Competition.objects.get(pk=kwargs['pk'])
@@ -540,7 +540,7 @@ class DownloadPredictions(View):
             response['X-Sendfile'] = path
             response['Content-Length'] = os.stat(path).st_size
             response['Content-Disposition'] = 'attachment; filename={}'.format(
-                '{}\'s_predictions.xlsx'.format(competition.name).replace(' ', '_'))
+                '{}_predictions.xlsx'.format(competition.id).replace(' ', '_'))
             return response
 
         raise Http404
