@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.db.models import QuerySet
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 from auth_main.models import User
 
@@ -198,6 +198,9 @@ class UserDistance(models.Model):
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE)
     time = models.TimeField(_('Time for distance'), blank=True, null=True)
     result_time = models.TimeField(_('Result time'), blank=True, null=True)
+
+    def __str__(self):
+        return '{} | {}'.format(self.user.full_name, self.distance)
 
 
 class RelayRace(models.Model):

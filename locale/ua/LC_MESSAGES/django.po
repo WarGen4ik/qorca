@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qorca 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-10 00:38+0300\n"
-"PO-Revision-Date: 2018-05-10 00:53+0300\n"
+"POT-Creation-Date: 2018-05-12 09:09+0300\n"
+"PO-Revision-Date: 2018-05-12 09:12+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ua\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: auth_main/models.py:54
+#: auth_main/models.py:54 auth_main/models.py:180
 #: auth_main/templates/auth_main/reset_password_email.html:25
 #: auth_main/templates/auth_main/reset_verification.html:25
 #: auth_main/templates/auth_main/signin.html:25
@@ -48,64 +48,75 @@ msgstr "Активний користувач"
 msgid "Administrator"
 msgstr "Адміністратор"
 
-#: auth_main/models.py:102
+#: auth_main/models.py:104
 msgid "User"
 msgstr "Користувач"
 
-#: auth_main/models.py:103
+#: auth_main/models.py:105
 msgid "Users"
 msgstr "Користувачі"
 
-#: auth_main/models.py:112
+#: auth_main/models.py:114
 msgid "Avatar"
 msgstr "Аватар"
 
-#: auth_main/models.py:114 auth_main/templates/auth_main/profile.html:62
+#: auth_main/models.py:116 auth_main/templates/auth_main/profile.html:62
 #: qorca/views.py:15
 msgid "male"
 msgstr "чоловік"
 
-#: auth_main/models.py:115 auth_main/templates/auth_main/profile.html:66
+#: auth_main/models.py:117 auth_main/templates/auth_main/profile.html:66
 #: qorca/views.py:15
 msgid "female"
 msgstr "жінка"
 
-#: auth_main/models.py:118
+#: auth_main/models.py:120
 msgid "Gender"
 msgstr "Стать"
 
-#: auth_main/models.py:119
+#: auth_main/models.py:121
 msgid "Phone number"
 msgstr "Номер телефону"
 
-#: auth_main/models.py:120
+#: auth_main/models.py:122
 msgid "Birth date"
 msgstr "Дата народження"
 
-#: auth_main/models.py:121 auth_main/templates/auth_main/signup.html:34
+#: auth_main/models.py:123 auth_main/templates/auth_main/signup.html:34
 #: auth_main/templates/auth_main/signup.html:35
+#: core/utils/PredictionTimeExcel.py:33
 msgid "City"
 msgstr "Місто"
 
-#: auth_main/models.py:122
+#: auth_main/models.py:124
 msgid "Is user verificated"
 msgstr "Чи верифікований користувач"
 
-#: auth_main/models.py:123
+#: auth_main/models.py:125
 msgid "Verification code"
 msgstr "Код верифікації"
 
-#: auth_main/models.py:126
+#: auth_main/models.py:128
 msgid "user"
 msgstr "користувач"
 
-#: auth_main/models.py:127
+#: auth_main/models.py:129
 msgid "manager"
 msgstr "менеджер"
 
-#: auth_main/models.py:129
+#: auth_main/models.py:131
 msgid "Role"
 msgstr "Роль"
+
+#: auth_main/models.py:179
+#, fuzzy
+#| msgid "Full Name"
+msgid "Full name"
+msgstr "Повне ім'я"
+
+#: auth_main/models.py:181
+msgid "Message"
+msgstr "Повідомлення"
 
 #: auth_main/templates/auth_main/profile.html:23
 #: core/templates/core/nav.html:21 core/templates/core/nav.html:23
@@ -114,27 +125,27 @@ msgid "Profile"
 msgstr "Профіль"
 
 #: auth_main/templates/auth_main/profile.html:34
-#: core/templates/core/index.html:121 core/templates/core/team.html:34
+#: core/templates/core/index.html:119 core/templates/core/team.html:34
 msgid "Change photo"
 msgstr "Змінити фото"
 
 #: auth_main/templates/auth_main/profile.html:56
-#: core/templates/core/index.html:130 core/templates/core/user_profile.html:39
+#: core/templates/core/index.html:128 core/templates/core/user_profile.html:39
 msgid "City:"
 msgstr "Місто:"
 
 #: auth_main/templates/auth_main/profile.html:58
-#: core/templates/core/index.html:131 core/templates/core/user_profile.html:40
+#: core/templates/core/index.html:129 core/templates/core/user_profile.html:40
 msgid "Gender:"
 msgstr "Стать:"
 
 #: auth_main/templates/auth_main/profile.html:69
-#: core/templates/core/index.html:132 core/templates/core/user_profile.html:41
+#: core/templates/core/index.html:130 core/templates/core/user_profile.html:41
 msgid "Phone number:"
 msgstr "Номер телефону:"
 
 #: auth_main/templates/auth_main/profile.html:71
-#: core/templates/core/index.html:133 core/templates/core/user_profile.html:42
+#: core/templates/core/index.html:131 core/templates/core/user_profile.html:42
 msgid "Birth date:"
 msgstr "Дата народження"
 
@@ -271,11 +282,11 @@ msgstr "Реєстрація"
 msgid "Success"
 msgstr "Успіх"
 
-#: auth_main/views.py:29
+#: auth_main/views.py:30
 msgid "User with this email is already exist."
 msgstr "Користувач з даною поштою вже зареєстрований."
 
-#: auth_main/views.py:49
+#: auth_main/views.py:50
 msgid ""
 "We have sent verification link to your email. Please, follow it to "
 "verificate your email. If there is no letter, please check \"spam\" in your "
@@ -284,27 +295,27 @@ msgstr ""
 "Ми надіслали вам інструкцію для верифікації на вашу пошту. Лист може надійти "
 "в \"спам\", тому, будь ласка, перевірте його."
 
-#: auth_main/views.py:51 auth_main/views.py:256
+#: auth_main/views.py:52 auth_main/views.py:257
 msgid "Passwords are not equal each other."
 msgstr "Паролі не співпадають."
 
-#: auth_main/views.py:75
+#: auth_main/views.py:76
 msgid "Please verificate your email to log in."
 msgstr "Будь ласка, верифікуйте вашу пошту, щоб увійти."
 
-#: auth_main/views.py:129
+#: auth_main/views.py:130
 msgid "Wrong date format"
 msgstr "Невірний формат дати"
 
-#: auth_main/views.py:151
+#: auth_main/views.py:152
 msgid "Your email has been verificated"
 msgstr "Ваша пошта верифікована!"
 
-#: auth_main/views.py:176
+#: auth_main/views.py:177
 msgid "There is no user with this email."
 msgstr "Користувача з введеною поштою не існує."
 
-#: auth_main/views.py:191
+#: auth_main/views.py:192
 msgid ""
 "We have sent verification link to your email. Please, follow it to "
 "verificate your email. If there is no letter, please check \"spam\" in your "
@@ -313,17 +324,21 @@ msgstr ""
 "Ми надіслали вам інструкцію для верифікації на вашу пошту. Лист може надійти "
 "в \"спам\", тому, будь ласка, перевірте його."
 
-#: auth_main/views.py:211 auth_main/views.py:239 auth_main/views.py:251
+#: auth_main/views.py:212 auth_main/views.py:240 auth_main/views.py:252
 msgid "You need to verificate your email."
 msgstr "Вам потрібно верифікувати вашу пошту."
 
-#: auth_main/views.py:224
+#: auth_main/views.py:225
 msgid "We have sent to you mail with instructions to reset your password."
 msgstr "Ми надіслали вам на пошту інструкцію по зміні паролю."
 
-#: auth_main/views.py:264
+#: auth_main/views.py:265
 msgid "You have been changed your password."
 msgstr "Ваш пароль був змінений."
+
+#: auth_main/views.py:280
+msgid "We will read your message as soon as possible."
+msgstr "Ми прочитаємо ваше повідомлення як тільки зможемо."
 
 #: core/models.py:13
 msgid "Team name"
@@ -334,7 +349,7 @@ msgstr "Назва команди"
 msgid "Logo"
 msgstr "Логотип"
 
-#: core/models.py:15 core/models.py:68 core/templates/core/competition.html:78
+#: core/models.py:15 core/models.py:68 core/templates/core/competition.html:70
 #: core/templates/core/create-team.html:31
 #: core/templates/core/create_competition.html:41
 msgid "Description"
@@ -348,15 +363,15 @@ msgstr "Тренер"
 msgid "Is active invitation"
 msgstr "Активне запрошення"
 
-#: core/models.py:50 core/templates/core/index.html:64
+#: core/models.py:50 core/templates/core/index.html:67
 msgid "World"
 msgstr "Світ"
 
-#: core/models.py:51 core/templates/core/index.html:66
+#: core/models.py:51 core/templates/core/index.html:69
 msgid "Europe"
 msgstr "Європа"
 
-#: core/models.py:52 core/templates/core/index.html:65
+#: core/models.py:52 core/templates/core/index.html:68
 msgid "Ukraine"
 msgstr "Україна"
 
@@ -412,56 +427,56 @@ msgstr "Брас"
 msgid "Dolphin kick"
 msgstr "Комплексне плавання"
 
-#: core/models.py:188 core/models.py:212
-#: core/templates/core/competition.html:100
-#: core/templates/core/competition.html:127
+#: core/models.py:188 core/models.py:215
+#: core/templates/core/competition.html:92
+#: core/templates/core/competition.html:119
 #: core/templates/core/create_competition_distances.html:40
 #: core/templates/core/register_on_competition.html:40
 #: core/templates/core/team_register_on_competition.html:44
 msgid "Distance type"
 msgstr "Тип дистанції"
 
-#: core/models.py:189 core/templates/core/competition.html:96
-#: core/templates/core/competition.html:123
+#: core/models.py:189 core/templates/core/competition.html:88
+#: core/templates/core/competition.html:115
 #: core/templates/core/create_competition_distances.html:38
 #: core/templates/core/register_on_competition.html:35
 #: core/templates/core/team_register_on_competition.html:38
 msgid "Distance length"
 msgstr "Довжина дистанції"
 
-#: core/models.py:190 core/models.py:211
+#: core/models.py:190 core/models.py:214
 msgid "Day number"
 msgstr "Номер дня"
 
-#: core/models.py:199 core/models.py:222
+#: core/models.py:199 core/models.py:225
 msgid "Time for distance"
 msgstr "Час для дистанції"
 
-#: core/models.py:200 core/models.py:221
+#: core/models.py:200 core/models.py:224
 msgid "Result time"
 msgstr "Результуючий час"
 
-#: core/models.py:205
+#: core/models.py:208
 msgid "Mixed"
 msgstr "Змішаний"
 
-#: core/models.py:206
+#: core/models.py:209
 msgid "Separated"
 msgstr "Розділений"
 
-#: core/models.py:208
+#: core/models.py:211
 msgid "Relay race length"
 msgstr "Довжина естафети"
 
-#: core/models.py:210
+#: core/models.py:213
 msgid "Count members"
 msgstr "Кількість учасників"
 
-#: core/models.py:219
+#: core/models.py:222
 msgid "Team for relay race"
 msgstr "Команда для естафети"
 
-#: core/templates/core/base.html:16
+#: core/templates/core/base.html:11
 msgid "Qorca - fast and shtoto tam competitions"
 msgstr "Q-Orca - швидкі і шось то там змагання"
 
@@ -481,47 +496,47 @@ msgstr "Кількість команд:"
 msgid "Started at:"
 msgstr "Початок:"
 
-#: core/templates/core/competition.html:46
+#: core/templates/core/competition.html:45
 msgid "Register team"
 msgstr "Зареєструвати команду"
 
-#: core/templates/core/competition.html:51
+#: core/templates/core/competition.html:48
 msgid "Unregister team"
 msgstr "Відреєструвати команду"
 
-#: core/templates/core/competition.html:56
+#: core/templates/core/competition.html:52
 msgid "Register as single"
 msgstr "Зареєструватись особисто"
 
-#: core/templates/core/competition.html:61
+#: core/templates/core/competition.html:55
 msgid "Unregister as single"
 msgstr "Відреєструватись особисто"
 
-#: core/templates/core/competition.html:68
+#: core/templates/core/competition.html:60
 msgid "Download badge"
 msgstr "Скачати бейдж"
 
-#: core/templates/core/competition.html:72
+#: core/templates/core/competition.html:64
 msgid "Download predictions"
 msgstr "Завантажити змагання"
 
-#: core/templates/core/competition.html:89
+#: core/templates/core/competition.html:81
 msgid "Distances"
 msgstr "Дистанції"
 
-#: core/templates/core/competition.html:90
+#: core/templates/core/competition.html:82
 msgid "Day 1"
 msgstr "День 1"
 
-#: core/templates/core/competition.html:95
-#: core/templates/core/competition.html:122
+#: core/templates/core/competition.html:87
+#: core/templates/core/competition.html:114
 #: core/templates/core/create_competition_distances.html:37
 #: core/templates/core/register_on_competition.html:33
 #: core/templates/core/team_register_on_competition.html:36
 msgid "Distance"
 msgstr "Дистанція"
 
-#: core/templates/core/competition.html:117
+#: core/templates/core/competition.html:109
 msgid "Day 2"
 msgstr "День 2"
 
@@ -574,26 +589,50 @@ msgstr "Будь ласка, заповніть дану форму, щоб за
 msgid "Count distances"
 msgstr "Кількість дистанцій"
 
-#: core/templates/core/index.html:53 core/templates/core/nav.html:9
+#: core/templates/core/index.html:56 core/templates/core/nav.html:9
 #: core/templates/core/nav.html:13
 msgid "Competitions"
 msgstr "Змагання"
 
-#: core/templates/core/index.html:54
+#: core/templates/core/index.html:57
 msgid "Check out all competitions here."
 msgstr "Переглянути всі змагання можна тут."
 
-#: core/templates/core/index.html:63
+#: core/templates/core/index.html:66
 msgid "Type of Competitions"
 msgstr "Тип змагання"
 
-#: core/templates/core/index.html:87
-msgid "There is no available competitions in this section :("
-msgstr "У данній секції немає змагань :("
-
-#: core/templates/core/index.html:109
+#: core/templates/core/index.html:107
 msgid "Your profile"
 msgstr "Ваш профіль"
+
+#: core/templates/core/index.html:148
+msgid "Full Name"
+msgstr "Повне ім'я"
+
+#: core/templates/core/index.html:152
+msgid "Email Address"
+msgstr "Електронна пошта"
+
+#: core/templates/core/index.html:156
+msgid "Your Message"
+msgstr "Ваше повідомлення"
+
+#: core/templates/core/index.html:160
+msgid "Send Your Email"
+msgstr "Відправити Ваше повідомлення"
+
+#: core/templates/core/index.html:168
+msgid "Contact Details"
+msgstr "Контакти"
+
+#: core/templates/core/index.html:172
+msgid "Ilusha Jabran"
+msgstr "Ілюша Жабран"
+
+#: core/templates/core/index.html:174
+msgid "Anyuta Kikot"
+msgstr "Анюта Кікоть"
 
 #: core/templates/core/nav.html:8 core/templates/core/nav.html:12
 msgid "Home"
@@ -626,7 +665,6 @@ msgstr "Будь ласка, заповніть дистанції, в яких 
 
 #: core/templates/core/register_on_competition.html:49
 #: core/templates/core/team_register_on_competition.html:53
-#: core/utils/PredictionTimeExcel.py:171
 msgid "Prediction time"
 msgstr "Попередній час"
 
@@ -724,12 +762,12 @@ msgstr "наступна"
 msgid "last"
 msgstr "остання"
 
-#: core/utils/PredictionTimeExcel.py:30 core/views.py:302 core/views.py:359
-#: core/views.py:445
+#: core/utils/PredictionTimeExcel.py:30 core/views.py:302 core/views.py:360
+#: core/views.py:454
 msgid "Day "
 msgstr "День "
 
-#: core/utils/PredictionTimeExcel.py:33 core/utils/PredictionTimeExcel.py:170
+#: core/utils/PredictionTimeExcel.py:33
 msgid "Member"
 msgstr "Учасник"
 
@@ -745,84 +783,78 @@ msgstr "Час"
 msgid "Track"
 msgstr "Доріжка"
 
-#: core/utils/PredictionTimeExcel.py:41 core/utils/PredictionTimeExcel.py:149
-#, fuzzy
-#| msgid "Distance"
+#: core/utils/PredictionTimeExcel.py:41
 msgid "Distance "
 msgstr "Дистанція "
 
-#: core/utils/PredictionTimeExcel.py:57
+#: core/utils/PredictionTimeExcel.py:60
+msgid "Males"
+msgstr "Чоловіки"
+
+#: core/utils/PredictionTimeExcel.py:62
+msgid "Females"
+msgstr "Жінки"
+
+#: core/utils/PredictionTimeExcel.py:63
 msgid "Swim "
 msgstr "Заплив "
-
-#: core/utils/PredictionTimeExcel.py:153
-msgid "Length:"
-msgstr "Довжина:"
-
-#: core/utils/PredictionTimeExcel.py:156
-msgid "Type:"
-msgstr "Тип:"
 
 #: core/views.py:198
 msgid "Team has been created!"
 msgstr "Команду було створено!"
 
-#: core/views.py:356
+#: core/views.py:357
 msgid "You need to fill your birth date in profile to register on competition"
 msgstr ""
 "Будь ласка, заповніть дату народження в профілі, щоб зареєструватись на "
 "змагання."
 
-#: core/views.py:367
+#: core/views.py:368
 msgid "You cannot register on this competition"
 msgstr "Ви не можете зареєструватись на це змагання"
 
-#: core/views.py:393
+#: core/views.py:386 core/views.py:493
+msgid "Wrong time format"
+msgstr "Невірний формат часу"
+
+#: core/views.py:401
 msgid "You have been already registrated on this competition!"
 msgstr "Ви вже зареєстровані на це змагання."
 
-#: core/views.py:401 core/views.py:500
-#, fuzzy
-#| msgid "You have been registered successful."
+#: core/views.py:409 core/views.py:515
 msgid "You have been registrated successful!"
 msgstr "Ви були успішно зареєстровані."
 
-#: core/views.py:413
+#: core/views.py:422
 msgid "You have been unregistrated successful!"
 msgstr "Ви були успішно відреєстровані."
 
-#: core/views.py:442
+#: core/views.py:451
 msgid "need to fill birth date in profile to register on this competition."
 msgstr ""
 "повинні заповнити дату народження в профілі, щоб зареєструватись на це "
 "змагання."
 
-#: core/views.py:455
+#: core/views.py:464
 msgid "You cannot register team on this competition"
 msgstr "Ви не можете зареєструвати команду на це змагання"
 
-#: core/views.py:492
+#: core/views.py:507
 msgid "Your team has been already registrated on this competition!"
 msgstr "Ваша команда вже зареєстрована на це змагання."
 
-#: core/views.py:518
+#: core/views.py:534
 msgid "Your team has been unregistrated successful!"
 msgstr "Ваша команда була відреєстрована успішно!"
 
-#~ msgid "Full Name"
-#~ msgstr "Повне ім'я"
+#~ msgid "There is no available competitions in this section :("
+#~ msgstr "У данній секції немає змагань :("
 
-#~ msgid "Email Address"
-#~ msgstr "Електронна пошта"
+#~ msgid "Length:"
+#~ msgstr "Довжина:"
 
-#~ msgid "Your Message"
-#~ msgstr "Ваше повідомлення"
-
-#~ msgid "Send Your Email"
-#~ msgstr "Відправити Ваше повідомлення"
-
-#~ msgid "Contact Details"
-#~ msgstr "Контакти"
+#~ msgid "Type:"
+#~ msgstr "Тип:"
 
 #~ msgid "Poltava National Technical University"
 #~ msgstr "Полтавський національний технічний університет"

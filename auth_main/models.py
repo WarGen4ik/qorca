@@ -6,7 +6,7 @@ import string
 
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 import django.utils.timezone
 
 
@@ -149,6 +149,19 @@ class Profile(models.Model):
             if age < 0:
                 return None
             groups = 'ABCDEFGHIJKLMN'
+            age_group = groups[math.floor(age / 5)]
+            return age_group
+        except:
+            return None
+
+    def get_age_group_numbers(self):
+        try:
+            born = self.birth_date
+            today = datetime.date.today()
+            age = today.year - born.year - ((today.month, today.day) < (born.month, born.day)) - 25
+            if age < 0:
+                return None
+            groups = ['25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80-84', '85-89', '90-94',]
             age_group = groups[math.floor(age / 5)]
             return age_group
         except:
