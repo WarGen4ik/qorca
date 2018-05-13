@@ -133,12 +133,14 @@ def getBadge(user, competition):
 
     draw.text((220, 150), 'MASTERS-ATHLETE', font=font_small, fill="black")
 
-    draw.text((360, 340), team_name, font=font_small, fill="black")
+    draw.text((360, 340), team_name, font=font_competition_name, fill="black")
     font_tiny = ImageFont.truetype(settings.BASE_DIR + "/fonts/OpenSans-Regular.ttf", 25)
+    font_day = ImageFont.truetype(settings.BASE_DIR + "/fonts/OpenSans-SemiBold.ttf", 25)
     draw.text((20, 700), _('Age group') + ': {}({})'.format(str(user.profile.get_age_group()), user.profile.get_age_group_numbers()), font=font_tiny, fill="black")
     draw.text((360, 500), _('Distances') + ':', font=font_small, fill="black")
-    distances_1_text = _('Day 1') + '\n'
-    distances_2_text = _('Day 2') + '\n'
+    distances_1_text = ''
+    distances_2_text = ''
+    draw.text((360, 560), _('Day 1'), font=font_day, fill="black")
     i_1 = 1
     i_2 = 1
     for distance in distances:
@@ -149,9 +151,10 @@ def getBadge(user, competition):
             distances_2_text += str(i_2) + '. ' + str(distance.length) + _(' m ') + distance.get_short_type_display() + '\n'
             i_2 += 1
 
-    draw.text((360, 560), distances_1_text, font=font_tiny, fill="black")
+    draw.text((360, 590), distances_1_text, font=font_tiny, fill="black")
     if distances_2_text:
-        draw.text((530, 560), distances_2_text, font=font_tiny, fill="black")
+        draw.text((530, 560), _('Day 2'), font=font_day, fill="black")
+        draw.text((530, 590), distances_2_text, font=font_tiny, fill="black")
 
     directory = settings.BASE_DIR + '/media/badges/{}'.format(competition.id)
     if not os.path.exists(directory):
