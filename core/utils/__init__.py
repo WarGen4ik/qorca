@@ -86,7 +86,7 @@ def getBadge(user, competition):
 
     r = requests.get(avatar_url, stream=True)
     if r.status_code == 200:
-        with open('tmp/{}'.format(avatar_url.split('/')[-1]), 'wb') as f:
+        with open(settings.BASE_DIR + '/tmp/{}'.format(avatar_url.split('/')[-1]), 'wb') as f:
             for chunk in r:
                 f.write(chunk)
 
