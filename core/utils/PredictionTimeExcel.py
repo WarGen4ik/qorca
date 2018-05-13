@@ -39,7 +39,7 @@ class PredictionTimeExcel:
                 for x in range(4):
                     ws.column_dimensions[self.get_char(x)].width = 15
 
-                for gender in range(1, 3, 1):
+                for gender in range(2, 0, -1):
                     if gender == 1:
                         gender_text = _('Males')
                     else:
