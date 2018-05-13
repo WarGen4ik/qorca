@@ -1,6 +1,6 @@
 import os
 
-DEBUG = True
+DEBUG = False
 
 BASE_URL = 'http://www.qorca.ml'
 EMAIL_HOST = 'smtp.sendgrid.net'
