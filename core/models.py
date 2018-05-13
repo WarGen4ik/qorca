@@ -194,15 +194,15 @@ class Distance(models.Model):
 
     def get_short_type_display(self):
         if self.type == 1:
-            return str(_('F/s'))
+            return str(_('f-s'))
         elif self.type == 2:
-            return str(_('B/f'))
+            return str(_('b-f'))
         elif self.type == 3:
-            return str(_('Bk/s'))
+            return str(_('bk-s'))
         elif self.type == 4:
-            return str(_('Br/s'))
+            return str(_('br-s'))
         else:
-            return str(_('D/k'))
+            return str(_('d-k'))
 
 
 class UserDistance(models.Model):

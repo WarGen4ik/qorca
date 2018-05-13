@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qorca 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-13 22:46+0300\n"
-"PO-Revision-Date: 2018-05-13 22:53+0300\n"
+"POT-Creation-Date: 2018-05-14 00:03+0300\n"
+"PO-Revision-Date: 2018-05-14 00:04+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ua\n"
@@ -109,8 +109,6 @@ msgid "Role"
 msgstr "Роль"
 
 #: auth_main/models.py:179
-#, fuzzy
-#| msgid "Full Name"
 msgid "Full name"
 msgstr "Повне ім'я"
 
@@ -449,24 +447,24 @@ msgid "Day number"
 msgstr "Номер дня"
 
 #: core/models.py:197
-msgid "F/s"
-msgstr "В-с"
+msgid "f-s"
+msgstr "в/с"
 
 #: core/models.py:199
-msgid "B/f"
-msgstr "Бат"
+msgid "b-f"
+msgstr "бат"
 
 #: core/models.py:201
-msgid "Bk/s"
-msgstr "Н-с"
+msgid "bk-s"
+msgstr "н/с"
 
 #: core/models.py:203
-msgid "Br/s"
-msgstr "Брас"
+msgid "br-s"
+msgstr "брас"
 
 #: core/models.py:205
-msgid "D/k"
-msgstr "К-п"
+msgid "d-k"
+msgstr "к/п"
 
 #: core/models.py:211 core/models.py:237
 msgid "Time for distance"
@@ -544,11 +542,11 @@ msgstr "Завантажити змагання"
 msgid "Download badges"
 msgstr "Завантажити бейджі"
 
-#: core/templates/core/competition.html:84 core/utils/__init__.py:126
+#: core/templates/core/competition.html:84 core/utils/__init__.py:139
 msgid "Distances"
 msgstr "Дистанції"
 
-#: core/templates/core/competition.html:85 core/utils/__init__.py:127
+#: core/templates/core/competition.html:85 core/utils/__init__.py:140
 msgid "Day 1"
 msgstr "День 1"
 
@@ -560,7 +558,7 @@ msgstr "День 1"
 msgid "Distance"
 msgstr "Дистанція"
 
-#: core/templates/core/competition.html:112 core/utils/__init__.py:128
+#: core/templates/core/competition.html:112 core/utils/__init__.py:141
 msgid "Day 2"
 msgstr "День 2"
 
@@ -795,7 +793,7 @@ msgstr "День "
 msgid "Member"
 msgstr "Учасник"
 
-#: core/utils/PredictionTimeExcel.py:33 core/utils/__init__.py:125
+#: core/utils/PredictionTimeExcel.py:33 core/utils/__init__.py:138
 msgid "Age group"
 msgstr "Вікова група"
 
@@ -823,9 +821,13 @@ msgstr "Заплив "
 msgid "Distance "
 msgstr "Дистанція "
 
-#: core/utils/__init__.py:74
+#: core/utils/__init__.py:75
 msgid "Single"
 msgstr "Без команди"
+
+#: core/utils/__init__.py:146 core/utils/__init__.py:149
+msgid " m "
+msgstr " м "
 
 #: core/views.py:194
 msgid "Team has been created!"
@@ -874,6 +876,21 @@ msgstr "Ваша команда вже зареєстрована на це зм
 #: core/views.py:536
 msgid "Your team has been unregistrated successful!"
 msgstr "Ваша команда була відреєстрована успішно!"
+
+#~ msgid "F/s"
+#~ msgstr "В-с"
+
+#~ msgid "B/f"
+#~ msgstr "Бат"
+
+#~ msgid "Bk/s"
+#~ msgstr "Н-с"
+
+#~ msgid "Br/s"
+#~ msgstr "Брас"
+
+#~ msgid "D/k"
+#~ msgstr "К-п"
 
 #~ msgid "There is no available competitions in this section :("
 #~ msgstr "У данній секції немає змагань :("
