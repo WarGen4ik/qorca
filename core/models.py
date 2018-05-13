@@ -192,6 +192,18 @@ class Distance(models.Model):
     def __str__(self):
         return 'Competition: {} | Type: {} | Length: {}'.format(self.competition.name, self.get_type_display(), self.length)
 
+    def get_short_type_display(self):
+        if self.type == 1:
+            return str(_('F/s'))
+        elif self.type == 2:
+            return str(_('B/f'))
+        elif self.type == 3:
+            return str(_('Bk/s'))
+        elif self.type == 4:
+            return str(_('Br/s'))
+        else:
+            return str(_('D/k'))
+
 
 class UserDistance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

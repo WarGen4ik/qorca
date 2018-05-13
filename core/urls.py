@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^users$', views.UserListView.as_view()),
     url(r'^user/(?P<pk>.+)$', views.GetUserProfileView.as_view()),
     url(r'^download/badge/(?P<pk>.+)/(?P<comp>.+)$', views.DownloadBadge.as_view()),
+    url(r'^download/badges/(?P<comp>.+)$', views.DownloadAllBadges.as_view()),
     url(r'^download/predictions/(?P<pk>.+)$', views.DownloadPredictions.as_view()),
 
     url(r'^team/invitation$', views.InvitationToTeamView.as_view()),

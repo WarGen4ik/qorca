@@ -4,6 +4,7 @@ import os
 import datetime
 from wsgiref.util import FileWrapper
 
+import cyrtranslit
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import Http404
@@ -16,7 +17,8 @@ from django.utils.translation import gettext as _
 from auth_main.models import User
 from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam, Distance, \
     UserDistance, RelayRace, RelayRaceTeam, UserRelayRace
-from core.utils import get_session_attributes, queryset_to_dict, getBadge, activate_language
+from core.utils import get_session_attributes, queryset_to_dict, getBadge, activate_language, get_all_badges, \
+    delete_badge
 from core.utils.PredictionTimeExcel import PredictionTimeExcel
 from core.widgets import CompetitionSelectWidget
 
@@ -77,29 +79,23 @@ class GetUserProfileView(TemplateView):
 class DownloadBadge(View):
     def get(self, request, *args, **kwargs):
         activate_language(request.session)
-        user = User.objects.get(pk=kwargs['pk'])
-        competition = Competition.objects.get(pk=kwargs['comp'])
-        try:
-            team = TeamRelationToUser.objects.get(user=user).team
-            CompetitionTeam.objects.get(team=team, competition=competition)
-            team = team.name
-        except:
-            team = 'Single'
+        if request.user.is_authenticated and (request.user.is_admin or request.user.id == int(kwargs['pk'])):
+            try:
+                user = User.objects.get(pk=kwargs['pk'])
+                competition = Competition.objects.get(pk=kwargs['comp'])
 
-        distances = Distance.objects.filter(competition=competition).all()
-        # distances = list()
-        # for distance in Distance.objects.filter(competition=competition).all():
-        #     distances.append(UserDistance.objects.get(user=user, distance=distance))
-
-        badge_path = getBadge(user.profile.avatar.url, user.get_full_name(), user, team, distances)
-        file_wrapper = FileWrapper(open(badge_path, 'rb'))
-        file_mimetype = mimetypes.guess_type(badge_path)
-        response = HttpResponse(file_wrapper, content_type=file_mimetype)
-        response['X-Sendfile'] = badge_path
-        response['Content-Length'] = os.stat(badge_path).st_size
-        response['Content-Disposition'] = 'attachment; filename={}'.format(
-            '{}\'s_badge.png'.format(user.id).replace(' ', '_'))
-        return response
+                badge_path = getBadge(user, competition)
+                file_wrapper = FileWrapper(open(badge_path, 'rb'))
+                file_mimetype = mimetypes.guess_type(badge_path)
+                response = HttpResponse(file_wrapper, content_type=file_mimetype)
+                response['X-Sendfile'] = badge_path
+                response['Content-Length'] = os.stat(badge_path).st_size
+                response['Content-Disposition'] = 'attachment; filename={}'.format(
+                    '{}\'s_badge.png'.format(cyrtranslit.to_latin(user.get_full_name(), 'ru').replace(' ', '_')))
+                return response
+            except:
+                pass
+        raise Http404
 
 
 class InvitationToTeamView(TemplateView):
@@ -406,6 +402,7 @@ class RegisterCompetitionView(TemplateView):
         else:
             obj.is_complete = True
             obj.save()
+            getBadge(request.user, competition)
             request.session['alerts'] = [{'type': 'success', 'message': _('You have been registrated successful!')}]
             return redirect('/core/competition/{}'.format(competition.pk))
 
@@ -419,7 +416,8 @@ class UnregisterCompetitionView(View):
                 CompetitionUser.objects.filter(user=request.user, competition=competition).delete()
                 for distance in Distance.objects.filter(competition=competition).all():
                     UserDistance.objects.filter(user=request.user, distance=distance).delete()
-            request.session['alerts'] = [{'type': 'success', 'message': _('You have been unregistrated successful!')}]
+                delete_badge(request.user, competition)
+                request.session['alerts'] = [{'type': 'success', 'message': _('You have been unregistrated successful!')}]
 
         return redirect('/')
 
@@ -512,6 +510,8 @@ class TeamRegisterCompetitionView(TemplateView):
         else:
             obj.is_complete = True
             obj.save()
+            for user in users:
+                getBadge(user.user, competition)
             request.session['alerts'] = [{'type': 'success', 'message': _('You have been registrated successful!')}]
             return redirect('/core/competition/{}'.format(competition.pk))
 
@@ -530,8 +530,10 @@ class TeamUnregisterCompetitionView(View):
                 for rel in TeamRelationToUser.objects.filter(team=team).all():
                     for distance in Distance.objects.filter(competition=competition).all():
                         UserDistance.objects.filter(user=rel.user, distance=distance).delete()
-            request.session['alerts'] = [
-                {'type': 'success', 'message': _('Your team has been unregistrated successful!')}]
+                    delete_badge(rel.user, competition)
+
+                request.session['alerts'] = [
+                    {'type': 'success', 'message': _('Your team has been unregistrated successful!')}]
 
         return redirect('/')
 
@@ -570,3 +572,22 @@ class ConfirmCompetitionView(View):
         competition.is_creating_finished = True
         competition.save()
         return HttpResponse(status=200)
+
+
+class DownloadAllBadges(View):
+    def get(self, request, *args, **kwargs):
+        activate_language(request.session)
+        competition = Competition.objects.get(pk=kwargs['comp'])
+        if request.user.is_authenticated and request.user.profile.role == 2:
+            if competition.created_by == request.user.id or request.user.is_admin:
+                badge_path = get_all_badges(competition)
+
+                file_wrapper = FileWrapper(open(badge_path, 'rb'))
+                file_mimetype = mimetypes.guess_type(badge_path)
+                response = HttpResponse(file_wrapper, content_type=file_mimetype)
+                response['X-Sendfile'] = badge_path
+                response['Content-Length'] = os.stat(badge_path).st_size
+                response['Content-Disposition'] = 'attachment; filename={}'.format('badges.zip')
+                return response
+
+        raise Http404
