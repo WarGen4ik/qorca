@@ -170,6 +170,9 @@ def get_archive(files_path, archive_path):
 
 
 def get_all_badges(competition):
+    directory = settings.BASE_DIR + '/media/badges/{}'.format(competition.id)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     users = UserDistance.objects.filter(distance__competition=competition).values('user').distinct()
     for user in users:
         user = User.objects.get(id=user['user'])
