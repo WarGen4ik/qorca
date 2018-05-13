@@ -32,35 +32,42 @@ class PredictionTimeExcel:
             index = 1
             columns = [_('Member'), _('Age group'), _('Team'), _('City'), _('Time'), _('Track')]
             distance_index = 1
+            swim_index = 1
             for distance in Distance.objects.filter(competition=self.competition, day=day+1).all():
                 char = self.get_char(alf_index - 1)
                 next_char = self.get_char(alf_index + 4)
-                ws.merge_cells('{}{}:{}{}'.format(char, index, next_char, index))
-                ws['{}{}'.format(char, index)].font = Font(size=14, bold=True)
-                ws['{}{}'.format(char, index)].alignment = alignment
-                ws['{}{}'.format(char, index)] = _('Distance ') + '№{}'.format(distance_index) + ' - ' + str(distance.length) + ' ' + distance.get_type_display()
-                index += 2
                 for x in range(4):
                     ws.column_dimensions[self.get_char(x)].width = 15
 
                 for gender in range(1, 3, 1):
-
+                    if gender == 1:
+                        gender_text = _('Males')
+                    else:
+                        gender_text = _('Females')
                     not_end = True
-                    swim_index = 1
                     column_index = 1
+                    distance_swim_index = 1
                     while not_end:
                         users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender)\
-                        .order_by('-time')[(swim_index - 1) * self.competition.track_count:swim_index * self.competition.track_count]
+                        .order_by('-time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
                         if not users_distances:
                             not_end = False
                             break
                         ws.merge_cells('{}{}:{}{}'.format(char, index, next_char, index))
-                        ws['{}{}'.format(char, index)].font = Font(size=12, bold=True)
-                        if gender == 1:
-                            gender_text = _('Males')
-                        else:
-                            gender_text = _('Females')
+                        ws['{}{}'.format(char, index)].font = Font(size=14, bold=True)
+                        ws['{}{}'.format(char, index)].alignment = alignment
                         ws['{}{}'.format(char, index)] = _('Swim ') + '№{} - {}'.format(swim_index, gender_text)
+                        index += 1
+                        ws.merge_cells('{}{}:{}{}'.format(char, index, next_char, index))
+                        ws['{}{}'.format(char, index)].font = Font(size=12, bold=True)
+                        ws['{}{}'.format(char, index)].alignment = alignment
+                        ws['{}{}'.format(char, index)] = _('Distance ') + '№{}'.format(distance_index) + ' - ' + str(
+                            distance.length) + ' ' + distance.get_type_display()
+                        index += 2
+
+                        ws.merge_cells('{}{}:{}{}'.format(char, index, next_char, index))
+                        ws['{}{}'.format(char, index)].font = Font(size=12, bold=True)
+
                         ws['{}{}'.format(char, index)].alignment = alignment
                         # ws['{}{}'.format(char, index)].border = border
                         index += 1
@@ -113,6 +120,7 @@ class PredictionTimeExcel:
                             track_index += 1
                         index += 5
                         swim_index += 1
+                        distance_swim_index += 1
                 distance_index += 1
         path = settings.BASE_DIR + "/media/predictions/" + str(self.competition.id) + ".xlsx"
         wb.save(path)

@@ -103,7 +103,7 @@ def getBadge(avatar_url, fullname, user, team_name, distances=None):
     i = 0
     for distance in distances:
         i += 1
-        distances_text += str(i) + '. ' + distance.get_type_display() + ' - ' + str(distance.length) + ' m\n'
+        distances_text += str(i) + '. ' + distance.get_type_display() + ' - ' + str(distance.length) + '\n'
 
     draw.text((500, 260), distances_text, font=font_tiny, fill="black")
     background.save(settings.BASE_DIR + '/media/badges/{}_badge.png'.format(user.id))

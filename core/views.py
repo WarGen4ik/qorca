@@ -517,7 +517,7 @@ class TeamRegisterCompetitionView(TemplateView):
 
 
 class TeamUnregisterCompetitionView(View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         activate_language(request.session)
         if request.user.is_authenticated:
             if 'team' in request.session:
