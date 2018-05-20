@@ -108,7 +108,7 @@ class PredictionTimeExcel:
                                 CompetitionTeam.objects.get(team=team, competition=self.competition, is_complete=True)
                                 team = team.name
                             except:
-                                team = 'Single'
+                                team = _('Single')
                             ws['{}{}'.format(self.get_char(column_index + 1), tracks[track_index-1])] = team
                             ws['{}{}'.format(self.get_char(column_index + 1), tracks[track_index-1])].border = border
                             ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])] = user_distance.user.profile.city

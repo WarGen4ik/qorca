@@ -123,6 +123,7 @@ class Profile(models.Model):
     city = models.CharField(_('City'), max_length=100, null=True)
     is_verificated = models.BooleanField(_('Is user verificated'), default=False)
     verification_code = models.CharField(_('Verification code'), max_length=63, default=generate_email_hash)
+    age_group = models.CharField(_('Age group'), max_length=63, default='')
 
     ROLES = (
         (1, _('user')),
@@ -137,6 +138,10 @@ class Profile(models.Model):
             self.birth_date = kwargs.get('birth_date', self.birth_date)
         else:
             self.birth_date = datetime.datetime.strptime(kwargs['birth_date'], "%Y-%m-%d").date()
+
+        age_group = self.get_age_group_numbers()
+        if age_group:
+            self.age_group = age_group
         self.city = kwargs.get('city', self.city)
         self.avatar = kwargs.get('avatar', self.avatar)
         self.save()
@@ -164,6 +169,17 @@ class Profile(models.Model):
             groups = ['25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80-84', '85-89', '90-94',]
             age_group = groups[math.floor(age / 5)]
             return age_group
+        except:
+            return None
+
+    def get_age_group_number(self):
+        try:
+            born = self.birth_date
+            today = datetime.date.today()
+            age = today.year - born.year - 25
+            if age < 0:
+                return None
+            return math.floor(age / 5)
         except:
             return None
 

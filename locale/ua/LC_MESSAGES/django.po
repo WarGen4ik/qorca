@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qorca 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 00:03+0300\n"
-"PO-Revision-Date: 2018-05-14 00:04+0300\n"
+"POT-Creation-Date: 2018-05-20 19:06+0300\n"
+"PO-Revision-Date: 2018-05-20 19:06+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ua\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: auth_main/models.py:54 auth_main/models.py:180
+#: auth_main/models.py:54 auth_main/models.py:196
 #: auth_main/templates/auth_main/reset_password_email.html:25
 #: auth_main/templates/auth_main/reset_verification.html:25
 #: auth_main/templates/auth_main/signin.html:25
@@ -35,8 +35,8 @@ msgstr "Ім'я"
 msgid "Last name"
 msgstr "Прізвище"
 
-#: auth_main/models.py:66 core/models.py:16 core/models.py:42 core/models.py:74
-#: core/models.py:161 core/models.py:171
+#: auth_main/models.py:66 core/models.py:16 core/models.py:42 core/models.py:76
+#: core/models.py:177 core/models.py:187
 msgid "Created at"
 msgstr "Створено"
 
@@ -61,16 +61,16 @@ msgid "Avatar"
 msgstr "Аватар"
 
 #: auth_main/models.py:116 auth_main/templates/auth_main/profile.html:62
-#: qorca/views.py:15
+#: qorca/views.py:16
 msgid "male"
 msgstr "чоловік"
 
 #: auth_main/models.py:117 auth_main/templates/auth_main/profile.html:66
-#: qorca/views.py:15
+#: qorca/views.py:16
 msgid "female"
 msgstr "жінка"
 
-#: auth_main/models.py:120
+#: auth_main/models.py:120 competition/models.py:12
 msgid "Gender"
 msgstr "Стать"
 
@@ -84,7 +84,7 @@ msgstr "Дата народження"
 
 #: auth_main/models.py:123 auth_main/templates/auth_main/signup.html:34
 #: auth_main/templates/auth_main/signup.html:35
-#: core/utils/PredictionTimeExcel.py:33
+#: competition/utils/ResultsExcel.py:33 core/utils/PredictionTimeExcel.py:33
 msgid "City"
 msgstr "Місто"
 
@@ -96,23 +96,29 @@ msgstr "Чи верифікований користувач"
 msgid "Verification code"
 msgstr "Код верифікації"
 
-#: auth_main/models.py:128
+#: auth_main/models.py:126 competition/utils/ResultsExcel.py:33
+#: competition/utils/ResultsExcel.py:89 core/utils/PredictionTimeExcel.py:33
+#: core/utils/__init__.py:155
+msgid "Age group"
+msgstr "Вікова група"
+
+#: auth_main/models.py:129
 msgid "user"
 msgstr "користувач"
 
-#: auth_main/models.py:129
+#: auth_main/models.py:130
 msgid "manager"
 msgstr "менеджер"
 
-#: auth_main/models.py:131
+#: auth_main/models.py:132
 msgid "Role"
 msgstr "Роль"
 
-#: auth_main/models.py:179
+#: auth_main/models.py:195
 msgid "Full name"
 msgstr "Повне ім'я"
 
-#: auth_main/models.py:181
+#: auth_main/models.py:197
 msgid "Message"
 msgstr "Повідомлення"
 
@@ -338,16 +344,210 @@ msgstr "Ваш пароль був змінений."
 msgid "We will read your message as soon as possible."
 msgstr "Ми прочитаємо ваше повідомлення як тільки зможемо."
 
+#: competition/models.py:9
+msgid "Pool size"
+msgstr "Довжина басейну"
+
+#: competition/models.py:10 core/models.py:205
+#: core/templates/core/competition.html:94
+#: core/templates/core/competition.html:121
+#: core/templates/core/create_competition_distances.html:38
+#: core/templates/core/register_on_competition.html:35
+#: core/templates/core/team_register_on_competition.html:38
+msgid "Distance length"
+msgstr "Довжина дистанції"
+
+#: competition/models.py:11 core/models.py:204 core/models.py:245
+#: core/templates/core/competition.html:98
+#: core/templates/core/competition.html:125
+#: core/templates/core/create_competition_distances.html:40
+#: core/templates/core/register_on_competition.html:40
+#: core/templates/core/team_register_on_competition.html:44
+msgid "Distance type"
+msgstr "Тип дистанції"
+
+#: competition/models.py:13 competition/utils/ResultsExcel.py:33
+msgid "Points"
+msgstr "Бали"
+
+#: competition/templates/competition/swims_results.html:26
+msgid "Previous day"
+msgstr "Попередній день"
+
+#: competition/templates/competition/swims_results.html:30
+msgid "Next day"
+msgstr "Наступний день"
+
+#: competition/templates/competition/swims_results.html:36
+msgid "Previous swim"
+msgstr "Попередній заплив"
+
+#: competition/templates/competition/swims_results.html:40
+msgid "Next swim"
+msgstr "Наступний заплив"
+
+#: competition/templates/competition/swims_results.html:46
+#, python-format
+msgid " Swim №%(number)s results "
+msgstr "Результати запливу №%(number)s"
+
+#: competition/templates/competition/swims_results.html:47
+msgid "Please fill results of a swim."
+msgstr "Будь ласка, заповніть результати запливу."
+
+#: competition/templates/competition/swims_results.html:49
+#: competition/templates/competition/user_list.html:49
+msgid "Back to competition"
+msgstr "Назад до змагання"
+
+#: competition/templates/competition/swims_results.html:59 core/models.py:228
+#: core/models.py:254
+msgid "Result time"
+msgstr "Результуючий час"
+
+#: competition/templates/competition/swims_results.html:65
+msgid "There are no members on this swim"
+msgstr "Жоден з учасників запливу не завершив реєстрацію"
+
+#: competition/templates/competition/swims_results.html:69
+msgid "Fill results"
+msgstr "Заповнити результати"
+
+#: competition/templates/competition/user_list.html:37
+msgid "Competition managment"
+msgstr "Управління змаганням"
+
+#: competition/templates/competition/user_list.html:38
+msgid "Here you can manage your competitions"
+msgstr "Тут ви можете управляти змаганням"
+
+#: competition/templates/competition/user_list.html:43
+#: competition/templates/competition/user_list.html:73
+#: competition/templates/competition/user_list.html:91
+msgid "Finish registration"
+msgstr "Завершити реєстрацію"
+
+#: competition/templates/competition/user_list.html:45
+msgid "Resume registration"
+msgstr "Оновити реєстрацію"
+
+#: competition/templates/competition/user_list.html:46
+msgid "Add results"
+msgstr "Додати результати"
+
+#: competition/templates/competition/user_list.html:47
+msgid "Download results"
+msgstr "Завантажити результати"
+
+#: competition/templates/competition/user_list.html:51
+#: core/templates/core/userlist.html:26
+msgid "Find user"
+msgstr "Знайти користувача"
+
+#: competition/templates/competition/user_list.html:53
+msgid "User name"
+msgstr "Ім'я користувача"
+
+#: competition/templates/competition/user_list.html:60
+#: core/templates/core/userlist.html:37
+msgid "User Name"
+msgstr "Ім'я користувача"
+
+#: competition/templates/competition/user_list.html:61
+#: core/templates/core/userlist.html:38
+msgid "Location"
+msgstr "Місто"
+
+#: competition/templates/competition/user_list.html:62
+msgid "Action"
+msgstr "Дії"
+
+#: competition/templates/competition/user_list.html:77
+msgid "Remove registration"
+msgstr "Відреєструвати"
+
+#: competition/utils/ResultsExcel.py:30 core/utils/PredictionTimeExcel.py:30
+#: core/views.py:302 core/views.py:360 core/views.py:456
+msgid "Day "
+msgstr "День "
+
+#: competition/utils/ResultsExcel.py:33 core/utils/PredictionTimeExcel.py:33
+msgid "Member"
+msgstr "Учасник"
+
+#: competition/utils/ResultsExcel.py:33 core/templates/core/nav.html:27
+#: core/utils/PredictionTimeExcel.py:33
+msgid "Team"
+msgstr "Команда"
+
+#: competition/utils/ResultsExcel.py:33 core/utils/PredictionTimeExcel.py:33
+msgid "Time"
+msgstr "Час"
+
+#: competition/utils/ResultsExcel.py:46 core/utils/PredictionTimeExcel.py:44
+msgid "Males"
+msgstr "Чоловіки"
+
+#: competition/utils/ResultsExcel.py:48 core/utils/PredictionTimeExcel.py:46
+msgid "Females"
+msgstr "Жінки"
+
+#: competition/utils/ResultsExcel.py:61 core/utils/PredictionTimeExcel.py:64
+msgid "Distance "
+msgstr "Дистанція "
+
+#: competition/utils/ResultsExcel.py:109 core/utils/PredictionTimeExcel.py:111
+#: core/utils/__init__.py:91
+msgid "Single"
+msgstr "Без команди"
+
+#: competition/views.py:42
+msgid "User has been finished registration!"
+msgstr "Користувач завершив реєстрацію!"
+
+#: competition/views.py:76
+#, python-format
+msgid "%(user)s has been finished registration!"
+msgstr "%(user)s завершив реєстрацію!"
+
+#: competition/views.py:91
+#, python-format
+msgid "%(user)s has been removed from registration!"
+msgstr "%(user)s успішно відреєстрований!"
+
+#: competition/views.py:106
+msgid "Competition registration has been finished!"
+msgstr "Реєстрація на змагання була завершена."
+
+#: competition/views.py:120
+msgid "Competition registration has been resumed!"
+msgstr "Реєстрація на змагання була оновлена"
+
+#: competition/views.py:142
+msgid "Day {}"
+msgstr "День {}"
+
+#: competition/views.py:173
+#, python-format
+msgid "%(user)s result time has wrong format. Please try again."
+msgstr ""
+"Результуючий час користувача %(user)s має невірний формат. Будь ласка "
+"попробуйте знову."
+
+#: competition/views.py:177
+msgid "Success!"
+msgstr "Успіх"
+
 #: core/models.py:13
 msgid "Team name"
 msgstr "Назва команди"
 
-#: core/models.py:14 core/models.py:69 core/templates/core/create-team.html:28
+#: core/models.py:14 core/models.py:70 core/templates/core/create-team.html:28
 #: core/templates/core/create_competition.html:33
 msgid "Logo"
 msgstr "Логотип"
 
-#: core/models.py:15 core/models.py:68 core/templates/core/competition.html:73
+#: core/models.py:15 core/models.py:69 core/templates/core/competition.html:76
 #: core/templates/core/create-team.html:31
 #: core/templates/core/create_competition.html:41
 msgid "Description"
@@ -381,116 +581,111 @@ msgstr "Назва змагання"
 msgid "Count days"
 msgstr "Кількість днів"
 
-#: core/models.py:70 core/widgets.py:21
+#: core/models.py:68
+msgid "Pools sizes"
+msgstr "Довжини басейнів"
+
+#: core/models.py:71 core/widgets.py:21
 msgid "Region"
 msgstr "Регіон"
 
-#: core/models.py:71 core/widgets.py:22
+#: core/models.py:72 core/widgets.py:22
 msgid "Count tracks"
 msgstr "Кількість доріжок"
 
-#: core/models.py:72
+#: core/models.py:73
 msgid "Is creating finished"
 msgstr "Чи завершене створення"
 
-#: core/models.py:73 core/templates/core/create_competition.html:30
+#: core/models.py:74
+msgid "Is register finished"
+msgstr "Чи завершена реєстрація"
+
+#: core/models.py:75 core/templates/core/create_competition.html:30
 msgid "Started at"
 msgstr "Початок"
 
-#: core/models.py:162
+#: core/models.py:178
 msgid "Is user registration completed"
 msgstr "Чи завершена реєстрація"
 
-#: core/models.py:172
+#: core/models.py:188
 msgid "Is team registration completed"
 msgstr "Чи завершена реєстрація"
 
-#: core/models.py:180
+#: core/models.py:196
 msgid "Freestyle"
 msgstr "Вільний стиль"
 
-#: core/models.py:181
+#: core/models.py:197
 msgid "Butterfly"
 msgstr "Баттерфлай"
 
-#: core/models.py:182
+#: core/models.py:198
 msgid "Backstroke"
 msgstr "На спині"
 
-#: core/models.py:183
+#: core/models.py:199
 msgid "Breaststroke"
 msgstr "Брас"
 
-#: core/models.py:184
+#: core/models.py:200
 msgid "Dolphin kick"
 msgstr "Комплексне плавання"
 
-#: core/models.py:188 core/models.py:227
-#: core/templates/core/competition.html:95
-#: core/templates/core/competition.html:122
-#: core/templates/core/create_competition_distances.html:40
-#: core/templates/core/register_on_competition.html:40
-#: core/templates/core/team_register_on_competition.html:44
-msgid "Distance type"
-msgstr "Тип дистанції"
-
-#: core/models.py:189 core/templates/core/competition.html:91
-#: core/templates/core/competition.html:118
-#: core/templates/core/create_competition_distances.html:38
-#: core/templates/core/register_on_competition.html:35
-#: core/templates/core/team_register_on_competition.html:38
-msgid "Distance length"
-msgstr "Довжина дистанції"
-
-#: core/models.py:190 core/models.py:226
+#: core/models.py:206 core/models.py:244
 msgid "Day number"
 msgstr "Номер дня"
 
-#: core/models.py:197
+#: core/models.py:213
 msgid "f-s"
 msgstr "в/с"
 
-#: core/models.py:199
+#: core/models.py:215
 msgid "b-f"
 msgstr "бат"
 
-#: core/models.py:201
+#: core/models.py:217
 msgid "bk-s"
 msgstr "н/с"
 
-#: core/models.py:203
+#: core/models.py:219
 msgid "br-s"
 msgstr "брас"
 
-#: core/models.py:205
+#: core/models.py:221
 msgid "d-k"
 msgstr "к/п"
 
-#: core/models.py:211 core/models.py:237
+#: core/models.py:227 core/models.py:255
 msgid "Time for distance"
 msgstr "Час для дистанції"
 
-#: core/models.py:212 core/models.py:236
-msgid "Result time"
-msgstr "Результуючий час"
+#: core/models.py:229
+msgid "Is registration finished"
+msgstr "Чи завершена реєстрація"
 
-#: core/models.py:220
+#: core/models.py:230
+msgid "Count points"
+msgstr "Кількість балів"
+
+#: core/models.py:238
 msgid "Mixed"
 msgstr "Змішаний"
 
-#: core/models.py:221
+#: core/models.py:239
 msgid "Separated"
 msgstr "Розділений"
 
-#: core/models.py:223
+#: core/models.py:241
 msgid "Relay race length"
 msgstr "Довжина естафети"
 
-#: core/models.py:225
+#: core/models.py:243
 msgid "Count members"
 msgstr "Кількість учасників"
 
-#: core/models.py:234
+#: core/models.py:252
 msgid "Team for relay race"
 msgstr "Команда для естафети"
 
@@ -542,23 +737,27 @@ msgstr "Завантажити змагання"
 msgid "Download badges"
 msgstr "Завантажити бейджі"
 
-#: core/templates/core/competition.html:84 core/utils/__init__.py:139
+#: core/templates/core/competition.html:70
+msgid "Start registration"
+msgstr "Перейти до управління"
+
+#: core/templates/core/competition.html:87 core/utils/__init__.py:156
 msgid "Distances"
 msgstr "Дистанції"
 
-#: core/templates/core/competition.html:85 core/utils/__init__.py:140
+#: core/templates/core/competition.html:88 core/utils/__init__.py:159
 msgid "Day 1"
 msgstr "День 1"
 
-#: core/templates/core/competition.html:90
-#: core/templates/core/competition.html:117
+#: core/templates/core/competition.html:93
+#: core/templates/core/competition.html:120
 #: core/templates/core/create_competition_distances.html:37
 #: core/templates/core/register_on_competition.html:33
 #: core/templates/core/team_register_on_competition.html:36
 msgid "Distance"
 msgstr "Дистанція"
 
-#: core/templates/core/competition.html:112 core/utils/__init__.py:141
+#: core/templates/core/competition.html:115 core/utils/__init__.py:172
 msgid "Day 2"
 msgstr "День 2"
 
@@ -572,7 +771,6 @@ msgstr "Будь ласка, заповніть дану форму, щоб ст
 
 #: core/templates/core/create-team.html:25
 #: core/templates/core/create_competition.html:27
-#: core/templates/core/userlist.html:37
 msgid "Name"
 msgstr "Назва"
 
@@ -649,12 +847,8 @@ msgid "Contact Details"
 msgstr "Контакти"
 
 #: core/templates/core/index.html:172
-msgid "Ilusha Jabran"
-msgstr "Ілюша Жабран"
-
-#: core/templates/core/index.html:174
-msgid "Bonya Kikot"
-msgstr "Боня Кікоть"
+msgid "Anna Kikot"
+msgstr "Анна Кікоть"
 
 #: core/templates/core/nav.html:8 core/templates/core/nav.html:12
 msgid "Home"
@@ -663,10 +857,6 @@ msgstr "Головна"
 #: core/templates/core/nav.html:10 core/templates/core/nav.html:14
 msgid "Contact"
 msgstr "Контакти"
-
-#: core/templates/core/nav.html:27 core/utils/PredictionTimeExcel.py:33
-msgid "Team"
-msgstr "Команда"
 
 #: core/templates/core/nav.html:30
 msgid "Create Team"
@@ -736,7 +926,11 @@ msgstr ""
 "Будь ласка, заповніть дистанції, в яких ви та ваші члени команди хочете "
 "взяти участь."
 
-#: core/templates/core/user_profile.html:46
+#: core/templates/core/user_profile.html:44
+msgid "Team:"
+msgstr "Команда:"
+
+#: core/templates/core/user_profile.html:49
 msgid "Send invitation"
 msgstr "Відправити запрошення"
 
@@ -748,17 +942,9 @@ msgstr "Список користувачів"
 msgid "User Search"
 msgstr "Пошук користувачів"
 
-#: core/templates/core/userlist.html:26
-msgid "Find user"
-msgstr "Знайти користувача"
-
 #: core/templates/core/userlist.html:29
 msgid "Search"
 msgstr "Знайти"
-
-#: core/templates/core/userlist.html:38
-msgid "Location"
-msgstr "Місто"
 
 #: core/templates/core/userlist.html:52
 msgid "first"
@@ -784,98 +970,68 @@ msgstr "наступна"
 msgid "last"
 msgstr "остання"
 
-#: core/utils/PredictionTimeExcel.py:30 core/views.py:298 core/views.py:356
-#: core/views.py:452
-msgid "Day "
-msgstr "День "
-
-#: core/utils/PredictionTimeExcel.py:33
-msgid "Member"
-msgstr "Учасник"
-
-#: core/utils/PredictionTimeExcel.py:33 core/utils/__init__.py:138
-msgid "Age group"
-msgstr "Вікова група"
-
-#: core/utils/PredictionTimeExcel.py:33
-msgid "Time"
-msgstr "Час"
-
 #: core/utils/PredictionTimeExcel.py:33
 msgid "Track"
 msgstr "Доріжка"
-
-#: core/utils/PredictionTimeExcel.py:44
-msgid "Males"
-msgstr "Чоловіки"
-
-#: core/utils/PredictionTimeExcel.py:46
-msgid "Females"
-msgstr "Жінки"
 
 #: core/utils/PredictionTimeExcel.py:59
 msgid "Swim "
 msgstr "Заплив "
 
-#: core/utils/PredictionTimeExcel.py:64
-msgid "Distance "
-msgstr "Дистанція "
-
-#: core/utils/__init__.py:75
-msgid "Single"
-msgstr "Без команди"
-
-#: core/utils/__init__.py:146 core/utils/__init__.py:149
+#: core/utils/__init__.py:164 core/utils/__init__.py:167
 msgid " m "
 msgstr " м "
 
-#: core/views.py:194
+#: core/views.py:198
 msgid "Team has been created!"
 msgstr "Команду було створено!"
 
-#: core/views.py:353
+#: core/views.py:357
 msgid "You need to fill your birth date in profile to register on competition"
 msgstr ""
 "Будь ласка, заповніть дату народження в профілі, щоб зареєструватись на "
 "змагання."
 
-#: core/views.py:364
+#: core/views.py:368
 msgid "You cannot register on this competition"
 msgstr "Ви не можете зареєструватись на це змагання"
 
-#: core/views.py:382 core/views.py:491
+#: core/views.py:386 core/views.py:495
 msgid "Wrong time format"
 msgstr "Невірний формат часу"
 
-#: core/views.py:397
+#: core/views.py:401
 msgid "You have been already registrated on this competition!"
 msgstr "Ви вже зареєстровані на це змагання."
 
-#: core/views.py:406 core/views.py:515
+#: core/views.py:410 core/views.py:519
 msgid "You have been registrated successful!"
 msgstr "Ви були успішно зареєстровані."
 
-#: core/views.py:420
+#: core/views.py:424
 msgid "You have been unregistrated successful!"
 msgstr "Ви були успішно відреєстровані."
 
-#: core/views.py:449
+#: core/views.py:453
 msgid "need to fill birth date in profile to register on this competition."
 msgstr ""
 "повинні заповнити дату народження в профілі, щоб зареєструватись на це "
 "змагання."
 
-#: core/views.py:462
+#: core/views.py:466
 msgid "You cannot register team on this competition"
 msgstr "Ви не можете зареєструвати команду на це змагання"
 
-#: core/views.py:505
+#: core/views.py:509
 msgid "Your team has been already registrated on this competition!"
 msgstr "Ваша команда вже зареєстрована на це змагання."
 
-#: core/views.py:536
+#: core/views.py:540
 msgid "Your team has been unregistrated successful!"
 msgstr "Ваша команда була відреєстрована успішно!"
+
+#~ msgid "Ilusha Jabran"
+#~ msgstr "Ілюша Жабран"
 
 #~ msgid "F/s"
 #~ msgstr "В-с"

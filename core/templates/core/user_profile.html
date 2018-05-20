@@ -40,6 +40,9 @@
                     <label class="profile-description">{% trans 'Gender:' %} {{ curr_gender|default:"Empty" }}</label>
                     <label class="profile-description">{% trans 'Phone number:' %} {{ curr_user.profile.phone_number|default:"Empty" }}</label>
                     <label class="profile-description">{% trans 'Birth date:' %} {{ curr_user.profile.birth_date|default:"Empty" }}</label>
+                {% if user_team %}
+                    <label class="profile-description">{% trans 'Team:' %} {{ user_team }}</label>
+                {% endif %}
                     <label id="curr-user-id" style="visibility: hidden;">{{ curr_user.pk }}</label>
                     {% if is_teamlead %}
                         <button id="send-invitation" type="button"

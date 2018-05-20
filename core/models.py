@@ -65,11 +65,13 @@ class Competition(models.Model):
     )
     name = models.CharField(_('Competition name'), max_length=255)
     count_days = models.SmallIntegerField(_('Count days'))
+    pool_sizes = models.CharField(_('Pools sizes'), max_length=255, default='50,25')
     description = models.TextField(_('Description'))
     logo = models.ImageField(_('Logo'), upload_to='competitions/logos/', default='competitions/logos/no-img.png')
     region = models.CharField(_('Region'), max_length=100, choices=REGIONS)
     track_count = models.SmallIntegerField(_('Count tracks'), choices=TRACKS)
     is_creating_finished = models.BooleanField(_('Is creating finished'), default=False)
+    is_register_finished = models.BooleanField(_('Is register finished'), default=False)
     started_at = models.DateField(_('Started at'), )
     created_at = models.DateTimeField(_('Created at'), default=django.utils.timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -82,6 +84,20 @@ class Competition(models.Model):
 
     def getTeamsUsers(self):
         return CompetitionTeam.objects.filter(competition=self).count()
+
+    def getAllUsersDistances(self):
+        users = UserDistance.objects.filter(distance__competition=self).all()
+        i = 0
+        ret = list()
+        temp = list()
+        for user in users:
+            if i >= 10:
+                break
+            if user.user not in temp:
+                ret.append(user)
+                temp.append(user.user)
+                i += 1
+        return ret
 
     @staticmethod
     def getLastCompetitions(length=6):
@@ -209,7 +225,9 @@ class UserDistance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE)
     time = models.TimeField(_('Time for distance'), blank=True, null=True)
-    result_time = models.TimeField(_('Result time'), blank=True, null=True)
+    result_time = models.CharField(_('Result time'), blank=True, null=True, max_length=10)
+    is_finished = models.BooleanField(_('Is registration finished'), default=False)
+    points = models.IntegerField(_('Count points'), blank=True, null=True)
 
     def __str__(self):
         return '{} | {}'.format(self.user.full_name, self.distance)

@@ -70,8 +70,12 @@ class GetUserProfileView(TemplateView):
         else:
             is_teamlead = False
 
-        opt = {'curr_user': user, 'is_teamlead': is_teamlead,
-               'site': 'https://immense-ocean-83797.herokuapp.com'}
+        try:
+            user_team = TeamRelationToUser.objects.get(user=user).team.name
+        except:
+            user_team = False
+
+        opt = {'curr_user': user, 'is_teamlead': is_teamlead, 'user_team': user_team}
 
         return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 

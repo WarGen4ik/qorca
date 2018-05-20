@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_main.apps.AuthMainConfig',
     'core.apps.CoreConfig',
+    'competition.apps.CompetitionConfig',
     'storages',
 ]
 

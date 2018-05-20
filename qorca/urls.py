@@ -26,8 +26,10 @@ urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.main),
+    url(r'^groups$', views.groups),
     url(r'^auth/', include('auth_main.urls')),
     url(r'^core/', include('core.urls')),
+    url(r'^competition/', include('competition.urls')),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/favicon.ico'), name='favicon'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]

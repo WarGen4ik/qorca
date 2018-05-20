@@ -59,6 +59,22 @@ def queryset_to_dict(users):
     return ret
 
 
+def querysetdistance_to_dict(users, competition):
+    ret = list()
+    for user in users:
+        try:
+            user = get_object_or_404(User, id=user['user'])
+            user_distance = UserDistance.objects.filter(user=user, distance__competition=competition).all()[0]
+            ret.append({'fullname': user.get_full_name(),
+                        'location': user.profile.city,
+                        'id': user.pk,
+                        'is_finished': user_distance.is_finished})
+        except Exception:
+            pass
+
+    return ret
+
+
 from PIL import Image, ImageFont
 from PIL import ImageDraw
 from django.conf import settings

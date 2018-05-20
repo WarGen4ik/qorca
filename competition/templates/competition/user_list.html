@@ -1,0 +1,120 @@
+{% extends 'core/index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'user_list' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block profile %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+
+{% block content %}
+    <style>
+        .col {
+            margin: 0 !important;
+            float: left !important;
+            width: 30% !important;
+        }
+
+        .user {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #3F4247;
+        "
+        }
+    </style>
+    <div id="about" class="page-alternate">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <div class="title-page">
+                        <h2 class="title">{% trans 'Competition managment' %}</h2>
+                        <h3 class="title-description">{% trans "Here you can manage your competitions" %}</h3>
+                    </div>
+
+                    <div class="inline search-div">
+                        {% if not competition.is_register_finished %}
+                            <a class="button button-small" href="/competition/{{ competition.pk }}/registration/finish">{% trans 'Finish registration' %}</a>
+                        {% else %}
+                            <a class="button button-small" href="/competition/{{ competition.pk }}/registration/resume">{% trans 'Resume registration' %}</a>
+                            <a class="button button-small" href="/competition/{{ competition.pk }}/swim/1/day/1">{% trans 'Add results' %}</a>
+                            <a class="button button-small" href="/competition/{{ competition.pk }}/download/results">{% trans 'Download results' %}</a>
+                        {% endif %}
+                        <a class="button button-small" href="/core/competition/{{ competition.pk }}">{% trans 'Back to competition' %}</a>
+                    </div>
+                    <label for="input-find-users">{% trans 'Find user' %}</label>
+                    <div class="inline search-div">
+                        <input id="input-find-users" type="text" placeholder="{% trans 'User name' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="userlist" id="users">
+                <div class="row" style="border-bottom: 3px solid #3F4247; margin-bottom: 15px">
+                    <div class="span4 col">{% trans "User Name" %}</div>
+                    <div class="span4 col">{% trans "Location" %}</div>
+                    <div class="span4 col">{% trans "Action" %}</div>
+                </div>
+                {% for rel in users_distances %}
+                    <div class="row user">
+                        <div class="span4 col"><a href="/core/user/{{ rel.user.pk }}">{{ rel.user.get_full_name }}</a>
+                        </div>
+                        <div class="span4 col">{{ rel.user.profile.city }}</div>
+                        <div class="span4 col">
+                            {% if not rel.is_finished %}
+                                <a class="button button-small"
+                                   href="/competition/{{ competition.pk }}/finish/{{ rel.user.pk }}"
+                                   id="{{ rel.user.pk }}">{% trans "Finish registration" %}</a>
+                            {% else %}
+                                <a class="button button-small"
+                                   href="/competition/{{ competition.pk }}/remove/{{ rel.user.pk }}"
+                                   id="{{ rel.user.pk }}">{% trans "Remove registration" %}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        var button_text = '{% trans "Finish registration" %}';
+        $("#input-find-users").keyup(function () {
+            if ($(this).val() != '') {
+                $.ajax({
+                    url: '/competition/{{ competition.id }}/find/users',
+                    data: JSON.stringify({search: $('#input-find-users').val()}),
+                    contentType: "application/json; charset=utf-8",
+                    processData: false,
+                    type: 'POST',
+                    success: function (response, textStatus, xhr) {
+                        var objs = JSON.parse(response);
+                        $("div.user").remove();
+                        objs.forEach(function (item) {
+                            var content = "<div class='row user'>" +
+                                '<div class="span4 col"><a href="core/user/' + item['id'] + '">' + item['fullname'] + '</a></div>' +
+                                '<div class="span4 col">' + item['location'] + '</div>' +
+                                '<div class="span4 col"><button class="button button-small"' +
+                                'id="' + item['id'] + '">' + button_text + '</button></div>' +
+                                '</div>';
+                            $("#users").append(content);
+                        })
+                    },
+                    beforeSend: function (xhr, settings) {
+                        beforeSend(xhr, settings)
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
