@@ -554,10 +554,11 @@ class DownloadPredictions(View):
         activate_language(request.session)
         competition = Competition.objects.get(pk=kwargs['pk'])
         if competition.is_manager(request.user):
-            if 'is_finished' in kwargs:
+            if kwargs['is_finished'] != '0':
                 is_finished = True
             else:
                 is_finished = False
+            print(is_finished)
             path = PredictionTimeExcel(competition).create_excel(is_finished)
             if path is None:
                 return

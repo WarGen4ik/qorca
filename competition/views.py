@@ -85,7 +85,7 @@ class RemoveUserRegistrationView(View):
         if request.user.is_authenticated and request.user.profile.role == 2:
             if competition.created_by == request.user.id or request.user.is_admin:
                 UserDistance.objects.filter(distance__competition=competition, user__id=kwargs['user_id']).update(
-                    is_finished=False, points=None)
+                    is_finished=False, points=None, result_time='')
                 user = get_object_or_404(User, id=kwargs['user_id'])
                 request.session['alerts'] = [{'type': 'success',
                                               'message': _('%(user)s has been removed from registration!') % {

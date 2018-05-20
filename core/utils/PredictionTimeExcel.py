@@ -48,8 +48,13 @@ class PredictionTimeExcel:
                     column_index = 1
                     distance_swim_index = 1
                     while not_end:
-                        users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender, is_finished=is_finished)\
-                        .order_by('-time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
+                        if is_finished:
+                            users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender, is_finished=is_finished)\
+                            .order_by('-time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
+                        else:
+                            users_distances = UserDistance.objects.filter(distance=distance,
+                                                                          user__profile__gender=gender) \
+                                                  .order_by('-time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
                         if not users_distances:
                             not_end = False
                             break
