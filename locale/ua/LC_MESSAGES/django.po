@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qorca 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-20 19:06+0300\n"
-"PO-Revision-Date: 2018-05-20 19:06+0300\n"
+"POT-Creation-Date: 2018-05-20 19:36+0300\n"
+"PO-Revision-Date: 2018-05-20 19:37+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ua\n"
@@ -396,7 +396,7 @@ msgid "Please fill results of a swim."
 msgstr "Будь ласка, заповніть результати запливу."
 
 #: competition/templates/competition/swims_results.html:49
-#: competition/templates/competition/user_list.html:49
+#: competition/templates/competition/user_list.html:50
 msgid "Back to competition"
 msgstr "Назад до змагання"
 
@@ -422,8 +422,8 @@ msgid "Here you can manage your competitions"
 msgstr "Тут ви можете управляти змаганням"
 
 #: competition/templates/competition/user_list.html:43
-#: competition/templates/competition/user_list.html:73
-#: competition/templates/competition/user_list.html:91
+#: competition/templates/competition/user_list.html:74
+#: competition/templates/competition/user_list.html:92
 msgid "Finish registration"
 msgstr "Завершити реєстрацію"
 
@@ -436,33 +436,37 @@ msgid "Add results"
 msgstr "Додати результати"
 
 #: competition/templates/competition/user_list.html:47
+msgid "Download final predictions"
+msgstr "Завантажити остаточні запливи"
+
+#: competition/templates/competition/user_list.html:48
 msgid "Download results"
 msgstr "Завантажити результати"
 
-#: competition/templates/competition/user_list.html:51
+#: competition/templates/competition/user_list.html:52
 #: core/templates/core/userlist.html:26
 msgid "Find user"
 msgstr "Знайти користувача"
 
-#: competition/templates/competition/user_list.html:53
+#: competition/templates/competition/user_list.html:54
 msgid "User name"
 msgstr "Ім'я користувача"
 
-#: competition/templates/competition/user_list.html:60
+#: competition/templates/competition/user_list.html:61
 #: core/templates/core/userlist.html:37
 msgid "User Name"
 msgstr "Ім'я користувача"
 
-#: competition/templates/competition/user_list.html:61
+#: competition/templates/competition/user_list.html:62
 #: core/templates/core/userlist.html:38
 msgid "Location"
 msgstr "Місто"
 
-#: competition/templates/competition/user_list.html:62
+#: competition/templates/competition/user_list.html:63
 msgid "Action"
 msgstr "Дії"
 
-#: competition/templates/competition/user_list.html:77
+#: competition/templates/competition/user_list.html:78
 msgid "Remove registration"
 msgstr "Відреєструвати"
 
@@ -731,7 +735,7 @@ msgstr "Скачати бейдж"
 
 #: core/templates/core/competition.html:64
 msgid "Download predictions"
-msgstr "Завантажити змагання"
+msgstr "Завантажити запливи"
 
 #: core/templates/core/competition.html:67
 msgid "Download badges"

@@ -13,7 +13,7 @@ class PredictionTimeExcel:
     def __init__(self, competition):
         self.competition = competition
 
-    def create_excel(self):
+    def create_excel(self, is_finished):
         wb = openpyxl.Workbook()
         ws = wb.active
         alignment = Alignment(horizontal='center')
@@ -48,7 +48,7 @@ class PredictionTimeExcel:
                     column_index = 1
                     distance_swim_index = 1
                     while not_end:
-                        users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender)\
+                        users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender, is_finished=is_finished)\
                         .order_by('-time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
                         if not users_distances:
                             not_end = False

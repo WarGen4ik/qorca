@@ -37,7 +37,7 @@
 
                 <div class="span4 profile">
                     <label class="profile-description">{% trans 'City:' %} {{ curr_user.profile.city|default:"Empty" }}</label>
-                    <label class="profile-description">{% trans 'Gender:' %} {{ curr_gender|default:"Empty" }}</label>
+                    <label class="profile-description">{% trans 'Gender:' %} {{ curr_user.profile.get_gender_display|default:"Empty" }}</label>
                     <label class="profile-description">{% trans 'Phone number:' %} {{ curr_user.profile.phone_number|default:"Empty" }}</label>
                     <label class="profile-description">{% trans 'Birth date:' %} {{ curr_user.profile.birth_date|default:"Empty" }}</label>
                 {% if user_team %}

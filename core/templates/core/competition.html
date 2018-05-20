@@ -40,14 +40,14 @@
 
                     <label id="curr-competition-id" style="visibility: hidden;">{{ competition.pk }}</label>
                     {% if can_signup %}
-                        {% if can_signup.team == 1 %}
+                        {% if can_signup.team == 1 and not competition.is_register_finished %}
                             <a id="signup-team-competition" href="/core/competition/{{ competition.pk }}/signup/team/1/0"
                                class="button button-small mybutton">{% trans 'Register team' %}</a>
                         {% elif can_signup.team == -1 %}
                             <a id="signout-team-competition" href="/core/competition/{{ competition.pk }}/signout/team"
                                class="button button-small mybutton">{% trans 'Unregister team' %}</a>
                         {% endif %}
-                        {% if can_signup.user == 1 %}
+                        {% if can_signup.user == 1 and not competition.is_register_finished %}
                             <a id="signup-user-competition" href="/core/competition/{{ competition.pk }}/signup/single/1/0"
                                class="button button-small mybutton">{% trans 'Register as single' %}</a>
                         {% elif can_signup.user == -1 %}
