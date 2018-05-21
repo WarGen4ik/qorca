@@ -106,7 +106,7 @@ class ResultsExcel:
                                 CompetitionTeam.objects.get(team=team, competition=self.competition, is_complete=True)
                                 team = team.name
                             except:
-                                team = _('Single')
+                                team = user_distance.user.profile.default_team
                             ws['{}{}'.format(self.get_char(column_index + 1), index)] = team
                             ws['{}{}'.format(self.get_char(column_index + 1), index)].border = border
                             ws['{}{}'.format(self.get_char(column_index + 2), index)] = user_distance.user.profile.city

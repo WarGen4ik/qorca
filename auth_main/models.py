@@ -124,6 +124,7 @@ class Profile(models.Model):
     is_verificated = models.BooleanField(_('Is user verificated'), default=False)
     verification_code = models.CharField(_('Verification code'), max_length=63, default=generate_email_hash)
     age_group = models.CharField(_('Age group'), max_length=63, default='')
+    default_team = models.CharField(_('Default team name'), max_length=255, default='')
 
     ROLES = (
         (1, _('user')),
@@ -144,6 +145,7 @@ class Profile(models.Model):
             self.age_group = age_group
         self.city = kwargs.get('city', self.city)
         self.avatar = kwargs.get('avatar', self.avatar)
+        self.default_team = kwargs.get('default_team', self.default_team)
         self.save()
 
     def get_age_group(self):
@@ -189,6 +191,11 @@ class Profile(models.Model):
     def reset_code(self):
         self.verification_code = generate_email_hash()
         self.save()
+
+    def get_default_team(self):
+        if self.default_team:
+            return self.default_team
+        return _('Single')
 
 
 class ContactMessage(models.Model):

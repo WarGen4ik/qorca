@@ -88,7 +88,7 @@ def getBadge(user, competition):
         CompetitionTeam.objects.get(team=team, competition=competition)
         team_name = team.name
     except:
-        team_name = _('Single')
+        team_name = user.profile.default_team
 
     distances = list()
     for distance in Distance.objects.filter(competition=competition).all():

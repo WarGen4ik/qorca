@@ -70,6 +70,8 @@
                         <input name="phone_number" value="{{ user.profile.phone_number }}">
                         <label class="profile-description">{% trans 'Birth date:' %}</label>
                         <input type="date" name="birth_date" value="{{ user.profile.birth_date|slugify }}"><br>
+                        <label class="profile-description">{% trans 'Default team:' %}</label>
+                        <input type="text" name="default_team" value="{{ user.profile.get_default_team }}"><br>
                         <input type="submit" class="button button-small" value="{% trans 'Update' %}">
                     </form>
                     {% if team %}
