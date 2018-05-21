@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -123,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
@@ -141,20 +142,3 @@ MEDIA_URL = '/media/'
 SESSION_COOKIE_AGE = 3600
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-AWS_USER = 'qorca-user'
-AWS_ACCESS_KEY = 'AKIAIL3OGJHGMHQPRXKA'
-AWS_SECRET_KEY = '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'
-
-AWS_ACCESS_KEY_ID = 'AKIAIL3OGJHGMHQPRXKA'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'qorca'
-AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_LOCATION = 'static'
-
-STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'qorca.storage_backends.MediaStorage'

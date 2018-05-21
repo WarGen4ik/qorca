@@ -46,24 +46,24 @@
                 </table>
             </div>
         </div>
-        <div class="pagination">
-            <div id="pag-left">
+        <div class="pagination row">
+            <div id="pag-left" style="width: 180px">
                 {% if users.has_previous %}
-                    <a class="button button-small first-page" href="?page=1">&laquo; {% trans 'first' %}</a>
+                    <a class="button button-small first-page" href="?page=1">{% trans 'first' %}</a>
                     <a class="button button-small"
-                       href="?page={{ users.previous_page_number }}">{% trans 'previous' %}</a>
+                       href="?page={{ users.previous_page_number }}"><<</a>
                 {% endif %}
             </div>
 
-            <div class="current">
+            <div class="current" style="width: 150px">
                 {% trans 'Page' %} {{ users.number }} {% trans 'of' %} {{ users.paginator.num_pages }}
             </div>
 
-            <div id="pag-right">
+            <div id="pag-right" style="width: 180px">
                 {% if users.has_next %}
-                    <a class="button button-small" href="?page={{ users.next_page_number }}">{% trans 'next' %}</a>
+                    <a class="button button-small" href="?page={{ users.next_page_number }}">>></a>
                     <a class="button button-small last-page"
-                       href="?page={{ users.paginator.num_pages }}">{% trans 'last' %} &raquo;</a>
+                       href="?page={{ users.paginator.num_pages }}">{% trans 'last' %}</a>
                 {% endif %}
             </div>
         </div>

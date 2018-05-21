@@ -54,7 +54,7 @@
                     {% endif %}
                     <form method="post" action="/auth/profile">{% csrf_token %}
                         <label class="profile-description">{% trans 'City:' %}</label>
-                        <input name="city" value="{{ user.profile.city }}">
+                        <input type="text" name="city" value="{{ user.profile.city }}">
                         <label class="profile-description">{% trans 'Gender:' %}</label>
                         <select name="gender">
                             <option {% if user.profile.gender == 1 %}
@@ -67,7 +67,7 @@
                             </option>
                         </select>
                         <label class="profile-description">{% trans 'Phone number:' %}</label>
-                        <input name="phone_number" value="{{ user.profile.phone_number }}">
+                        <input type="text" name="phone_number" value="{{ user.profile.phone_number }}">
                         <label class="profile-description">{% trans 'Birth date:' %}</label>
                         <input type="date" name="birth_date" value="{{ user.profile.birth_date|slugify }}"><br>
                         <label class="profile-description">{% trans 'Default team:' %}</label>

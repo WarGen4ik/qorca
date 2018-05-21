@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qorca 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-20 19:36+0300\n"
-"PO-Revision-Date: 2018-05-20 19:37+0300\n"
+"POT-Creation-Date: 2018-05-21 20:33+0300\n"
+"PO-Revision-Date: 2018-05-21 20:35+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ua\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: auth_main/models.py:54 auth_main/models.py:196
+#: auth_main/models.py:54 auth_main/models.py:203
 #: auth_main/templates/auth_main/reset_password_email.html:25
 #: auth_main/templates/auth_main/reset_verification.html:25
 #: auth_main/templates/auth_main/signin.html:25
@@ -102,23 +102,31 @@ msgstr "Код верифікації"
 msgid "Age group"
 msgstr "Вікова група"
 
-#: auth_main/models.py:129
+#: auth_main/models.py:127
+msgid "Default team name"
+msgstr "Назва команди за замовчуванням"
+
+#: auth_main/models.py:130
 msgid "user"
 msgstr "користувач"
 
-#: auth_main/models.py:130
+#: auth_main/models.py:131
 msgid "manager"
 msgstr "менеджер"
 
-#: auth_main/models.py:132
+#: auth_main/models.py:133
 msgid "Role"
 msgstr "Роль"
 
-#: auth_main/models.py:195
+#: auth_main/models.py:198
+msgid "Single"
+msgstr "Без команди"
+
+#: auth_main/models.py:202
 msgid "Full name"
 msgstr "Повне ім'я"
 
-#: auth_main/models.py:197
+#: auth_main/models.py:204
 msgid "Message"
 msgstr "Повідомлення"
 
@@ -154,26 +162,30 @@ msgid "Birth date:"
 msgstr "Дата народження"
 
 #: auth_main/templates/auth_main/profile.html:73
+msgid "Default team:"
+msgstr "Команда за замовчуванням:"
+
+#: auth_main/templates/auth_main/profile.html:75
 msgid "Update"
 msgstr "Змінити"
 
-#: auth_main/templates/auth_main/profile.html:77
+#: auth_main/templates/auth_main/profile.html:79
 msgid "My team"
 msgstr "Моя команда"
 
-#: auth_main/templates/auth_main/profile.html:84
+#: auth_main/templates/auth_main/profile.html:86
 msgid "Invitations to teams"
 msgstr "Запрошення в команду"
 
-#: auth_main/templates/auth_main/profile.html:92
+#: auth_main/templates/auth_main/profile.html:94
 msgid "ACCEPT"
 msgstr "ПРИЙНЯТИ"
 
-#: auth_main/templates/auth_main/profile.html:93
+#: auth_main/templates/auth_main/profile.html:95
 msgid "DECLINE"
 msgstr "ВІДХИЛИТИ"
 
-#: auth_main/templates/auth_main/profile.html:97
+#: auth_main/templates/auth_main/profile.html:99
 msgid "You have no invitations yet"
 msgstr "У вас поки що нема запрошень"
 
@@ -496,14 +508,9 @@ msgstr "Чоловіки"
 msgid "Females"
 msgstr "Жінки"
 
-#: competition/utils/ResultsExcel.py:61 core/utils/PredictionTimeExcel.py:64
+#: competition/utils/ResultsExcel.py:61 core/utils/PredictionTimeExcel.py:69
 msgid "Distance "
 msgstr "Дистанція "
-
-#: competition/utils/ResultsExcel.py:109 core/utils/PredictionTimeExcel.py:111
-#: core/utils/__init__.py:91
-msgid "Single"
-msgstr "Без команди"
 
 #: competition/views.py:42
 msgid "User has been finished registration!"
@@ -954,10 +961,6 @@ msgstr "Знайти"
 msgid "first"
 msgstr "перша"
 
-#: core/templates/core/userlist.html:54
-msgid "previous"
-msgstr "попередня"
-
 #: core/templates/core/userlist.html:59
 msgid "Page"
 msgstr "Сторінка"
@@ -965,10 +968,6 @@ msgstr "Сторінка"
 #: core/templates/core/userlist.html:59
 msgid "of"
 msgstr "з"
-
-#: core/templates/core/userlist.html:64
-msgid "next"
-msgstr "наступна"
 
 #: core/templates/core/userlist.html:66
 msgid "last"
@@ -978,7 +977,7 @@ msgstr "остання"
 msgid "Track"
 msgstr "Доріжка"
 
-#: core/utils/PredictionTimeExcel.py:59
+#: core/utils/PredictionTimeExcel.py:64
 msgid "Swim "
 msgstr "Заплив "
 
@@ -1033,6 +1032,12 @@ msgstr "Ваша команда вже зареєстрована на це зм
 #: core/views.py:540
 msgid "Your team has been unregistrated successful!"
 msgstr "Ваша команда була відреєстрована успішно!"
+
+#~ msgid "previous"
+#~ msgstr "попередня"
+
+#~ msgid "next"
+#~ msgstr "наступна"
 
 #~ msgid "Ilusha Jabran"
 #~ msgstr "Ілюша Жабран"
