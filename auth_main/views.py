@@ -140,11 +140,17 @@ class ProfileView(TemplateView):
 class VerificateView(TemplateView):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            raise Http404
+            request.session['alerts'] = [{'type': 'success', 'message': _('You are already verificated')}]
+            return redirect('/')
 
-        profile = get_object_or_404(Profile, verification_code=kwargs['code'])
+        try:
+            profile = get_object_or_404(Profile, verification_code=kwargs['code'])
+        except Http404:
+            request.session['alerts'] = [{'type': 'error', 'message': _('Wrong verification code!')}]
+            return redirect('/')
         if profile.is_verificated:
-            raise Http404
+            request.session['alerts'] = [{'type': 'success', 'message': _('You are already verificated')}]
+            return redirect('/')
         profile.is_verificated = True
         profile.save()
 
