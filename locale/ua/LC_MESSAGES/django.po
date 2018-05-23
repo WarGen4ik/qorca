@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qorca 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-21 20:33+0300\n"
-"PO-Revision-Date: 2018-05-21 20:35+0300\n"
+"POT-Creation-Date: 2018-05-23 20:59+0300\n"
+"PO-Revision-Date: 2018-05-23 21:01+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ua\n"
@@ -84,7 +84,8 @@ msgstr "Дата народження"
 
 #: auth_main/models.py:123 auth_main/templates/auth_main/signup.html:34
 #: auth_main/templates/auth_main/signup.html:35
-#: competition/utils/ResultsExcel.py:33 core/utils/PredictionTimeExcel.py:33
+#: competition/utils/ResultsExcel.py:36 competition/utils/ResultsExcel.py:158
+#: core/utils/PredictionTimeExcel.py:33
 msgid "City"
 msgstr "Місто"
 
@@ -96,9 +97,9 @@ msgstr "Чи верифікований користувач"
 msgid "Verification code"
 msgstr "Код верифікації"
 
-#: auth_main/models.py:126 competition/utils/ResultsExcel.py:33
-#: competition/utils/ResultsExcel.py:89 core/utils/PredictionTimeExcel.py:33
-#: core/utils/__init__.py:155
+#: auth_main/models.py:126 competition/utils/ResultsExcel.py:36
+#: competition/utils/ResultsExcel.py:99 competition/utils/ResultsExcel.py:158
+#: core/utils/PredictionTimeExcel.py:33 core/utils/__init__.py:155
 msgid "Age group"
 msgstr "Вікова група"
 
@@ -311,7 +312,7 @@ msgstr ""
 "Ми надіслали вам інструкцію для верифікації на вашу пошту. Лист може надійти "
 "в \"спам\", тому, будь ласка, перевірте його."
 
-#: auth_main/views.py:52 auth_main/views.py:257
+#: auth_main/views.py:52 auth_main/views.py:263
 msgid "Passwords are not equal each other."
 msgstr "Паролі не співпадають."
 
@@ -323,15 +324,25 @@ msgstr "Будь ласка, верифікуйте вашу пошту, щоб 
 msgid "Wrong date format"
 msgstr "Невірний формат дати"
 
-#: auth_main/views.py:152
+#: auth_main/views.py:143 auth_main/views.py:152
+#, fuzzy
+#| msgid "Your email has been verificated"
+msgid "You are already verificated"
+msgstr "Ваша пошта верифікована!"
+
+#: auth_main/views.py:149
+msgid "Wrong verification code!"
+msgstr "Невірний код верифікації"
+
+#: auth_main/views.py:158
 msgid "Your email has been verificated"
 msgstr "Ваша пошта верифікована!"
 
-#: auth_main/views.py:177
+#: auth_main/views.py:183
 msgid "There is no user with this email."
 msgstr "Користувача з введеною поштою не існує."
 
-#: auth_main/views.py:192
+#: auth_main/views.py:198
 msgid ""
 "We have sent verification link to your email. Please, follow it to "
 "verificate your email. If there is no letter, please check \"spam\" in your "
@@ -340,19 +351,19 @@ msgstr ""
 "Ми надіслали вам інструкцію для верифікації на вашу пошту. Лист може надійти "
 "в \"спам\", тому, будь ласка, перевірте його."
 
-#: auth_main/views.py:212 auth_main/views.py:240 auth_main/views.py:252
+#: auth_main/views.py:218 auth_main/views.py:246 auth_main/views.py:258
 msgid "You need to verificate your email."
 msgstr "Вам потрібно верифікувати вашу пошту."
 
-#: auth_main/views.py:225
+#: auth_main/views.py:231
 msgid "We have sent to you mail with instructions to reset your password."
 msgstr "Ми надіслали вам на пошту інструкцію по зміні паролю."
 
-#: auth_main/views.py:265
+#: auth_main/views.py:271
 msgid "You have been changed your password."
 msgstr "Ваш пароль був змінений."
 
-#: auth_main/views.py:280
+#: auth_main/views.py:286
 msgid "We will read your message as soon as possible."
 msgstr "Ми прочитаємо ваше повідомлення як тільки зможемо."
 
@@ -378,7 +389,8 @@ msgstr "Довжина дистанції"
 msgid "Distance type"
 msgstr "Тип дистанції"
 
-#: competition/models.py:13 competition/utils/ResultsExcel.py:33
+#: competition/models.py:13 competition/utils/ResultsExcel.py:36
+#: competition/utils/ResultsExcel.py:158
 msgid "Points"
 msgstr "Бали"
 
@@ -408,7 +420,7 @@ msgid "Please fill results of a swim."
 msgstr "Будь ласка, заповніть результати запливу."
 
 #: competition/templates/competition/swims_results.html:49
-#: competition/templates/competition/user_list.html:50
+#: competition/templates/competition/user_list.html:51
 msgid "Back to competition"
 msgstr "Назад до змагання"
 
@@ -434,8 +446,8 @@ msgid "Here you can manage your competitions"
 msgstr "Тут ви можете управляти змаганням"
 
 #: competition/templates/competition/user_list.html:43
-#: competition/templates/competition/user_list.html:74
-#: competition/templates/competition/user_list.html:92
+#: competition/templates/competition/user_list.html:75
+#: competition/templates/competition/user_list.html:93
 msgid "Finish registration"
 msgstr "Завершити реєстрацію"
 
@@ -455,62 +467,80 @@ msgstr "Завантажити остаточні запливи"
 msgid "Download results"
 msgstr "Завантажити результати"
 
-#: competition/templates/competition/user_list.html:52
+#: competition/templates/competition/user_list.html:49
+msgid "Download rating"
+msgstr "Скачати рейтинг"
+
+#: competition/templates/competition/user_list.html:53
 #: core/templates/core/userlist.html:26
 msgid "Find user"
 msgstr "Знайти користувача"
 
-#: competition/templates/competition/user_list.html:54
+#: competition/templates/competition/user_list.html:55
 msgid "User name"
 msgstr "Ім'я користувача"
 
-#: competition/templates/competition/user_list.html:61
+#: competition/templates/competition/user_list.html:62
 #: core/templates/core/userlist.html:37
 msgid "User Name"
 msgstr "Ім'я користувача"
 
-#: competition/templates/competition/user_list.html:62
+#: competition/templates/competition/user_list.html:63
 #: core/templates/core/userlist.html:38
 msgid "Location"
 msgstr "Місто"
 
-#: competition/templates/competition/user_list.html:63
+#: competition/templates/competition/user_list.html:64
 msgid "Action"
 msgstr "Дії"
 
-#: competition/templates/competition/user_list.html:78
+#: competition/templates/competition/user_list.html:79
 msgid "Remove registration"
 msgstr "Відреєструвати"
 
-#: competition/utils/ResultsExcel.py:30 core/utils/PredictionTimeExcel.py:30
+#: competition/utils/ResultsExcel.py:33 core/utils/PredictionTimeExcel.py:30
 #: core/views.py:302 core/views.py:360 core/views.py:456
 msgid "Day "
 msgstr "День "
 
-#: competition/utils/ResultsExcel.py:33 core/utils/PredictionTimeExcel.py:33
+#: competition/utils/ResultsExcel.py:36 competition/utils/ResultsExcel.py:158
+#: core/utils/PredictionTimeExcel.py:33
 msgid "Member"
 msgstr "Учасник"
 
-#: competition/utils/ResultsExcel.py:33 core/templates/core/nav.html:27
-#: core/utils/PredictionTimeExcel.py:33
+#: competition/utils/ResultsExcel.py:36 competition/utils/ResultsExcel.py:158
+#: core/templates/core/nav.html:27 core/utils/PredictionTimeExcel.py:33
 msgid "Team"
 msgstr "Команда"
 
-#: competition/utils/ResultsExcel.py:33 core/utils/PredictionTimeExcel.py:33
+#: competition/utils/ResultsExcel.py:36 core/utils/PredictionTimeExcel.py:33
 msgid "Time"
 msgstr "Час"
 
-#: competition/utils/ResultsExcel.py:46 core/utils/PredictionTimeExcel.py:44
+#: competition/utils/ResultsExcel.py:49 core/utils/PredictionTimeExcel.py:44
 msgid "Males"
 msgstr "Чоловіки"
 
-#: competition/utils/ResultsExcel.py:48 core/utils/PredictionTimeExcel.py:46
+#: competition/utils/ResultsExcel.py:51 core/utils/PredictionTimeExcel.py:46
 msgid "Females"
 msgstr "Жінки"
 
-#: competition/utils/ResultsExcel.py:61 core/utils/PredictionTimeExcel.py:69
+#: competition/utils/ResultsExcel.py:65 core/utils/PredictionTimeExcel.py:69
 msgid "Distance "
 msgstr "Дистанція "
+
+#: competition/utils/ResultsExcel.py:168
+msgid "males"
+msgstr "чоловіків"
+
+#: competition/utils/ResultsExcel.py:170
+msgid "females"
+msgstr "жінок"
+
+#: competition/utils/ResultsExcel.py:185
+#, python-format
+msgid "Rating in absolute between %(gender)s"
+msgstr "Рейтинг у абсолюті серед %(gender)s"
 
 #: competition/views.py:42
 msgid "User has been finished registration!"
@@ -538,14 +568,14 @@ msgstr "Реєстрація на змагання була оновлена"
 msgid "Day {}"
 msgstr "День {}"
 
-#: competition/views.py:173
+#: competition/views.py:174
 #, python-format
 msgid "%(user)s result time has wrong format. Please try again."
 msgstr ""
 "Результуючий час користувача %(user)s має невірний формат. Будь ласка "
 "попробуйте знову."
 
-#: competition/views.py:177
+#: competition/views.py:178
 msgid "Success!"
 msgstr "Успіх"
 
