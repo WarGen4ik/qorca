@@ -40,14 +40,15 @@
 
                     <div class="inline search-div">
                         {% if not competition.is_register_finished %}
-                            <a class="button button-small" href="/competition/{{ competition.pk }}/registration/finish">{% trans 'Finish registration' %}</a>
+                            <a style="margin: 10px" class="button button-small" href="/competition/{{ competition.pk }}/registration/finish">{% trans 'Finish registration' %}</a>
                         {% else %}
-                            <a class="button button-small" href="/competition/{{ competition.pk }}/registration/resume">{% trans 'Resume registration' %}</a>
-                            <a class="button button-small" href="/competition/{{ competition.pk }}/swim/1/day/1">{% trans 'Add results' %}</a>
-                            <a class="button button-small" href="/core/download/predictions/{{ competition.pk }}/1">{% trans 'Download final predictions' %}</a>
-                            <a class="button button-small" href="/competition/{{ competition.pk }}/download/results">{% trans 'Download results' %}</a>
+                            <a style="margin: 10px" class="button button-small" href="/competition/{{ competition.pk }}/registration/resume">{% trans 'Resume registration' %}</a>
+                            <a style="margin: 10px" class="button button-small" href="/competition/{{ competition.pk }}/swim/1/day/1">{% trans 'Add results' %}</a>
+                            <a style="margin: 10px" class="button button-small" href="/core/download/predictions/{{ competition.pk }}/1">{% trans 'Download final predictions' %}</a>
+                            <a style="margin: 10px" class="button button-small" href="/competition/{{ competition.pk }}/download/results">{% trans 'Download results' %}</a>
+                            <a style="margin: 10px" class="button button-small" href="/competition/{{ competition.pk }}/download/rating">{% trans 'Download rating' %}</a>
                         {% endif %}
-                        <a class="button button-small" href="/core/competition/{{ competition.pk }}">{% trans 'Back to competition' %}</a>
+                        <a style="margin: 10px" class="button button-small" href="/core/competition/{{ competition.pk }}">{% trans 'Back to competition' %}</a>
                     </div>
                     <label for="input-find-users">{% trans 'Find user' %}</label>
                     <div class="inline search-div">

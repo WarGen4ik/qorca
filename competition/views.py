@@ -167,6 +167,7 @@ class SwimResultsView(TemplateView):
                         user_distance = UserDistance.objects.filter(id=user_distance_id).first()
                         user_distance.result_time = request.POST[attr]
                         user_distance.points = get_points(user_distance.distance, user_distance.user, request.POST[attr], day, competition)
+                        print(user_distance.points)
                         user_distance.save()
                     else:
                         request.session['alerts'] = [{'type': 'error',
@@ -196,7 +197,29 @@ class DownloadResultsView(View):
                 response['X-Sendfile'] = path
                 response['Content-Length'] = os.stat(path).st_size
                 response['Content-Disposition'] = 'attachment; filename={}'.format(
-                    '{}_results.xlsx'.format(competition.id).replace(' ', '_'))
+                    'results.xlsx')
+                return response
+            raise Http404
+        return redirect('/auth/login')
+
+
+class DownloadRatingView(View):
+    def get(self, request, *args, **kwargs):
+        activate_language(request.session)
+
+        if request.user.is_authenticated and request.user.profile.role == 2:
+            competition = get_object_or_404(Competition, id=kwargs['pk'])
+            if competition.created_by == request.user.id or request.user.is_admin:
+                path = ResultsExcel(competition).create_rating()
+                if path is None:
+                    return
+                file_wrapper = FileWrapper(open(path, 'rb'))
+                file_mimetype = mimetypes.guess_type(path)
+                response = HttpResponse(file_wrapper, content_type=file_mimetype)
+                response['X-Sendfile'] = path
+                response['Content-Length'] = os.stat(path).st_size
+                response['Content-Disposition'] = 'attachment; filename={}'.format(
+                    'rating.xlsx')
                 return response
             raise Http404
         return redirect('/auth/login')

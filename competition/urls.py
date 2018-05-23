@@ -43,4 +43,5 @@ urlpatterns = [
     url(r'^(?P<pk>(.+))/swim/(?P<swim>(.+))/day/(?P<day>(.+))', views.SwimResultsView.as_view()),
 
     url(r'^(?P<pk>(.+))/download/results', views.DownloadResultsView.as_view()),
+    url(r'^(?P<pk>(.+))/download/rating', views.DownloadRatingView.as_view()),
 ]

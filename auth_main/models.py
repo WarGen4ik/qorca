@@ -195,7 +195,7 @@ class Profile(models.Model):
     def get_default_team(self):
         if self.default_team:
             return self.default_team
-        return _('Single')
+        return str(_('Single'))
 
 
 class ContactMessage(models.Model):
