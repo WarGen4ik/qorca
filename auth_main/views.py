@@ -37,17 +37,17 @@ class RegisterView(TemplateView):
                                             request.POST['psw'],
                                             )
             Profile.objects.create(user=user, city=request.POST['city'])
-            if not settings.DEBUG:
-                with open(settings.BASE_DIR + '/auth_main/templates/email/email_confirm_{}.html'.format(translation.get_language())) as file:
-                    link = request.build_absolute_uri() + '/verificate/' + user.profile.verification_code
-                    send_mail('Q-ORCA email confirm', '',
-                              settings.EMAIL_HOST_USER,
-                              [user.email, ], fail_silently=settings.DEBUG,
-                              html_message=file.read().replace('{link}', link))
-            else:
-                user.profile.is_verificated = True
-                user.profile.save()
-            request.session['alerts'] = [{'type': 'success', 'message': _('We have sent verification link to your email. Please, follow it to verificate your email. If there is no letter, please check "spam" in your email.')}]
+            # if not settings.DEBUG:
+            #     with open(settings.BASE_DIR + '/auth_main/templates/email/email_confirm_{}.html'.format(translation.get_language())) as file:
+            #         link = request.build_absolute_uri() + '/verificate/' + user.profile.verification_code
+            #         send_mail('Q-ORCA email confirm', '',
+            #                   settings.EMAIL_HOST_USER,
+            #                   [user.email, ], fail_silently=settings.DEBUG,
+            #                   html_message=file.read().replace('{link}', link))
+            # else:
+            user.profile.is_verificated = True
+            user.profile.save()
+            # request.session['alerts'] = [{'type': 'success', 'message': _('We have sent verification link to your email. Please, follow it to verificate your email. If there is no letter, please check "spam" in your email.')}]
             return redirect('/')
         request.session['alerts'] = [{'type': 'error', 'message': _('Passwords are not equal each other.')}]
         return render(request, self.template_name, get_session_attributes(request))
