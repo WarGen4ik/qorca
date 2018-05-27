@@ -357,8 +357,9 @@ class RegisterCompetitionView(TemplateView):
                 request.session['alerts'] = [
                     {'type': 'error', 'message': _('You need to fill your birth date in profile to register on competition')}]
                 return redirect('/core/competition/{}'.format(competition.pk))
-            UserDistance.objects.filter(distance__competition=competition, user=request.user).delete()
-            CompetitionUser.objects.filter(competition=competition, user=request.user).delete()
+            if int(kwargs['day']) == 1:
+                UserDistance.objects.filter(distance__competition=competition, user=request.user).delete()
+                CompetitionUser.objects.filter(competition=competition, user=request.user).delete()
             distances = Distance.objects.filter(competition=competition, day=kwargs['day']).all()
             msg = _('Day ') + kwargs['day']
             return render(request, self.template_name, {'types': Distance.TYPES,

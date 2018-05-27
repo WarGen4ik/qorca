@@ -101,8 +101,8 @@ def get_time_float(time):
 
 def get_time_int(time):
     minutes = int(time.split(':')[0])
-    seconds = int(time.split(':')[1])
-    milisec = int(time.split(':')[2])
+    seconds = int(time.split(':')[1].split('.')[0])
+    milisec = int(time.split('.')[1])
 
     if minutes >= 60 or seconds >= 60:
         raise ValueError
