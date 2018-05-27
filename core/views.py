@@ -15,6 +15,7 @@ from django.views.generic import TemplateView
 from django.utils.translation import gettext as _
 
 from auth_main.models import User
+from competition.utils import get_time_int
 from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam, Distance, \
     UserDistance, RelayRace, RelayRaceTeam, UserRelayRace
 from core.utils import get_session_attributes, queryset_to_dict, getBadge, activate_language, get_all_badges, \
@@ -356,6 +357,8 @@ class RegisterCompetitionView(TemplateView):
                 request.session['alerts'] = [
                     {'type': 'error', 'message': _('You need to fill your birth date in profile to register on competition')}]
                 return redirect('/core/competition/{}'.format(competition.pk))
+            UserDistance.objects.filter(distance__competition=competition, user=request.user).delete()
+            CompetitionUser.objects.filter(competition=competition, user=request.user).delete()
             distances = Distance.objects.filter(competition=competition, day=kwargs['day']).all()
             msg = _('Day ') + kwargs['day']
             return render(request, self.template_name, {'types': Distance.TYPES,
@@ -380,7 +383,7 @@ class RegisterCompetitionView(TemplateView):
                 if time_name in request.POST:
                     if request.POST[time_name]:
                         try:
-                            time = datetime.datetime.strptime(request.POST[time_name], '%H:%M:%S').time()
+                            time = get_time_int(request.POST[time_name])
                         except ValueError:
                             request.session['alerts'] = [
                                 {'type': 'error', 'message': _('Wrong time format')}]
@@ -389,7 +392,7 @@ class RegisterCompetitionView(TemplateView):
                         UserDistance.objects.create(
                             distance=distance,
                             user=request.user,
-                            time=time,
+                            pre_time=time,
                             result_time=None,
                         )
             if int(kwargs['rel']) == 0:
@@ -489,7 +492,7 @@ class TeamRegisterCompetitionView(TemplateView):
                     if time_name in request.POST:
                         if request.POST[time_name]:
                             try:
-                                time = datetime.datetime.strptime(request.POST[time_name], '%H:%M:%S').time()
+                                time = get_time_int(request.POST[time_name])
                             except ValueError:
                                 request.session['alerts'] = [
                                     {'type': 'error', 'message': _('Wrong time format')}]
@@ -498,7 +501,7 @@ class TeamRegisterCompetitionView(TemplateView):
                             UserDistance.objects.create(
                                 distance=distance,
                                 user=user.user,
-                                time=time
+                                pre_time=time
                             )
             if int(kwargs['rel']) == 0:
                 obj = CompetitionTeam.objects.create(team=team, competition=competition)

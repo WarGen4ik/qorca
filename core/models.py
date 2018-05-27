@@ -225,6 +225,7 @@ class UserDistance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE)
     time = models.TimeField(_('Time for distance'), blank=True, null=True)
+    pre_time = models.IntegerField(_('Time for distance'), default=0)
     result_time = models.CharField(_('Result time'), blank=True, null=True, max_length=10)
     is_finished = models.BooleanField(_('Is registration finished'), default=False)
     points = models.IntegerField(_('Count points'), blank=True, null=True)

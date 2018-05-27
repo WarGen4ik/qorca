@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils.translation import gettext as _
 
 from auth_main.models import User, Profile
+from competition.utils import time_to_str
 from core.models import CompetitionUser, CompetitionTeam, TeamRelationToUser, Distance, UserDistance
 
 
@@ -50,11 +51,11 @@ class PredictionTimeExcel:
                     while not_end:
                         if is_finished:
                             users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender, is_finished=is_finished)\
-                            .order_by('-time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
+                            .order_by('-pre_time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
                         else:
                             users_distances = UserDistance.objects.filter(distance=distance,
                                                                           user__profile__gender=gender) \
-                                                  .order_by('-time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
+                                                  .order_by('-pre_time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
                         if not users_distances:
                             not_end = False
                             break
@@ -118,7 +119,7 @@ class PredictionTimeExcel:
                             ws['{}{}'.format(self.get_char(column_index + 1), tracks[track_index-1])].border = border
                             ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])] = user_distance.user.profile.city
                             ws['{}{}'.format(self.get_char(column_index + 2), tracks[track_index-1])].border = border
-                            ws['{}{}'.format(self.get_char(column_index + 3), tracks[track_index-1])] = user_distance.time
+                            ws['{}{}'.format(self.get_char(column_index + 3), tracks[track_index-1])] = time_to_str(user_distance.pre_time)
                             ws['{}{}'.format(self.get_char(column_index + 3), tracks[track_index-1])].border = border
                             ws['{}{}'.format(self.get_char(column_index + 4), index + track_index -1)] = track_index
                             ws['{}{}'.format(self.get_char(column_index + 4), index + track_index -1)].border = border

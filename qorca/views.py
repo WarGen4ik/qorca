@@ -3,7 +3,8 @@ from django.utils import translation
 from django.utils.translation import gettext as _
 
 from auth_main.models import User
-from core.models import Competition
+from competition.utils import get_time_int, time_to_str
+from core.models import Competition, UserDistance
 from core.utils import get_session_attributes, activate_language
 
 
@@ -21,11 +22,10 @@ def main(request, *args, **kwargs):
 
 
 def groups(request, *args, **kwargs):
-    users = User.objects.all()
-    for user in users:
-        user.profile.age_group = user.profile.get_age_group_numbers()
-        if user.profile.age_group is None:
-            user.profile.age_group = ''
-        user.profile.save()
+    users_distances = UserDistance.objects.all()
+
+    for user_distance in users_distances:
+        user_distance.pre_time = get_time_int(user_distance.time.strftime('%H:%M:%S'))
+        user_distance.save()
 
     return None
