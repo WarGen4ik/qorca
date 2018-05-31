@@ -100,33 +100,46 @@
 
 {% block script %}
     <script>
-        var button_text = '{% trans "Finish registration" %}';
+        var finish_text = '{% trans "Finish registration" %}';
+        var remove_text = '{% trans "Remove registration" %}';
         $("#input-find-users").keyup(function () {
-            if ($(this).val() != '') {
-                $.ajax({
-                    url: '/competition/{{ competition.id }}/find/users',
-                    data: JSON.stringify({search: $('#input-find-users').val()}),
-                    contentType: "application/json; charset=utf-8",
-                    processData: false,
-                    type: 'POST',
-                    success: function (response, textStatus, xhr) {
-                        var objs = JSON.parse(response);
-                        $("div.user").remove();
-                        objs.forEach(function (item) {
-                            var content = "<div class='row user'>" +
-                                '<div class="span4 col"><a href="/core/user/' + item['id'] + '">' + item['fullname'] + '</a></div>' +
-                                '<div class="span4 col">' + item['location'] + '</div>' +
-                                '<div class="span4 col"><button class="button button-small"' +
-                                'id="' + item['id'] + '">' + button_text + '</button></div>' +
-                                '</div>';
-                            $("#users").append(content);
-                        })
-                    },
-                    beforeSend: function (xhr, settings) {
-                        beforeSend(xhr, settings)
-                    }
-                });
-            }
+            $.ajax({
+                url: '/competition/{{ competition.id }}/find/users',
+                data: JSON.stringify({search: $('#input-find-users').val()}),
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                type: 'POST',
+                success: function (response, textStatus, xhr) {
+                    var objs = JSON.parse(response);
+                    $("div.user").remove();
+                    objs.forEach(function (item) {
+                        console.log(item);
+                        var content = "<div class='row user'>" +
+                            '<div class="span4 col"><a href="/core/user/' + item['id'] + '">' + item['fullname'] + '</a></div>' +
+                            '<div class="span4 col-3">' + item['location'] + '</div>';
+
+                        if (item['is_finished']){
+                            console.log(item['is_finished']);
+                            content += '<div class="span4 col-4"><a class="button button-small"' +
+                            'id="' + item['id'] + '" href="/competition/{{ competition.pk }}/remove/' + item['id'] +
+                                '">' + remove_text + '</a>' + '<a class="button button-small" href="/core/download/badge/' + item['id'] +
+                            '/{{ competition.pk }}">{% trans "Download badge" %}</a>' +
+                            '</div>';
+                        } else {
+                            console.log(item['is_finished']);
+                            content += '<div class="span4 col-4"><a class="button button-small"' +
+                            'id="' + item['id'] + '" href="/competition/{{ competition.pk }}/finish/' + item['id'] +
+                                '">' + finish_text + '</a>' + '<a class="button button-small" href="/core/download/badge/' + item['id'] +
+                            '/{{ competition.pk }}">{% trans "Download badge" %}</a>' +
+                            '</div>';
+                        }
+                        $("#users").append(content);
+                    })
+                },
+                beforeSend: function (xhr, settings) {
+                    beforeSend(xhr, settings)
+                }
+            });
         });
     </script>
 {% endblock %}
