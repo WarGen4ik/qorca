@@ -97,7 +97,7 @@ class DownloadBadge(View):
                 response['X-Sendfile'] = badge_path
                 response['Content-Length'] = os.stat(badge_path).st_size
                 response['Content-Disposition'] = 'attachment; filename={}'.format(
-                    '{}\'s_badge.png'.format(cyrtranslit.to_latin(user.get_full_name(), 'ru').replace(' ', '_')))
+                    '{}\'s_badge.png'.format(cyrtranslit.to_latin(user.get_full_name(), 'ru').replace(' ', '_').replace('є', 'e')))
                 return response
             except Exception as ex:
                 pass

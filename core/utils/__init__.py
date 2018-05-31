@@ -215,6 +215,6 @@ def get_all_badges(competition):
 
 def delete_badge(user, competition):
     try:
-        os.remove(settings.BASE_DIR + '/media/badges/{}/{}_badge.png'.format(competition.id, cyrtranslit.to_latin(user.get_full_name().replace(' ', '_'), 'ru')))
+        os.remove(settings.BASE_DIR + '/media/badges/{}/{}_badge.png'.format(competition.id, cyrtranslit.to_latin(user.get_full_name().replace(' ', '_').replace('є', 'e'), 'ru')))
     except:
         pass
