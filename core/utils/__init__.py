@@ -201,6 +201,10 @@ def get_archive(files_path, archive_path):
     return archive_path
 
 
+def remove_ukrainian(string):
+    return string.replace('є', 'e').replace('Є', 'E').replace('і', 'i').replace('І', 'I').replace(' ', '_')
+
+
 def get_all_badges(competition):
     directory = settings.BASE_DIR + '/media/badges/{}'.format(competition.id)
     if not os.path.exists(directory):
@@ -215,6 +219,6 @@ def get_all_badges(competition):
 
 def delete_badge(user, competition):
     try:
-        os.remove(settings.BASE_DIR + '/media/badges/{}/{}_badge.png'.format(competition.id, cyrtranslit.to_latin(user.get_full_name().replace(' ', '_').replace('є', 'e'), 'ru')))
+        os.remove(settings.BASE_DIR + '/media/badges/{}/{}_badge.png'.format(competition.id, cyrtranslit.to_latin(remove_ukrainian(user.get_full_name()), 'ru')))
     except:
         pass

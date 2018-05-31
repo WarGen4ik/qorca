@@ -19,7 +19,7 @@ from competition.utils import get_time_int
 from core.models import TeamRelationToUser, Invitations, Team, Competition, CompetitionUser, CompetitionTeam, Distance, \
     UserDistance, RelayRace, RelayRaceTeam, UserRelayRace
 from core.utils import get_session_attributes, queryset_to_dict, getBadge, activate_language, get_all_badges, \
-    delete_badge
+    delete_badge, remove_ukrainian
 from core.utils.PredictionTimeExcel import PredictionTimeExcel
 from core.widgets import CompetitionSelectWidget
 
@@ -97,7 +97,7 @@ class DownloadBadge(View):
                 response['X-Sendfile'] = badge_path
                 response['Content-Length'] = os.stat(badge_path).st_size
                 response['Content-Disposition'] = 'attachment; filename={}'.format(
-                    '{}\'s_badge.png'.format(cyrtranslit.to_latin(user.get_full_name(), 'ru').replace(' ', '_').replace('є', 'e')))
+                    '{}\'s_badge.png'.format(cyrtranslit.to_latin(remove_ukrainian(user.get_full_name()), 'ru')))
                 return response
             except Exception as ex:
                 pass
