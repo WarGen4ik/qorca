@@ -152,7 +152,7 @@ class Profile(models.Model):
         try:
             born = self.birth_date
             today = datetime.date.today()
-            age = today.year - born.year - ((today.month, today.day) < (born.month, born.day)) - 25
+            age = today.year - born.year - 25
             if age < 0:
                 return None
             groups = 'ABCDEFGHIJKLMN'

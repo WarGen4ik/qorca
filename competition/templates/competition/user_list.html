@@ -22,6 +22,16 @@
             float: left !important;
             width: 30% !important;
         }
+        .col-3 {
+            margin: 0!important;
+            float: left;
+            width: 20% !important;
+        }
+        .col-4 {
+            margin: 0!important;
+            float: left;
+            width: 40% !important;
+        }
 
         .user {
             margin-bottom: 10px;
@@ -65,10 +75,9 @@
                 </div>
                 {% for rel in users_distances %}
                     <div class="row user">
-                        <div class="span4 col"><a href="/core/user/{{ rel.user.pk }}">{{ rel.user.get_full_name }}</a>
-                        </div>
-                        <div class="span4 col">{{ rel.user.profile.city }}</div>
-                        <div class="span4 col">
+                        <div class="span4 col"><a href="/core/user/{{ rel.user.pk }}">{{ rel.user.get_full_name }}</a></div>
+                        <div class="span4 col-3">{{ rel.user.profile.city }}</div>
+                        <div class="span4 col-4">
                             {% if not rel.is_finished %}
                                 <a class="button button-small"
                                    href="/competition/{{ competition.pk }}/finish/{{ rel.user.pk }}"
@@ -78,6 +87,7 @@
                                    href="/competition/{{ competition.pk }}/remove/{{ rel.user.pk }}"
                                    id="{{ rel.user.pk }}">{% trans "Remove registration" %}</a>
                             {% endif %}
+                        <a class="button button-small" href="/core/download/badge/{{ rel.user.pk }}/{{ competition.pk }}">{% trans "Download badge" %}</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -104,7 +114,7 @@
                         $("div.user").remove();
                         objs.forEach(function (item) {
                             var content = "<div class='row user'>" +
-                                '<div class="span4 col"><a href="core/user/' + item['id'] + '">' + item['fullname'] + '</a></div>' +
+                                '<div class="span4 col"><a href="/core/user/' + item['id'] + '">' + item['fullname'] + '</a></div>' +
                                 '<div class="span4 col">' + item['location'] + '</div>' +
                                 '<div class="span4 col"><button class="button button-small"' +
                                 'id="' + item['id'] + '">' + button_text + '</button></div>' +

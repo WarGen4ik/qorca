@@ -1,25 +1,19 @@
 import datetime
-
-time = datetime.timedelta(milliseconds=6544), '%M:%S.%f'
-s = 6544
-
-minutes, remainder = divmod(s, 6000)
-seconds, mili = divmod(remainder, 100)
+import math
 
 
-if minutes < 10:
-    minutes = '0' + str(minutes)
-else:
-    minutes = str(minutes)
+def foo(self):
+    try:
+        born = self
+        today = datetime.date.today()
+        age = today.year - born.year - 25
+        if age < 0:
+            return None
+        groups = 'ABCDEFGHIJKLMN'
+        age_group = groups[math.floor(age / 5)]
+        return age_group
+    except:
+        return None
 
-if seconds < 10:
-    seconds = '0' + str(seconds)
-else:
-    seconds = str(seconds)
 
-if mili < 10:
-    mili = '0' + str(mili)
-else:
-    mili = str(mili)
-
-print('{}:{}.{}'.format(minutes, seconds, mili))
+print(foo(datetime.datetime.strptime('1993-06-03', '%Y-%m-%d')))

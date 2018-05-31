@@ -84,10 +84,11 @@ class GetUserProfileView(TemplateView):
 class DownloadBadge(View):
     def get(self, request, *args, **kwargs):
         activate_language(request.session)
-        if request.user.is_authenticated and (request.user.is_admin or request.user.id == int(kwargs['pk'])):
+        competition = Competition.objects.get(pk=kwargs['comp'])
+        if request.user.is_authenticated and (request.user.is_admin or request.user.id == int(kwargs['pk']) or
+                                              competition.created_by == request.user.id):
             try:
                 user = User.objects.get(pk=kwargs['pk'])
-                competition = Competition.objects.get(pk=kwargs['comp'])
 
                 badge_path = getBadge(user, competition)
                 file_wrapper = FileWrapper(open(badge_path, 'rb'))
@@ -98,7 +99,7 @@ class DownloadBadge(View):
                 response['Content-Disposition'] = 'attachment; filename={}'.format(
                     '{}\'s_badge.png'.format(cyrtranslit.to_latin(user.get_full_name(), 'ru').replace(' ', '_')))
                 return response
-            except:
+            except Exception as ex:
                 pass
         raise Http404
 
