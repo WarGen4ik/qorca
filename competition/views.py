@@ -3,6 +3,7 @@ import mimetypes
 import os
 from wsgiref.util import FileWrapper
 
+from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
@@ -28,7 +29,17 @@ class UserDistanceRegistrationView(TemplateView):
         competition = get_object_or_404(Competition, pk=kwargs['pk'])
         if request.user.is_authenticated and request.user.profile.role == 2:
             if competition.created_by == request.user.id or request.user.is_admin:
-                opt['users_distances'] = competition.getAllUsersDistances()
+                paginator = Paginator(competition.getAllUsersDistances(), 20)
+                page = request.GET.get('page', 1)
+
+                try:
+                    users_distances = paginator.page(page)
+                except PageNotAnInteger:
+                    users_distances = paginator.page(1)
+                except EmptyPage:
+                    users_distances = paginator.page(paginator.num_pages)
+
+                opt['users_distances'] = users_distances
                 opt['competition'] = competition
                 return render(request, self.template_name, dict(opt, **get_session_attributes(request)))
 

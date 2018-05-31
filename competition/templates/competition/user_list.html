@@ -93,6 +93,27 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="pagination row">
+            <div id="pag-left" style="width: 180px">
+                {% if users_distances.has_previous %}
+                    <a class="button button-small first-page" href="?page=1">{% trans 'first' %}</a>
+                    <a class="button button-small"
+                       href="?page={{ users_distances.previous_page_number }}"><<</a>
+                {% endif %}
+            </div>
+
+            <div class="current" style="width: 150px">
+                {% trans 'Page' %} {{ users_distances.number }} {% trans 'of' %} {{ users_distances.paginator.num_pages }}
+            </div>
+
+            <div id="pag-right" style="width: 180px">
+                {% if users_distances.has_next %}
+                    <a class="button button-small" href="?page={{ users_distances.next_page_number }}">>></a>
+                    <a class="button button-small last-page"
+                       href="?page={{ users_distances.paginator.num_pages }}">{% trans 'last' %}</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
 {% endblock %}
@@ -103,6 +124,11 @@
         var finish_text = '{% trans "Finish registration" %}';
         var remove_text = '{% trans "Remove registration" %}';
         $("#input-find-users").keyup(function () {
+            if ($('#input-find-users').val() == ''){
+                $('.pagination').css('display', 'flex');
+            } else {
+                $('.pagination').css('display', 'none');
+            }
             $.ajax({
                 url: '/competition/{{ competition.id }}/find/users',
                 data: JSON.stringify({search: $('#input-find-users').val()}),

@@ -91,8 +91,6 @@ class Competition(models.Model):
         ret = list()
         temp = list()
         for user in users:
-            if i >= 10:
-                break
             if user.user not in temp:
                 ret.append(user)
                 temp.append(user.user)
