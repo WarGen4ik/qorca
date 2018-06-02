@@ -204,7 +204,7 @@ class Distance(models.Model):
     day = models.SmallIntegerField(_('Day number'))
 
     def __str__(self):
-        return 'Competition: {} | Type: {} | Length: {}'.format(self.competition.name, self.get_type_display(), self.length)
+        return 'Competition: {} | Type: {} | Length: {} | Day: {}'.format(self.competition.name, self.get_type_display(), self.length, self.day)
 
     def get_short_type_display(self):
         if self.type == 1:
