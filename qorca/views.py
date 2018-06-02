@@ -22,16 +22,16 @@ def main(request, *args, **kwargs):
 
 
 def groups(request, *args, **kwargs):
-    # distances = Distance.objects.filter(competition__id=1)
-    # users = User.objects.all()
-    #
-    # for distance in distances:
-    #     for user in users:
-    #         if UserDistance.objects.filter(distance=distance, user=user).count() > 1:
-    #             print(UserDistance.objects.filter(distance=distance, user=user).all())
-    users = User.objects.filter(profile__age_group='')
-    for user in users:
-        print(user)
+    distances = Distance.objects.filter(competition__id=1)
+    users = User.objects.all()
+
+    for distance in distances:
+        for user in users:
+            if UserDistance.objects.filter(distance=distance, user=user).count() > 1:
+                print(UserDistance.objects.filter(distance=distance, user=user).all())
+    # users = User.objects.filter(profile__age_group='')
+    # for user in users:
+    #     print(user)
 
 
 

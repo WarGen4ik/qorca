@@ -197,22 +197,30 @@ class ResultsExcel:
             users_points = []
             for user_id in users_ids:
                 user_id = user_id['user']
-                user_distances = UserDistance.objects.filter(distance__competition=self.competition, user__id=user_id) \
+                user_distances = UserDistance.objects.filter(distance__competition=self.competition, user__id=user_id, is_finished=True) \
                                      .exclude(points__isnull=True) \
                                      .order_by('-points')[:3]
 
+                if user_id == 36:
+                    user_id = user_id
+
                 points_sum = 0
-                for user_distance in user_distances:
-                    points_sum += 0 if user_distance.points is None else user_distance.points
-                try:
-                    users_points.append({'user': user_distance.user, 'points': points_sum})
-                except:
-                    users_points.append({'user': User.objects.filter(id=user_id).first(), 'points': 0})
+                if user_distances:
+                    for user_distance in user_distances:
+                        points_sum += 0 if user_distance.points is None else user_distance.points
+                    try:
+                        users_points.append({'user': user_distance.user, 'points': points_sum})
+                    except:
+                        users_points.append({'user': User.objects.filter(id=user_id).first(), 'points': 0})
 
             users_points = sorted(users_points, key=lambda k: k['points'], reverse=True)
             user_index = 1
+            temp = []
             for user_points in users_points:
                 user = user_points['user']
+                if user.full_name in temp:
+                    pass
+                temp.append(user.full_name)
                 points = user_points['points']
 
                 ws['{}{}'.format(self.get_char(0), index)] = user_index
