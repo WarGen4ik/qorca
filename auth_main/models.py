@@ -186,7 +186,7 @@ class Profile(models.Model):
             return None
 
     def __str__(self):
-        return self.user.email
+        return self.user.last_name + ' ' + self.user.first_name
 
     def reset_code(self):
         self.verification_code = generate_email_hash()

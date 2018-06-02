@@ -51,14 +51,16 @@ class PredictionTimeExcel:
                     while not_end:
                         if is_finished:
                             users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender, is_finished=is_finished)\
-                            .order_by('-pre_time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
+                            .order_by('-pre_time', 'user__last_name', 'user__first_name')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
                         else:
                             users_distances = UserDistance.objects.filter(distance=distance,
                                                                           user__profile__gender=gender) \
-                                                  .order_by('-pre_time')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
+                                                  .order_by('-pre_time', 'user__last_name', 'user__first_name')[(distance_swim_index - 1) * self.competition.track_count:distance_swim_index * self.competition.track_count]
                         if not users_distances:
-                            not_end = False
                             break
+
+                        if swim_index == 14:
+                            swim_index = swim_index
                         ws.merge_cells('{}{}:{}{}'.format(char, index, next_char, index))
                         ws['{}{}'.format(char, index)].font = Font(size=14, bold=True)
                         ws['{}{}'.format(char, index)].alignment = alignment

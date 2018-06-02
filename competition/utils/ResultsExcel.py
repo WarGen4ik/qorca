@@ -212,6 +212,8 @@ class ResultsExcel:
                         users_points.append({'user': user_distance.user, 'points': points_sum})
                     except:
                         users_points.append({'user': User.objects.filter(id=user_id).first(), 'points': 0})
+                else:
+                    users_points.append({'user': User.objects.filter(id=user_id).first(), 'points': 0})
 
             users_points = sorted(users_points, key=lambda k: k['points'], reverse=True)
             user_index = 1

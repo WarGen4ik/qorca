@@ -22,7 +22,7 @@ admin.site.unregister(Group)
 
 @admin.register(UserDistance)
 class UserDistanceAdmin(admin.ModelAdmin):
-    list_display = ['initials', 'day', 'type', 'length']
+    list_display = ['initials', 'day', 'type', 'length', 'pre_time']
     search_fields = ['user__last_name', 'user__first_name']
 
     def initials(self, obj):
