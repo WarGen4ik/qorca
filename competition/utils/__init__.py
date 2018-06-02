@@ -20,7 +20,7 @@ def get_swim_params(swim_n, competition, day):
             distance_swim_index = 1
             while not_end:
                 users_distances = UserDistance.objects.filter(distance=distance, user__profile__gender=gender, is_finished=True) \
-                                      .order_by('-pre_time')[(
+                                      .order_by('-pre_time', 'user__last_name', 'user__first_name')[(
                                                          distance_swim_index - 1) * competition.track_count:distance_swim_index * competition.track_count]
                 if not users_distances:
                     not_end = False

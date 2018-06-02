@@ -149,6 +149,7 @@ class SwimResultsView(TemplateView):
             if competition.created_by == request.user.id or request.user.is_admin:
                 users_distances, last_swim = get_swim_params(int(kwargs['swim']), competition, day)
                 opt['users_distances'] = users_distances
+                opt['distance'] = users_distances[0].distance
                 opt['swim_n'] = kwargs['swim']
                 opt['day'] = _('Day {}'.format(day))
                 opt['day_n'] = day

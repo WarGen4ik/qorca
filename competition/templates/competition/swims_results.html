@@ -43,6 +43,7 @@
             </div>
             <div class="row">
                 <h1 class="title">{{ day }}</h1>
+                <h2 class="title">{{ distance.get_type_display }} {{ distance.length }}</h2>
                 <h2 class="title">{% blocktrans with number=swim_n %} Swim №{{ number }} results {% endblocktrans %}</h2>
                 <p class="title-description">{% trans 'Please fill results of a swim.' %}</p>
                 <a class="button button-small"
