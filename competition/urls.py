@@ -44,4 +44,6 @@ urlpatterns = [
 
     url(r'^(?P<pk>(.+))/download/results', views.DownloadResultsView.as_view()),
     url(r'^(?P<pk>(.+))/download/rating', views.DownloadRatingView.as_view()),
+
+    url(r'^(?P<pk>(.+))/user/distances/(?P<user_id>(.+))', views.UserDistancesView.as_view()),
 ]

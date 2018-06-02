@@ -88,6 +88,7 @@
                                    id="{{ rel.user.pk }}">{% trans "Remove registration" %}</a>
                             {% endif %}
                         <a class="button button-small" href="/core/download/badge/{{ rel.user.pk }}/{{ competition.pk }}">{% trans "Download badge" %}</a>
+                        <a class="button button-small" href="/competition/{{ competition.pk }}/user/distances/{{ rel.user.pk }}">{% trans "Distances" %}</a>
                         </div>
                     </div>
                 {% endfor %}

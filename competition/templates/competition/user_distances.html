@@ -1,0 +1,111 @@
+{% extends 'core/index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+{% block nav %}
+    {% with 'register_on_competition' as title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block profile %}
+{% endblock %}
+{% block contact %}
+{% endblock %}
+
+{% block content %}
+    <div id="about" class="page-alternate">
+        <div class="container">
+            <h1 class="title">Дистанції учасника {{ curr_user.get_full_name }}</h1>
+            <a class="button button-small" href="/competition/{{ competition.pk }}/list">Назад</a>
+
+            <div class="row">
+
+                <form method="post">{% csrf_token %}
+                    <div class="span4 profile distances">
+                        
+                        <h3 class="title">День 1</h3>
+                        <ul>
+                            {% for obj in ret_1 %}
+                                {% if obj.distance.day == 1 %}
+
+                                <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;">
+                                    <h4 style="margin: 0;"><b>{% trans 'Distance' %} №{{ forloop.counter0|add:1 }}</b>
+                                    </h4>
+                                    <label for="id-length-{{ obj.distance.id }}">{% trans 'Distance length' %}</label>
+                                    <input type="text" id="id-length-{{ obj.distance.id }}"
+                                           value="{{ obj.distance.length }}"
+                                           disabled>
+                                    <input hidden name="distance_id_{{ obj.distance.id }}" value="{{ obj.distance.pk }}">
+                                    <label for="id-type-{{ obj.distance.id }}">{% trans 'Distance type' %}</label>
+                                    <select id="id-type-{{ obj.distance.id }}" disabled>
+                                        {% for type in types %}
+                                            <option value="{{ type.0 }}"
+                                                    {% if type.0 == obj.distance.type %} selected {% endif %}
+                                            >{{ type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <label for="id-time-{{ obj.distance.id }}">{% trans 'Prediction time' %}</label>
+                                    <input class="mytime" type="text" name="time_{{ obj.distance.id }}"
+                                           id="id-time-{{ obj.distance.id }}" value="{{ obj.time }}">
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% if is_day_2 %}
+                        <h3 class="title">День 2</h3>
+                        <ul>
+                            {% for obj in ret_2 %}
+                                {% if obj.distance.day == 2 %}
+
+                                <li style="border-bottom: 1px solid #3e3d41; margin-bottom: 20px;">
+                                    <h4 style="margin: 0;"><b>{% trans 'Distance' %} №{{ forloop.counter0|add:1 }}</b>
+                                    </h4>
+                                    <label for="id-length-{{ obj.distance.id }}">{% trans 'Distance length' %}</label>
+                                    <input type="text" id="id-length-{{ obj.distance.id }}"
+                                           value="{{ obj.distance.length }}"
+                                           disabled>
+                                    <input hidden name="distance_id_{{ obj.distance.id }}" value="{{ obj.distance.pk }}">
+                                    <label for="id-type-{{ obj.distance.id }}">{% trans 'Distance type' %}</label>
+                                    <select id="id-type-{{ obj.distance.id }}" disabled>
+                                        {% for type in types %}
+                                            <option value="{{ type.0 }}"
+                                                    {% if type.0 == obj.distance.type %} selected {% endif %}
+                                            >{{ type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <label for="id-time-{{ obj.distance.id }}">{% trans 'Prediction time' %}</label>
+                                    <input class="mytime" type="text" name="time_{{ obj.distance.id }}"
+                                           id="id-time-{{ obj.distance.id }}" value="{{ obj.time }}">
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                        <div class="clearfix">
+                            <button onclick="location.href='/'" type="button"
+                                    class="button button-small">{% trans 'Back' %}</button>
+                            <input type='submit' class="button button-small" value="Оновити">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+    <script src="{% static "js/inputmask/dist/jquery.inputmask.bundle.js" %}"></script>
+    <script src="{% static "js/inputmask/dist/inputmask/inputmask.extensions.js" %}"></script>
+    <script src="{% static "js/inputmask/dist/inputmask/inputmask.numeric.extensions.js" %}"></script>
+    <script>
+        $('.mytime').inputmask('99:99.99');
+    </script>
+{% endblock %}
+
+
