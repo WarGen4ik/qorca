@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 
 from auth_main.models import User
 from competition.utils import get_time_int, time_to_str
-from core.models import Competition, UserDistance
+from core.models import Competition, UserDistance, Distance
 from core.utils import get_session_attributes, activate_language
 
 
@@ -22,10 +22,12 @@ def main(request, *args, **kwargs):
 
 
 def groups(request, *args, **kwargs):
-    users_distances = UserDistance.objects.all()
+    distances = Distance.objects.filter(competition__id=1)
+    users = User.objects.all()
 
-    for user_distance in users_distances:
-        user_distance.pre_time = get_time_int(user_distance.time.strftime('%H:%M:%S'))
-        user_distance.save()
+    for distance in distances:
+        for user in users:
+            if UserDistance.objects.filter(distance=distance, user=user).count() > 1:
+                print(UserDistance.objects.filter(distance=distance, user=user).all())
 
     return None

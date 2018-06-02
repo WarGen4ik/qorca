@@ -15,6 +15,26 @@ admin.site.register(Distance)
 # admin.site.register(RelayRace)
 # admin.site.register(RelayRaceTeam)
 admin.site.register(ContactMessage)
-admin.site.register(UserDistance)
+# admin.site.register(UserDistance)
 
 admin.site.unregister(Group)
+
+
+@admin.register(UserDistance)
+class UserDistanceAdmin(admin.ModelAdmin):
+    list_display = ['initials', 'day', 'type', 'length']
+    search_fields = ['user__last_name', 'user__first_name']
+
+    def initials(self, obj):
+        return obj.user.last_name + ' ' + obj.user.first_name
+    initials.short_description = 'Ініціали'
+    initials.admin_order_field = 'user__last_name'
+
+    def day(self, obj):
+        return obj.distance.day
+
+    def type(self, obj):
+        return obj.distance.get_type_display()
+
+    def length(self, obj):
+        return obj.distance.length
