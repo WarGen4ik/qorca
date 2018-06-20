@@ -27,8 +27,8 @@ def groups(request, *args, **kwargs):
 
     for distance in distances:
         for user in users:
-            if UserDistance.objects.filter(distance=distance, user=user).count() > 1:
-                print(UserDistance.objects.filter(distance=distance, user=user).all())
+            d = UserDistance.objects.filter(distance=distance, user=user, result_time__isnull=True)
+            print(d)
     # users = User.objects.filter(profile__age_group='')
     # for user in users:
     #     print(user)
